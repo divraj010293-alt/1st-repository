@@ -1,0 +1,740 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Capsule Endoscopy Graphics</title>
+<style>
+  @font-face { font-family: Inter; font-weight: 400; src: url(file:///usr/share/fonts/opentype/inter/Inter-Regular.otf); }
+  @font-face { font-family: Inter; font-weight: 500; src: url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf); }
+  @font-face { font-family: Inter; font-weight: 600; src: url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf); }
+  @font-face { font-family: Inter; font-weight: 700; src: url(file:///usr/share/fonts/opentype/inter/Inter-Bold.otf); }
+  @font-face { font-family: Inter; font-weight: 800; src: url(file:///usr/share/fonts/opentype/inter/Inter-ExtraBold.otf); }
+  @font-face { font-family: Inter; font-weight: 900; src: url(file:///usr/share/fonts/opentype/inter/Inter-Black.otf); }
+  html, body { margin: 0; background: transparent; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Overlay for the capsule endoscopy explainer. draw(t) paints one transparent frame at
+// edited-timeline time t (seconds); render.js calls it for every frame.
+const W = 1080, H = 1920;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+let TL = null, Q = null; // timeline + cue times
+
+const C = {
+  panel: 'rgba(6,22,38,0.86)', panelEdge: 'rgba(30,200,181,0.35)',
+  teal: '#1EC8B5', tealL: '#8AF5E8', white: '#FFFFFF', muted: 'rgba(255,255,255,0.72)',
+  dim: 'rgba(255,255,255,0.18)', yellow: '#FFD23F', coral: '#FF5E62', amber: '#FFB547',
+  pink: '#F0939B', pinkD: '#A9485A', colon: '#E9A47F', colonD: '#9A5A3E', water: '#5EC8FF',
+};
+
+// ------------------------------------------------------------------ helpers
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const eOut = t => 1 - Math.pow(1 - clamp(t), 3);
+const eIn = t => Math.pow(clamp(t), 3);
+const eInOut = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+const eBack = t => { t = clamp(t); const c1 = 2.0, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+const prog = (t, a, d) => clamp((t - a) / d);
+// visibility envelope: fades in at a, out at b
+const env = (t, a, b, fi = .35, fo = .3) => eOut(prog(t, a, fi)) * (1 - eIn(prog(t, b - fo, fo)));
+const F = (w, s) => `${w} ${s}px Inter`;
+
+function text(str, x, y, { w = 700, s = 48, color = C.white, align = 'left', base = 'alphabetic', maxW = 0, alpha = 1, shadow = true, track = 0 } = {}) {
+  ctx.save();
+  ctx.globalAlpha *= alpha;
+  let size = s;
+  ctx.font = F(w, size);
+  if (track) ctx.letterSpacing = track + 'px';
+  if (maxW) while (ctx.measureText(str).width > maxW && size > 12) { size -= 1; ctx.font = F(w, size); }
+  ctx.textAlign = align; ctx.textBaseline = base;
+  if (shadow) { ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3; }
+  ctx.fillStyle = color;
+  ctx.fillText(str, x, y);
+  ctx.restore();
+  return size;
+}
+function measure(str, w, s) { ctx.save(); ctx.font = F(w, s); const m = ctx.measureText(str).width; ctx.restore(); return m; }
+
+function rrect(x, y, w, h, r, fill, stroke, lw = 3) {
+  ctx.beginPath(); ctx.roundRect(x, y, w, h, r);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.lineWidth = lw; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+function circle(x, y, r, fill, stroke, lw = 3) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.lineWidth = lw; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+// scale everything drawn in fn about (x, y)
+function scaled(x, y, s, fn) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.translate(-x, -y); fn(); ctx.restore(); }
+function alpha(a, fn) { if (a <= 0.001) return; ctx.save(); ctx.globalAlpha *= a; fn(); ctx.restore(); }
+
+// ------------------------------------------------------------------ icons
+function iconCheck(x, y, r, p = 1, color = C.teal) {
+  circle(x, y, r, color);
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = r * 0.22; ctx.strokeStyle = '#06253A';
+  const pts = [[x - r * .42, y + r * .02], [x - r * .1, y + r * .34], [x + r * .46, y - r * .3]];
+  const L1 = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]), L2 = Math.hypot(pts[2][0] - pts[1][0], pts[2][1] - pts[1][1]);
+  const d = p * (L1 + L2);
+  ctx.beginPath(); ctx.moveTo(...pts[0]);
+  if (d <= L1) ctx.lineTo(lerp(pts[0][0], pts[1][0], d / L1), lerp(pts[0][1], pts[1][1], d / L1));
+  else { ctx.lineTo(...pts[1]); const k = (d - L1) / L2; ctx.lineTo(lerp(pts[1][0], pts[2][0], k), lerp(pts[1][1], pts[2][1], k)); }
+  ctx.stroke(); ctx.restore();
+}
+function iconCross(x, y, r, p = 1, color = C.coral) {
+  circle(x, y, r, color);
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineWidth = r * 0.22; ctx.strokeStyle = '#2A0A0C';
+  const k = r * 0.36, a = clamp(p * 2), b = clamp(p * 2 - 1);
+  ctx.beginPath(); ctx.moveTo(x - k, y - k); ctx.lineTo(x - k + 2 * k * a, y - k + 2 * k * a); ctx.stroke();
+  if (b > 0) { ctx.beginPath(); ctx.moveTo(x + k, y - k); ctx.lineTo(x + k - 2 * k * b, y - k + 2 * k * b); ctx.stroke(); }
+  ctx.restore();
+}
+function iconWarn(x, y, s, color = C.amber) {
+  ctx.save(); ctx.beginPath();
+  ctx.moveTo(x, y - s * .55); ctx.lineTo(x + s * .62, y + s * .5); ctx.lineTo(x - s * .62, y + s * .5); ctx.closePath();
+  ctx.lineJoin = 'round'; ctx.lineWidth = s * .12; ctx.strokeStyle = color; ctx.fillStyle = color; ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#2A1A00'; ctx.font = F(900, s * .62); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('!', x, y + s * .1); ctx.restore();
+}
+function iconDrop(x, y, s, color) {
+  ctx.save(); ctx.beginPath();
+  ctx.moveTo(x, y - s * .6);
+  ctx.bezierCurveTo(x + s * .15, y - s * .3, x + s * .45, y, x + s * .45, y + s * .2);
+  ctx.arc(x, y + s * .2, s * .45, 0, Math.PI);
+  ctx.bezierCurveTo(x - s * .45, y, x - s * .15, y - s * .3, x, y - s * .6);
+  ctx.fillStyle = color; ctx.fill();
+  ctx.globalAlpha *= .5; circle(x - s * .15, y + s * .15, s * .1, '#fff');
+  ctx.restore();
+}
+function iconBowel(x, y, s, color) {
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = s * .16; ctx.strokeStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x - s * .45, y - s * .35); ctx.lineTo(x + s * .3, y - s * .35);
+  ctx.arc(x + s * .3, y - s * .12, s * .23, -Math.PI / 2, Math.PI / 2);
+  ctx.lineTo(x - s * .3, y + s * .11);
+  ctx.arc(x - s * .3, y + s * .34, s * .23, -Math.PI / 2, Math.PI / 2, true);
+  ctx.lineTo(x + s * .45, y + s * .57);
+  ctx.stroke(); ctx.restore();
+}
+function iconRecorder(x, y, s, glow = 0) {
+  rrect(x - s * .5, y - s * .38, s, s * .76, s * .14, '#DDE7EE');
+  rrect(x - s * .36, y - s * .24, s * .72, s * .3, s * .06, '#0D2B3E');
+  ctx.save(); ctx.font = F(800, s * .17); ctx.fillStyle = C.tealL; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('REC', x, y - s * .09); ctx.restore();
+  circle(x - s * .22, y + s * .2, s * .07, glow > 0.5 ? C.coral : '#9AA');
+  circle(x + s * .05, y + s * .2, s * .07, '#9AA'); circle(x + s * .27, y + s * .2, s * .07, '#9AA');
+}
+function iconFe(x, y, r, color) {
+  circle(x, y, r, null, color, r * .14);
+  ctx.save(); ctx.fillStyle = color; ctx.font = F(900, r * .9); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('Fe', x, y + r * .04); ctx.restore();
+}
+function iconMicroscope(x, y, s, color) {
+  ctx.save(); ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineCap = 'round'; ctx.lineWidth = s * .1;
+  ctx.save(); ctx.translate(x - s * .05, y - s * .15); ctx.rotate(-0.5); rrect(-s * .1, -s * .38, s * .2, s * .52, s * .05, color); ctx.restore();
+  ctx.beginPath(); ctx.moveTo(x - s * .45, y + s * .48); ctx.lineTo(x + s * .45, y + s * .48); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + s * .05, y + s * .1, s * .33, -1.2, 1.4); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x + s * .02, y + s * .44); ctx.lineTo(x + s * .02, y + s * .48); ctx.stroke();
+  ctx.restore();
+}
+
+// ------------------------------------------------------------------ capsule
+// Horizontal pill centred at (x, y); L = length, R = radius. xray 0..1 reveals the internals.
+function capsule(x, y, L, R, rot = 0, { xray = 0, flash = 0, glow = 0 } = {}) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
+  if (glow > 0) {
+    const g = ctx.createRadialGradient(0, 0, R, 0, 0, L * 0.9);
+    g.addColorStop(0, `rgba(30,200,181,${0.55 * glow})`); g.addColorStop(1, 'rgba(30,200,181,0)');
+    ctx.fillStyle = g; ctx.fillRect(-L, -L, 2 * L, 2 * L);
+  }
+  const shell = 1 - 0.72 * xray;
+  // drop shadow
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = R * .5; ctx.shadowOffsetY = R * .2;
+  rrect(-L / 2, -R, L, 2 * R, R, `rgba(255,255,255,${0.05 + 0.1 * shell})`); ctx.restore();
+  // halves
+  ctx.save(); ctx.beginPath(); ctx.roundRect(-L / 2, -R, L, 2 * R, R); ctx.clip();
+  const gA = ctx.createLinearGradient(0, -R, 0, R);
+  gA.addColorStop(0, `rgba(170,250,240,${shell})`); gA.addColorStop(.45, `rgba(30,200,181,${shell})`); gA.addColorStop(1, `rgba(10,120,110,${shell})`);
+  ctx.fillStyle = gA; ctx.fillRect(-L / 2, -R, L / 2, 2 * R);
+  const gB = ctx.createLinearGradient(0, -R, 0, R);
+  gB.addColorStop(0, `rgba(255,255,255,${shell})`); gB.addColorStop(.5, `rgba(232,240,245,${shell})`); gB.addColorStop(1, `rgba(170,186,198,${shell})`);
+  ctx.fillStyle = gB; ctx.fillRect(0, -R, L / 2, 2 * R);
+  if (xray > 0) {
+    ctx.globalAlpha = xray;
+    ctx.fillStyle = 'rgba(8,30,48,0.55)'; ctx.fillRect(-L / 2, -R, L, 2 * R);
+    // lens dome + LEDs
+    const lx = -L / 2 + R * .62;
+    const lg = ctx.createRadialGradient(lx - R * .15, -R * .2, R * .05, lx, 0, R * .55);
+    lg.addColorStop(0, '#9FE9FF'); lg.addColorStop(.4, '#1D5C8A'); lg.addColorStop(1, '#061826');
+    circle(lx, 0, R * .55, lg, '#CFE', R * .05);
+    for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2 + Math.PI / 4; circle(lx + Math.cos(a) * R * .72, Math.sin(a) * R * .72, R * .1, C.yellow); }
+    // image sensor board
+    rrect(-L / 2 + R * 1.25, -R * .68, R * .22, R * 1.36, R * .05, '#2D8C5A');
+    rrect(-L / 2 + R * 1.3, -R * .3, R * .12, R * .6, R * .03, '#111');
+    // batteries
+    for (const bx of [-L * .08, L * .1]) {
+      const bg = ctx.createLinearGradient(bx, -R, bx + R * .55, R);
+      bg.addColorStop(0, '#F4F7FA'); bg.addColorStop(.5, '#9AA7B2'); bg.addColorStop(1, '#5E6A74');
+      rrect(bx - R * .3, -R * .74, R * .6, R * 1.48, R * .12, bg);
+    }
+    // transmitter coil
+    ctx.strokeStyle = '#E39B4F'; ctx.lineWidth = R * .07;
+    for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.ellipse(L / 2 - R * 1.25 + i * R * .14, 0, R * .1, R * .6, 0, 0, Math.PI * 2); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+  // gloss
+  const gl = ctx.createLinearGradient(0, -R, 0, 0);
+  gl.addColorStop(0, 'rgba(255,255,255,0.55)'); gl.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = gl; ctx.beginPath(); ctx.roundRect(-L / 2 + R * .4, -R * .86, L - R * .8, R * .55, R * .3); ctx.fill();
+  ctx.restore();
+  // seam
+  ctx.strokeStyle = `rgba(0,0,0,${0.18 * shell})`; ctx.lineWidth = Math.max(1, R * .04);
+  ctx.beginPath(); ctx.moveTo(0, -R); ctx.lineTo(0, R); ctx.stroke();
+  // outline
+  ctx.beginPath(); ctx.roundRect(-L / 2, -R, L, 2 * R, R);
+  ctx.strokeStyle = xray > 0 ? `rgba(138,245,232,${0.4 + 0.5 * xray})` : 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = Math.max(1.5, R * .05); ctx.stroke();
+  // camera flash from the lens end
+  if (flash > 0) {
+    const fx = -L / 2;
+    const fg = ctx.createRadialGradient(fx, 0, 0, fx, 0, L * .9);
+    fg.addColorStop(0, `rgba(255,255,230,${0.95 * flash})`); fg.addColorStop(.25, `rgba(255,240,180,${0.45 * flash})`); fg.addColorStop(1, 'rgba(255,240,180,0)');
+    ctx.fillStyle = fg; ctx.beginPath(); ctx.arc(fx, 0, L * .9, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+}
+
+// ------------------------------------------------------------------ GI tract (local coords ~400 x 740)
+function spline(pts, seg = 20) {
+  const out = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    for (let j = 0; j < seg; j++) {
+      const t = j / seg, t2 = t * t, t3 = t2 * t;
+      const f = k => 0.5 * (2 * p1[k] + (-p0[k] + p2[k]) * t + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t2 + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t3);
+      out.push([f(0), f(1)]);
+    }
+  }
+  out.push(pts[pts.length - 1]);
+  const len = [0];
+  for (let i = 1; i < out.length; i++) len.push(len[i - 1] + Math.hypot(out[i][0] - out[i - 1][0], out[i][1] - out[i - 1][1]));
+  return { pts: out, len, total: len[len.length - 1] };
+}
+function pathAt(P, f) {
+  const d = clamp(f) * P.total;
+  let i = 1; while (i < P.len.length - 1 && P.len[i] < d) i++;
+  const a = P.pts[i - 1], b = P.pts[i], k = (d - P.len[i - 1]) / Math.max(1e-6, P.len[i] - P.len[i - 1]);
+  return { x: lerp(a[0], b[0], k), y: lerp(a[1], b[1], k), ang: Math.atan2(b[1] - a[1], b[0] - a[0]) };
+}
+function tracePart(P, a, b) {
+  a = clamp(a); b = clamp(b); if (b <= a) return false;
+  const da = a * P.total, db = b * P.total;
+  ctx.beginPath();
+  const s = pathAt(P, a); ctx.moveTo(s.x, s.y);
+  for (let i = 0; i < P.pts.length; i++) if (P.len[i] > da && P.len[i] < db) ctx.lineTo(...P.pts[i]);
+  const e = pathAt(P, b); ctx.lineTo(e.x, e.y);
+  return true;
+}
+function tube(P, w, fill, edge, a = 0, b = 1) {
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  if (tracePart(P, a, b)) {
+    ctx.lineWidth = w + 7; ctx.strokeStyle = edge; ctx.stroke();
+    ctx.lineWidth = w; ctx.strokeStyle = fill; ctx.stroke();
+    ctx.lineWidth = w * .28; ctx.strokeStyle = 'rgba(255,255,255,0.22)'; ctx.stroke();
+  }
+  ctx.restore();
+}
+const GI = {
+  eso: spline([[200, 0], [203, 60], [208, 120], [214, 168]]),
+  stomach: spline([[214, 168], [182, 212], [188, 272], [245, 300], [302, 286], [332, 250]]),
+  duo: spline([[332, 250], [355, 288], [347, 336], [302, 352], [272, 342]]),
+  si: spline([[272, 342], [262, 396], [292, 424], [302, 450], [262, 464], [140, 456], [114, 478], [140, 500], [280, 498], [306, 520],
+    [280, 545], [140, 542], [114, 565], [140, 588], [280, 585], [302, 606], [262, 628], [150, 630], [108, 622], [80, 618]]),
+  colon: spline([[78, 650], [70, 560], [70, 470], [80, 396], [140, 382], [260, 384], [346, 394], [360, 472], [356, 560], [340, 640],
+    [292, 676], [240, 674], [216, 702], [212, 738]]),
+};
+GI.upper = spline([...GI.eso.pts.filter((_, i) => i % 4 === 0), ...GI.stomach.pts.filter((_, i) => i % 4 === 0), ...GI.duo.pts.filter((_, i) => i % 4 === 0)], 1);
+GI.journey = spline([...GI.upper.pts.filter((_, i) => i % 2 === 0), ...GI.si.pts.filter((_, i) => i % 4 === 0)], 1);
+const W_ = { eso: 20, stomach: 54, duo: 20, si: 17, colon: 30 };
+
+// colorFn(segment) -> [fill, edge] ; draw = fraction drawn (line-draw-in)
+function tract(colorFn, draw = 1) {
+  const d = k => clamp(draw * 1.6 - k * 0.15);
+  tube(GI.colon, W_.colon, ...colorFn('colon'), 0, d(1.5));
+  tube(GI.si, W_.si, ...colorFn('si'), 0, d(1.2));
+  tube(GI.stomach, W_.stomach, ...colorFn('stomach'), 0, d(0.4));
+  tube(GI.eso, W_.eso, ...colorFn('eso'), 0, d(0));
+  tube(GI.duo, W_.duo, ...colorFn('duo'), 0, d(0.8));
+}
+const tissue = s => s === 'colon' ? [C.colon, C.colonD] : [C.pink, C.pinkD];
+
+// ------------------------------------------------------------------ layout pieces
+const PANEL = { x: 40, y: 236, w: 1000, h: 864 };
+function panel(a) {
+  alpha(a, () => {
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 10;
+    rrect(PANEL.x, PANEL.y, PANEL.w, PANEL.h, 44, C.panel); ctx.restore();
+    rrect(PANEL.x, PANEL.y, PANEL.w, PANEL.h, 44, null, C.panelEdge, 2.5);
+  });
+}
+function chip(str, cx, cy, a, { bg = C.teal, fg = '#04222B', s = 28 } = {}) {
+  alpha(a, () => {
+    const w = measure(str, 800, s) + s * 1.6 + str.length * 2.5;
+    rrect(cx - w / 2, cy - s * .95, w, s * 1.9, s * .95, bg);
+    text(str, cx, cy + 1, { w: 800, s, color: fg, align: 'center', base: 'middle', shadow: false, track: 2.5 });
+  });
+}
+function sceneTitle(str, y, a, color = C.white, s = 64) {
+  alpha(a, () => text(str, 540, y, { w: 900, s, color, align: 'center', maxW: 900 }));
+}
+
+// ------------------------------------------------------------------ scenes
+function sceneHook(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const cx = 540, cy = 690;
+    const pin = 1; // fully visible from frame 0 (it doubles as the thumbnail)
+    const xr = eInOut(prog(t, Q.camera, 0.6));
+    const wob = Math.sin(t * 2.2) * 0.06 * (1 - xr);
+    const flashT = t - Q.records;
+    const flash = flashT > 0 && flashT < 2.2 ? Math.max(0, 1 - ((flashT % 0.55) / 0.22)) : 0;
+    scaled(cx, cy, pin * (1 + 0.04 * Math.sin(t * 3) * (1 - xr)), () => capsule(cx, cy, 470, 108, -0.12 + wob + 0.12 * xr, { xray: xr, flash }));
+
+    // headline: "NOT a medicine" -> "It's a tiny CAMERA"
+    const h1 = env(t, Q.notMedicine - 0.05, Q.camera + 0.1, .3, .25);
+    alpha(h1, () => {
+      const y = 430, s = eBack(prog(t, Q.notMedicine - 0.05, .4));
+      scaled(540, y - 30, s, () => {
+        const w1 = measure('NOT ', 900, 104), w2 = measure('a medicine', 800, 84);
+        const x0 = 540 - (w1 + w2) / 2;
+        text('NOT ', x0, y, { w: 900, s: 104, color: C.coral });
+        text('a medicine', x0 + w1, y, { w: 800, s: 84 });
+        const sp = eOut(prog(t, Q.notMedicine + 0.3, .35));
+        if (sp > 0) { ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = C.coral; ctx.lineWidth = 10;
+          ctx.beginPath(); ctx.moveTo(x0 + w1 - 6, y - 28); ctx.lineTo(x0 + w1 - 6 + (w2 + 12) * sp, y - 28); ctx.stroke(); ctx.restore(); }
+      });
+    });
+    const h0 = env(t, -1, Q.notMedicine, .35, .2);
+    alpha(h0, () => text('This capsule…', 540, 430, { w: 800, s: 80, align: 'center' }));
+    const h2 = env(t, Q.camera, 99, .3);
+    alpha(h2, () => {
+      const s = eBack(prog(t, Q.camera, .45));
+      scaled(540, 400, s, () => {
+        const w1 = measure("It's a tiny ", 800, 76), w2 = measure('CAMERA', 900, 96);
+        const x0 = 540 - (w1 + w2) / 2;
+        text("It's a tiny ", x0, 430, { w: 800, s: 76 });
+        text('CAMERA', x0 + w1, 430, { w: 900, s: 96, color: C.tealL });
+      });
+    });
+    // component labels
+    const lab = (str, lx, ly, px, py, k, align) => alpha(eOut(prog(t, Q.camera + 0.35 + k * 0.22, .4)), () => {
+      ctx.save(); ctx.strokeStyle = 'rgba(138,245,232,0.85)'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(lx, ly); ctx.stroke(); ctx.restore();
+      circle(px, py, 7, C.tealL);
+      text(str, lx + (align === 'left' ? -10 : 10), ly + (ly < py ? -12 : 40), { w: 700, s: 34, align: align === 'left' ? 'left' : 'right', color: C.white });
+    });
+    lab('Camera + LED light', 120, 560, 345, 650, 0, 'left');
+    lab('Battery', 470, 850, 520, 760, 1, 'left');
+    lab('Transmitter', 960, 560, 730, 650, 2, 'right');
+    // REC indicator + size
+    alpha(env(t, Q.records, 99, .3), () => {
+      const on = Math.floor((t - Q.records) * 2) % 2 === 0;
+      rrect(820, 290, 170, 58, 29, 'rgba(0,0,0,0.45)');
+      circle(853, 319, 11, on ? C.coral : 'rgba(255,94,98,0.35)');
+      text('REC', 875, 320, { w: 800, s: 30, base: 'middle', shadow: false });
+    });
+    alpha(env(t, Q.smallIntestine - 0.5, 99, .4), () => {
+      const y = 960;
+      ctx.save(); ctx.strokeStyle = C.muted; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(310, y); ctx.lineTo(770, y); ctx.moveTo(310, y - 14); ctx.lineTo(310, y + 14); ctx.moveTo(770, y - 14); ctx.lineTo(770, y + 14); ctx.stroke(); ctx.restore();
+      rrect(420, y - 30, 240, 60, 30, '#0B2A40');
+      text('≈ 26 mm', 540, y + 1, { w: 800, s: 34, align: 'center', base: 'middle', color: C.tealL, shadow: false });
+    });
+  });
+}
+
+const STEPS = () => [
+  { t: Q.swallow, n: '1', a: 'Swallowed', b: 'with a sip of water' },
+  { t: Q.travels, n: '2', a: 'Travels', b: 'through the gut' },
+  { t: Q.captures, n: '3', a: 'Captures', b: 'thousands of images' },
+  { t: Q.transmit, n: '4', a: 'Transmits', b: 'to a recording device' },
+];
+function stepCardPos(i) { return { x: 72, y: 300 + i * 190, w: 450, h: 160 }; }
+
+function sceneJourney(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const ox = 572, oy = 300, sc = 0.98;
+    const draw = eInOut(prog(t, Q.journey, 1.1));
+    ctx.save(); ctx.translate(ox, oy); ctx.scale(sc, sc);
+    tract(tissue, draw);
+    // labels on organs
+    alpha(eOut(prog(t, Q.journey + 0.9, .5)), () => {
+      text('Stomach', 360, 200, { w: 600, s: 26, color: C.muted });
+    });
+    // water drops at the top while swallowing
+    const wt = t - Q.swallow;
+    if (wt > -0.2 && wt < 1.8) for (let i = 0; i < 5; i++) {
+      const k = ((wt * 1.4 + i * 0.2) % 1);
+      alpha((1 - k) * clamp(1.8 - wt), () => iconDrop(200 + (i % 2 ? 14 : -14), -40 + k * 120, 22, C.water));
+    }
+    // capsule travel
+    const f = 0.88 * eInOut(prog(t, Q.swallow + 0.2, (Q.transmit - 0.2) - (Q.swallow + 0.2)));
+    const pos = pathAt(GI.journey, f);
+    const capA = eOut(prog(t, Q.swallow - 0.1, .3));
+    const ft = t - Q.captures;
+    const flash = ft > 0 && ft < 1.7 ? Math.max(0, 1 - ((ft % 0.28) / 0.14)) : 0;
+    const txOn = t > Q.transmit;
+    if (txOn) for (let i = 0; i < 3; i++) {
+      const k = ((t - Q.transmit) * 1.2 + i / 3) % 1;
+      alpha(1 - k, () => circle(pos.x, pos.y, 18 + k * 90, null, C.tealL, 4));
+    }
+    alpha(capA, () => scaled(pos.x, pos.y, 1 + 0.6 * flash, () => capsule(pos.x, pos.y, 40, 15, pos.ang + Math.PI, { flash, glow: 0.6 })));
+    ctx.restore();
+
+    // flying photos from capsule to step 3
+    const cap = { x: ox + pos.x * sc, y: oy + pos.y * sc };
+    if (ft > 0 && ft < 2.6) for (let i = 0; i < 7; i++) {
+      const k = clamp((ft - i * 0.22) / 0.8);
+      if (k <= 0 || k >= 1) continue;
+      const card = stepCardPos(2), tx = card.x + card.w - 60, ty = card.y + 80;
+      const e = eInOut(k), x = lerp(cap.x, tx, e), y = lerp(cap.y, ty, e) - Math.sin(k * Math.PI) * 80;
+      alpha(1 - eIn(k), () => {
+        ctx.save(); ctx.translate(x, y); ctx.rotate((i - 3) * 0.12);
+        const g = ctx.createRadialGradient(0, 0, 4, 0, 0, 36);
+        g.addColorStop(0, '#F7C3B0'); g.addColorStop(.6, '#D9776F'); g.addColorStop(1, '#7A2E34');
+        rrect(-34, -34, 68, 68, 10, '#fff'); rrect(-29, -29, 58, 58, 7, g); ctx.restore();
+      });
+    }
+    // steps
+    STEPS().forEach((st, i) => {
+      const p = stepCardPos(i), ap = eOut(prog(t, st.t - 0.1, .4));
+      if (ap <= 0) return;
+      const active = (i === 3 || t < STEPS()[i + 1].t - 0.1);
+      alpha(ap * (active ? 1 : 0.55), () => {
+        ctx.save(); ctx.translate(lerp(-60, 0, ap), 0);
+        rrect(p.x, p.y, p.w, p.h, 28, active ? 'rgba(30,200,181,0.16)' : 'rgba(255,255,255,0.05)', active ? C.teal : 'rgba(255,255,255,0.15)', 3);
+        if (active) circle(p.x + 62, p.y + p.h / 2, 36, C.teal);
+        else iconCheck(p.x + 62, p.y + p.h / 2, 36, 1, 'rgba(30,200,181,0.75)');
+        if (active) text(st.n, p.x + 62, p.y + p.h / 2 + 2, { w: 900, s: 38, color: '#04222B', align: 'center', base: 'middle', shadow: false });
+        text(st.a, p.x + 122, p.y + 70, { w: 800, s: 42 });
+        let sub = st.b;
+        if (i === 2 && t > Q.captures) {
+          const n = Math.round(50000 * eOut(prog(t, Q.captures, 1.6)) / 10) * 10;
+          sub = n >= 50000 ? '50,000+ images' : n.toLocaleString('en-US') + ' images';
+        }
+        text(sub, p.x + 122, p.y + 116, { w: 500, s: 31, color: i === 2 && t > Q.captures ? C.yellow : C.muted, maxW: p.w - 135 });
+        ctx.restore();
+      });
+    });
+    // recorder + data beam into step 4
+    alpha(eOut(prog(t, Q.transmit, .4)), () => {
+      const p = stepCardPos(3), rx = p.x + p.w + 70, ry = p.y + p.h / 2;
+      ctx.save(); ctx.setLineDash([10, 12]); ctx.lineDashOffset = -t * 60; ctx.strokeStyle = C.tealL; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(cap.x, cap.y); ctx.quadraticCurveTo(cap.x - 40, ry - 30, rx + 40, ry); ctx.stroke(); ctx.restore();
+      scaled(rx, ry, eBack(prog(t, Q.recorder - 0.2, .45)), () => iconRecorder(rx, ry, 96, (t * 2) % 1));
+    });
+  });
+}
+
+function sceneWhy(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const k = prog(t, Q.why, .5);
+    const shake = (1 - clamp((t - Q.why) / .35)) * 14 * Math.sin(t * 90);
+    scaled(540, 560, lerp(2.4, 1, eOut(k)), () => alpha(clamp(k * 3), () =>
+      text('WHY', 540 + shake, 640, { w: 900, s: 260, color: C.tealL, align: 'center' })));
+    alpha(eOut(prog(t, Q.why + 0.35, .4)), () => {
+      ctx.save(); ctx.translate(0, lerp(40, 0, eOut(prog(t, Q.why + 0.35, .4))));
+      text('is this so important?', 540, 790, { w: 800, s: 70, align: 'center' });
+      ctx.restore();
+    });
+    alpha(eOut(prog(t, Q.why + 0.7, .4)), () => {
+      ctx.save(); ctx.fillStyle = C.teal; ctx.fillRect(540 - 80 * eOut(prog(t, Q.why + 0.7, .5)), 850, 160 * eOut(prog(t, Q.why + 0.7, .5)), 8); ctx.restore();
+    });
+  });
+}
+
+function sceneReach(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const ox = 372, oy = 292, sc = 0.88;
+    const up = eInOut(prog(t, Q.upperGI - 0.1, 1.0));
+    const col = eInOut(prog(t, Q.colonoscopy - 0.1, 1.0));
+    const miss = env(t, Q.cannot, Q.capsuleEndo + 0.3, .3, .3);
+    const cap = eInOut(prog(t, Q.capsuleEndo, 1.0));
+    const pulse = 0.5 + 0.5 * Math.sin((t - Q.cannot) * 9);
+    const grey = ['rgba(255,255,255,0.20)', 'rgba(255,255,255,0.10)'];
+    const tealC = [C.teal, '#0B6E66'];
+    ctx.save(); ctx.translate(ox, oy); ctx.scale(sc, sc);
+    tract(s => grey, eOut(prog(t, Q.because - 0.1, .7)));
+    // upper GI reach: eso + stomach + duodenum (+ a little of the SI start)
+    tube(GI.upper, 0, ...tealC, 0, 0); // no-op keeps style parity
+    const segUp = [[GI.eso, W_.eso], [GI.stomach, W_.stomach], [GI.duo, W_.duo]];
+    let acc = 0; const tot = segUp.reduce((s, [P]) => s + P.total, 0);
+    for (const [P, w] of segUp) { const f = clamp((up * tot - acc) / P.total); tube(P, w, ...tealC, 0, f); acc += P.total; }
+    tube(GI.si, W_.si, ...tealC, 0, 0.04 * up);
+    // colonoscopy reach: rectum -> caecum -> last bit of ileum
+    tube(GI.colon, W_.colon, ...tealC, 1 - col, 1);
+    tube(GI.si, W_.si, ...tealC, 1 - 0.05 * col, 1);
+    // the gap
+    if (miss > 0 || cap > 0) {
+      const mc = [`rgba(255,94,98,${0.65 + 0.35 * pulse})`, '#7A1E22'];
+      const lo = 0.04, hi = 0.95;
+      tube(GI.si, W_.si, ...mc, lerp(lo, hi, cap), hi);
+      tube(GI.si, W_.si, ...tealC, lo, lerp(lo, hi, cap));
+    }
+    // scopes
+    if (up > 0 && t < Q.capsuleEndo + 0.4) { ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = '#10181F'; ctx.lineWidth = 6;
+      if (tracePart(GI.upper, 0, up)) ctx.stroke(); const e = pathAt(GI.upper, up); circle(e.x, e.y, 8, C.yellow); ctx.restore(); }
+    if (col > 0 && t < Q.capsuleEndo + 0.4) { ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = '#10181F'; ctx.lineWidth = 6;
+      if (tracePart(GI.colon, 1 - col, 1)) ctx.stroke(); const e = pathAt(GI.colon, 1 - col); circle(e.x, e.y, 8, C.yellow); ctx.restore(); }
+    if (cap > 0 && cap < 1) { const e = pathAt(GI.si, lerp(0.04, 0.95, cap)); capsule(e.x, e.y, 40, 15, e.ang + Math.PI, { glow: .8 }); }
+    ctx.restore();
+
+    // labels
+    const L1 = eOut(prog(t, Q.upperGI + 0.2, .45));
+    alpha(L1, () => {
+      ctx.save(); ctx.translate(lerp(-40, 0, L1), 0);
+      text('Upper GI', 72, 350, { w: 800, s: 40 }); text('endoscopy', 72, 396, { w: 800, s: 40 });
+      iconCheck(98, 450, 24, eOut(prog(t, Q.upperGI + 0.6, .4)));
+      text('reaches here', 132, 460, { w: 500, s: 28, color: C.muted });
+      ctx.restore();
+    });
+    const L2 = eOut(prog(t, Q.colonoscopy + 0.2, .45));
+    alpha(L2, () => {
+      ctx.save(); ctx.translate(lerp(40, 0, L2), 0);
+      text('Colonoscopy', 1008, 800, { w: 800, s: 40, align: 'right' });
+      iconCheck(780, 850, 24, eOut(prog(t, Q.colonoscopy + 0.6, .4)));
+      text('reaches here', 1008, 860, { w: 500, s: 28, color: C.muted, align: 'right' });
+      ctx.restore();
+    });
+    // small intestine callout
+    const L3 = env(t, Q.cannot + 0.15, Q.capsuleEndo + 0.1, .4, .3);
+    alpha(L3, () => {
+      rrect(72, 960, 640, 112, 26, 'rgba(255,94,98,0.16)', C.coral, 3);
+      iconCross(124, 1016, 28, eOut(prog(t, Q.cannot + 0.4, .4)));
+      text('Small intestine ≈ 6 m', 172, 1006, { w: 800, s: 36, maxW: 520 });
+      text('mostly out of reach', 172, 1048, { w: 500, s: 29, color: '#FFB3B5' });
+    });
+    const L4 = eOut(prog(t, Q.capsuleEndo + 0.15, .45));
+    alpha(L4, () => {
+      rrect(72, 960, 640, 112, 26, 'rgba(30,200,181,0.18)', C.teal, 3);
+      iconCheck(124, 1016, 28, eOut(prog(t, Q.capsuleEndo + 0.9, .4)));
+      text('Capsule endoscopy', 172, 1006, { w: 800, s: 36, color: C.tealL });
+      text('views the whole small bowel', 172, 1048, { w: 500, s: 29, color: C.white });
+    });
+  });
+}
+
+function listRow(t, at, i, y, icon, line1, line2, mark) {
+  const ap = eOut(prog(t, at - 0.15, .45));
+  if (ap <= 0) return;
+  alpha(ap, () => {
+    ctx.save(); ctx.translate(lerp(-80, 0, ap), 0);
+    rrect(72, y, 936, 150, 30, 'rgba(255,255,255,0.06)', 'rgba(255,255,255,0.14)', 2);
+    scaled(152, y + 75, eBack(prog(t, at - 0.1, .45)), () => icon(152, y + 75));
+    text(line1, 232, line2 ? y + 66 : y + 88, { w: 800, s: 42, maxW: 640 });
+    if (line2) text(line2, 232, y + 114, { w: 500, s: 32, color: C.muted, maxW: 640 });
+    scaled(940, y + 75, eBack(prog(t, at + 0.25, .4)), () => mark(940, y + 75, 30, eOut(prog(t, at + 0.3, .4))));
+    ctx.restore();
+  });
+}
+
+function sceneUsedFor(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    alpha(eOut(prog(t, Q.usedFor, .4)), () => {
+      text('ESPECIALLY IMPORTANT FOR', 540, 330, { w: 800, s: 30, color: C.tealL, align: 'center', track: 4 });
+      text('Who needs it?', 540, 410, { w: 900, s: 72, align: 'center' });
+    });
+    const iconCirc = (fn, col) => (x, y) => { circle(x, y, 50, 'rgba(255,255,255,0.08)', col, 3); fn(x, y, col); };
+    listRow(t, Q.bleeding, 0, 470, iconCirc((x, y, c) => iconDrop(x, y - 2, 56, c), C.coral), 'Small bowel bleeding', 'hidden / unexplained blood loss', iconCheck);
+    listRow(t, Q.anaemia, 1, 645, iconCirc((x, y, c) => iconFe(x, y, 30, c), C.amber), 'Iron-deficiency anaemia', 'when the cause is unexplained', iconCheck);
+    listRow(t, Q.crohns, 2, 820, iconCirc((x, y, c) => iconBowel(x, y - 8, 56, c), C.tealL), "Suspected Crohn's disease", 'of the small bowel (selected patients)', iconCheck);
+  });
+}
+
+function sceneRemember(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    alpha(eOut(prog(t, Q.remember, .4)), () => {
+      const s = eBack(prog(t, Q.remember, .5));
+      scaled(540, 360, s, () => {
+        iconWarn(330, 360, 70);
+        text('But remember', 390, 384, { w: 900, s: 66 });
+      });
+    });
+    const iconC = (x, y) => { circle(x, y, 50, 'rgba(255,94,98,0.14)', C.coral, 3); iconMicroscope(x, y - 4, 54, '#FFB3B5'); };
+    const iconT = (x, y) => { circle(x, y, 50, 'rgba(255,94,98,0.14)', C.coral, 3);
+      ctx.save(); ctx.translate(x, y); ctx.rotate(-0.7); rrect(-34, -14, 68, 28, 14, '#FFB3B5'); ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.fillRect(-2, -14, 4, 28); ctx.restore(); };
+    listRow(t, Q.noBiopsy, 0, 440, iconC, 'Cannot take biopsies', null, iconCross);
+    listRow(t, Q.noTreatment, 1, 610, iconT, 'Cannot give treatment', null, iconCross);
+    // retention demo
+    const ar = eOut(prog(t, Q.retention - 0.1, .45));
+    alpha(ar, () => {
+      ctx.save(); ctx.translate(0, lerp(40, 0, ar));
+      rrect(72, 784, 936, 290, 30, 'rgba(255,181,71,0.10)', C.amber, 3);
+      text('Main risk: ', 110, 850, { w: 800, s: 40, color: C.amber });
+      text('capsule retention', 110 + measure('Main risk: ', 800, 40), 850, { w: 800, s: 40 });
+      // bowel with a stricture at x=640
+      const y = 945, nx = 640;
+      const narrow = eInOut(prog(t, Q.retention + 0.3, .8));
+      const glow = env(t, Q.narrowing - 0.1, 999, .3) * (0.6 + 0.4 * Math.sin(t * 8));
+      const top = x => y - 34 + 22 * narrow * Math.exp(-Math.pow((x - nx) / 40, 2));
+      ctx.save(); ctx.beginPath();
+      for (let x = 120; x <= 960; x += 6) ctx.lineTo(x, top(x));
+      for (let x = 960; x >= 120; x -= 6) ctx.lineTo(x, 2 * y - top(x));
+      ctx.closePath(); ctx.fillStyle = C.pink; ctx.fill(); ctx.lineWidth = 5; ctx.strokeStyle = C.pinkD; ctx.stroke(); ctx.restore();
+      if (glow > 0) alpha(glow, () => { const g = ctx.createRadialGradient(nx, y, 5, nx, y, 90); g.addColorStop(0, 'rgba(255,94,98,0.9)'); g.addColorStop(1, 'rgba(255,94,98,0)'); ctx.fillStyle = g; ctx.fillRect(nx - 90, y - 90, 180, 180); });
+      const mv = eInOut(prog(t, Q.retention + 0.6, 1.4));
+      const stuck = t > Q.retention + 2.0 ? Math.sin(t * 22) * 4 * Math.max(0, 1 - (t - Q.retention - 2.0) / 1.5) : 0;
+      capsule(lerp(170, nx - 62, mv) + stuck, y, 76, 26, 0, {});
+      alpha(env(t, Q.narrowing - 0.05, 999, .4), () => {
+        text('Higher risk with small bowel narrowing', 540, 1040, { w: 600, s: 31, color: '#FFD9A0', align: 'center', maxW: 860 });
+      });
+      alpha(env(t, Q.retention + 2.0, 999, .3), () => { ctx.save(); ctx.strokeStyle = C.coral; ctx.lineWidth = 4; ctx.setLineDash([8, 8]);
+        ctx.beginPath(); ctx.arc(nx - 20, y, 70, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); });
+      ctx.restore();
+    });
+  });
+}
+
+function sceneSummary(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const a1 = eOut(prog(t, Q.summary, .4));
+    alpha(a1, () => {
+      const w1 = measure('NOT ', 900, 84), w2 = measure('a medicine', 700, 70);
+      const x0 = 540 - (w1 + w2) / 2, y = 380;
+      text("It's", 540, 300, { w: 600, s: 44, color: C.muted, align: 'center' });
+      text('NOT ', x0, y, { w: 900, s: 84, color: C.coral });
+      text('a medicine', x0 + w1, y, { w: 700, s: 70 });
+      const sp = eOut(prog(t, Q.summary + 0.5, .35));
+      ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = C.coral; ctx.lineWidth = 8;
+      ctx.beginPath(); ctx.moveTo(x0 + w1 - 4, y - 24); ctx.lineTo(x0 + w1 - 4 + (w2 + 8) * sp, y - 24); ctx.stroke(); ctx.restore();
+    });
+    const a2 = eOut(prog(t, Q.diagnostic - 0.15, .45));
+    alpha(a2, () => {
+      text("It's an advanced", 540, 520, { w: 700, s: 56, align: 'center' });
+      scaled(540, 600, eBack(prog(t, Q.diagnostic + 0.1, .5)), () => {
+        text('DIAGNOSTIC', 540, 640, { w: 900, s: 118, color: C.tealL, align: 'center', maxW: 920 });
+        text('TEST', 540, 760, { w: 900, s: 118, color: C.tealL, align: 'center' });
+      });
+      const s = eBack(prog(t, Q.diagnostic + 0.3, .5));
+      scaled(540, 930, s, () => capsule(540, 930, 250, 58, -0.1 + Math.sin(t * 2) * 0.05, { glow: 0.7 + 0.3 * Math.sin(t * 4) }));
+    });
+  });
+}
+
+function lowerThird(t) {
+  const a = env(t, 0.5, 6.0, .5, .4);
+  if (a <= 0) return;
+  alpha(a, () => {
+    const k = eOut(prog(t, 0.5, .6)), x = 40, y = 1395, w = 470, h = 132;
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y - 10, w * k + 20, h + 20); ctx.clip();
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 24;
+    rrect(x, y, w, h, 24, 'rgba(6,22,38,0.92)'); ctx.restore();
+    ctx.fillStyle = C.teal; ctx.beginPath(); ctx.roundRect(x, y, 12, h, [24, 0, 0, 24]); ctx.fill();
+    text('Dr Dheeraj Mahar', x + 36, y + 58, { w: 800, s: 42, maxW: w - 50 });
+    text('DrNB Gastroenterology', x + 36, y + 104, { w: 600, s: 31, color: C.tealL, maxW: w - 50 });
+    ctx.restore();
+  });
+}
+
+function captions(t) {
+  if (t >= Q.outro) return;
+  const cap = TL.captions.find(c => t >= c.start && t < c.end);
+  if (!cap) return;
+  const pin = eBack(prog(t, cap.start, .18));
+  const S = 64, gap = 34, y = 1196;
+  const ws = cap.words.map(w => ({ ...w, wd: measure(w.w, 900, S) }));
+  let total = ws.reduce((s, w) => s + w.wd, 0) + gap * (ws.length - 1);
+  const fit = Math.min(1, 980 / total);
+  scaled(540, y, pin * fit, () => {
+    let x = 540 - total / 2;
+    ws.forEach((w, i) => {
+      const next = ws[i + 1];
+      const active = t >= w.s && (next ? t < next.s : true);
+      const said = t >= w.s;
+      const col = active ? C.yellow : (w.hi && said ? C.tealL : C.white);
+      const sc = active ? 1 + 0.08 * eOut(prog(t, w.s, .12)) : 1;
+      scaled(x + w.wd / 2, y, sc, () => {
+        ctx.save(); ctx.font = F(900, S); ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+        ctx.lineWidth = 13; ctx.strokeStyle = 'rgba(0,0,0,0.85)'; ctx.strokeText(w.w, x, y);
+        ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 4;
+        ctx.fillStyle = col; ctx.globalAlpha *= said || active ? 1 : 0.92; ctx.fillText(w.w, x, y); ctx.restore();
+      });
+      x += w.wd + gap;
+    });
+  });
+}
+
+function outro(t) {
+  const a = eOut(prog(t, Q.outro, .45));
+  if (a <= 0) return;
+  alpha(a, () => {
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, 'rgba(4,18,32,0.94)'); g.addColorStop(1, 'rgba(4,18,32,0.97)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.translate(0, 170); // centre the card vertically
+    const k = i => eOut(prog(t, Q.outro + 0.15 + i * 0.15, .45));
+    const up = i => lerp(40, 0, k(i));
+    alpha(k(0), () => scaled(540, 520, eBack(prog(t, Q.outro + 0.1, .5)), () => capsule(540, 520, 230, 54, -0.15, { glow: .8 })));
+    alpha(k(1), () => text('Dr Dheeraj Mahar', 540, 720 + up(1), { w: 900, s: 84, align: 'center', maxW: 960 }));
+    alpha(k(2), () => text('DrNB Gastroenterology', 540, 800 + up(2), { w: 600, s: 46, color: C.tealL, align: 'center' }));
+    alpha(k(3), () => { ctx.fillStyle = C.teal; ctx.fillRect(460, 860, 160 * k(3), 6); });
+    alpha(k(4), () => text('Follow for more gut-health explainers', 540, 960 + up(4), { w: 600, s: 40, align: 'center', maxW: 940 }));
+    const btn = (str, cx, i, fill) => alpha(k(5 + i), () => scaled(cx, 1080, eBack(prog(t, Q.outro + 0.9 + i * .15, .45)), () => {
+      const w = 250; rrect(cx - w / 2, 1045, w, 76, 38, fill ? C.teal : 'rgba(255,255,255,0.08)', fill ? null : 'rgba(255,255,255,0.5)', 3);
+      text(str, cx, 1085, { w: 800, s: 34, color: fill ? '#04222B' : C.white, align: 'center', base: 'middle', shadow: false });
+    }));
+    btn('Follow', 260, 0, true); btn('Save', 540, 1, false); btn('Share', 820, 2, false);
+    alpha(k(8), () => {
+      text('For educational purposes only.', 540, 1290, { w: 500, s: 30, color: C.muted, align: 'center' });
+      text('Please consult your doctor for medical advice.', 540, 1334, { w: 500, s: 30, color: C.muted, align: 'center' });
+    });
+  });
+}
+
+// ------------------------------------------------------------------ frame
+function draw(t) {
+  ctx.clearRect(0, 0, W, H);
+  // soft top darkening so graphics read over the bookshelf
+  const vg = env(t, -1, Q.outro + 0.3, .3, .3);
+  if (vg > 0) {
+    const g = ctx.createLinearGradient(0, 0, 0, 1300);
+    g.addColorStop(0, `rgba(0,8,16,${0.55 * vg})`); g.addColorStop(.75, `rgba(0,8,16,${0.35 * vg})`); g.addColorStop(1, 'rgba(0,8,16,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, 1300);
+  }
+  const pa = env(t, -1, Q.outro + 0.2, .35, .3);
+  panel(pa);
+  chip('CAPSULE ENDOSCOPY', 540, 168, env(t, -1, Q.outro + 0.2, .4, .3));
+
+  // scene windows (each fades in/out on its own; overlaps give cross-fades)
+  sceneHook(t, env(t, -1, Q.journey + 0.05, .2, .35));
+  sceneJourney(t, env(t, Q.journey - 0.1, Q.why + 0.05, .3, .3));
+  sceneWhy(t, env(t, Q.why - 0.05, Q.because + 0.25, .15, .3));
+  sceneReach(t, env(t, Q.because - 0.1, Q.usedFor + 0.05, .3, .3));
+  sceneUsedFor(t, env(t, Q.usedFor - 0.05, Q.remember + 0.05, .3, .3));
+  sceneRemember(t, env(t, Q.remember - 0.05, Q.summary + 0.05, .3, .3));
+  sceneSummary(t, env(t, Q.summary - 0.05, Q.outro + 0.3, .3, .3));
+
+  lowerThird(t);
+  captions(t);
+  outro(t);
+}
+
+async function init(timeline) {
+  TL = timeline; Q = timeline.cues;
+  await Promise.all([400, 500, 600, 700, 800, 900].map(w => document.fonts.load(`${w} 40px Inter`)));
+  await document.fonts.ready;
+  return true;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+[
+ {
+  "start": 0.0,
+  "end": 4.84,
+  "text": " The capsule you see here is not a medicine. It is actually a small camera that records",
+  "words": [
+   {
+    "w": " The",
+    "s": 0.0,
+    "e": 0.24
+   },
+   {
+    "w": " capsule",
+    "s": 0.24,
+    "e": 0.54
+   },
+   {
+    "w": " you",
+    "s": 0.54,
+    "e": 0.74
+   },
+   {
+    "w": " see",
+    "s": 0.74,
+    "e": 0.86
+   },
+   {
+    "w": " here",
+    "s": 0.86,
+    "e": 1.08
+   },
+   {
+    "w": " is",
+    "s": 1.08,
+    "e": 1.24
+   },
+   {
+    "w": " not",
+    "s": 1.24,
+    "e": 1.38
+   },
+   {
+    "w": " a",
+    "s": 1.38,
+    "e": 1.52
+   },
+   {
+    "w": " medicine.",
+    "s": 1.52,
+    "e": 1.82
+   },
+   {
+    "w": " It",
+    "s": 2.36,
+    "e": 2.5
+   },
+   {
+    "w": " is",
+    "s": 2.5,
+    "e": 2.66
+   },
+   {
+    "w": " actually",
+    "s": 2.66,
+    "e": 3.02
+   },
+   {
+    "w": " a",
+    "s": 3.02,
+    "e": 3.18
+   },
+   {
+    "w": " small",
+    "s": 3.18,
+    "e": 3.38
+   },
+   {
+    "w": " camera",
+    "s": 3.38,
+    "e": 3.78
+   },
+   {
+    "w": " that",
+    "s": 3.78,
+    "e": 4.46
+   },
+   {
+    "w": " records",
+    "s": 4.46,
+    "e": 4.84
+   }
+  ]
+ },
+ {
+  "start": 4.84,
+  "end": 8.66,
+  "text": " information about your small intestine. The patient swallows this capsule with water",
+  "words": [
+   {
+    "w": " information",
+    "s": 4.84,
+    "e": 5.34
+   },
+   {
+    "w": " about",
+    "s": 5.34,
+    "e": 5.62
+   },
+   {
+    "w": " your",
+    "s": 5.62,
+    "e": 5.8
+   },
+   {
+    "w": " small",
+    "s": 5.8,
+    "e": 6.02
+   },
+   {
+    "w": " intestine.",
+    "s": 6.02,
+    "e": 6.24
+   },
+   {
+    "w": " The",
+    "s": 6.84,
+    "e": 6.92
+   },
+   {
+    "w": " patient",
+    "s": 6.92,
+    "e": 7.22
+   },
+   {
+    "w": " swallows",
+    "s": 7.22,
+    "e": 7.54
+   },
+   {
+    "w": " this",
+    "s": 7.54,
+    "e": 7.82
+   },
+   {
+    "w": " capsule",
+    "s": 7.82,
+    "e": 8.18
+   },
+   {
+    "w": " with",
+    "s": 8.18,
+    "e": 8.38
+   },
+   {
+    "w": " water",
+    "s": 8.38,
+    "e": 8.66
+   }
+  ]
+ },
+ {
+  "start": 9.200000000000001,
+  "end": 13.4,
+  "text": " and as it travels through the digestive tract it captures a thousand of images",
+  "words": [
+   {
+    "w": " and",
+    "s": 9.200000000000001,
+    "e": 9.5
+   },
+   {
+    "w": " as",
+    "s": 9.5,
+    "e": 9.8
+   },
+   {
+    "w": " it",
+    "s": 9.8,
+    "e": 9.96
+   },
+   {
+    "w": " travels",
+    "s": 9.96,
+    "e": 10.18
+   },
+   {
+    "w": " through",
+    "s": 10.18,
+    "e": 10.48
+   },
+   {
+    "w": " the",
+    "s": 10.48,
+    "e": 10.6
+   },
+   {
+    "w": " digestive",
+    "s": 10.6,
+    "e": 10.98
+   },
+   {
+    "w": " tract",
+    "s": 10.98,
+    "e": 11.44
+   },
+   {
+    "w": " it",
+    "s": 11.44,
+    "e": 11.9
+   },
+   {
+    "w": " captures",
+    "s": 11.9,
+    "e": 12.3
+   },
+   {
+    "w": " a",
+    "s": 12.3,
+    "e": 12.52
+   },
+   {
+    "w": " thousand",
+    "s": 12.52,
+    "e": 12.76
+   },
+   {
+    "w": " of",
+    "s": 12.76,
+    "e": 12.98
+   },
+   {
+    "w": " images",
+    "s": 12.98,
+    "e": 13.4
+   }
+  ]
+ },
+ {
+  "start": 13.4,
+  "end": 17.9,
+  "text": " that are transmitted to a recording device. But why this technology is so important?",
+  "words": [
+   {
+    "w": " that",
+    "s": 13.4,
+    "e": 14.08
+   },
+   {
+    "w": " are",
+    "s": 14.08,
+    "e": 14.2
+   },
+   {
+    "w": " transmitted",
+    "s": 14.2,
+    "e": 14.56
+   },
+   {
+    "w": " to",
+    "s": 14.56,
+    "e": 14.82
+   },
+   {
+    "w": " a",
+    "s": 14.82,
+    "e": 14.92
+   },
+   {
+    "w": " recording",
+    "s": 14.92,
+    "e": 15.14
+   },
+   {
+    "w": " device.",
+    "s": 15.14,
+    "e": 15.54
+   },
+   {
+    "w": " But",
+    "s": 16.1,
+    "e": 16.3
+   },
+   {
+    "w": " why",
+    "s": 16.3,
+    "e": 16.52
+   },
+   {
+    "w": " this",
+    "s": 16.52,
+    "e": 16.76
+   },
+   {
+    "w": " technology",
+    "s": 16.76,
+    "e": 17.18
+   },
+   {
+    "w": " is",
+    "s": 17.18,
+    "e": 17.4
+   },
+   {
+    "w": " so",
+    "s": 17.4,
+    "e": 17.52
+   },
+   {
+    "w": " important?",
+    "s": 17.52,
+    "e": 17.9
+   }
+  ]
+ },
+ {
+  "start": 18.58,
+  "end": 21.84,
+  "text": " This is because the upper gyandoscopy and the colonoscopy",
+  "words": [
+   {
+    "w": " This",
+    "s": 18.58,
+    "e": 18.88
+   },
+   {
+    "w": " is",
+    "s": 18.88,
+    "e": 18.98
+   },
+   {
+    "w": " because",
+    "s": 18.98,
+    "e": 19.3
+   },
+   {
+    "w": " the",
+    "s": 19.3,
+    "e": 19.76
+   },
+   {
+    "w": " upper",
+    "s": 19.76,
+    "e": 20.0
+   },
+   {
+    "w": " gyandoscopy",
+    "s": 20.0,
+    "e": 20.78
+   },
+   {
+    "w": " and",
+    "s": 20.78,
+    "e": 21.06
+   },
+   {
+    "w": " the",
+    "s": 21.06,
+    "e": 21.18
+   },
+   {
+    "w": " colonoscopy",
+    "s": 21.18,
+    "e": 21.84
+   }
+  ]
+ },
+ {
+  "start": 21.84,
+  "end": 26.18,
+  "text": " cannot examine the most of the small intestine. Capsule endoscopy is especially",
+  "words": [
+   {
+    "w": " cannot",
+    "s": 21.84,
+    "e": 22.42
+   },
+   {
+    "w": " examine",
+    "s": 22.42,
+    "e": 22.94
+   },
+   {
+    "w": " the",
+    "s": 22.94,
+    "e": 23.12
+   },
+   {
+    "w": " most",
+    "s": 23.12,
+    "e": 23.34
+   },
+   {
+    "w": " of",
+    "s": 23.34,
+    "e": 23.48
+   },
+   {
+    "w": " the",
+    "s": 23.48,
+    "e": 23.58
+   },
+   {
+    "w": " small",
+    "s": 23.58,
+    "e": 23.8
+   },
+   {
+    "w": " intestine.",
+    "s": 23.8,
+    "e": 24.14
+   },
+   {
+    "w": " Capsule",
+    "s": 24.52,
+    "e": 24.84
+   },
+   {
+    "w": " endoscopy",
+    "s": 24.84,
+    "e": 25.34
+   },
+   {
+    "w": " is",
+    "s": 25.34,
+    "e": 25.68
+   },
+   {
+    "w": " especially",
+    "s": 25.68,
+    "e": 26.18
+   }
+  ]
+ },
+ {
+  "start": 26.18,
+  "end": 30.8,
+  "text": " important for the evaluation of small bowel bleeding, unexplained iron deficiency anemia,",
+  "words": [
+   {
+    "w": " important",
+    "s": 26.18,
+    "e": 26.64
+   },
+   {
+    "w": " for",
+    "s": 26.64,
+    "e": 27.24
+   },
+   {
+    "w": " the",
+    "s": 27.24,
+    "e": 27.32
+   },
+   {
+    "w": " evaluation",
+    "s": 27.32,
+    "e": 27.72
+   },
+   {
+    "w": " of",
+    "s": 27.72,
+    "e": 27.94
+   },
+   {
+    "w": " small",
+    "s": 27.94,
+    "e": 28.18
+   },
+   {
+    "w": " bowel",
+    "s": 28.18,
+    "e": 28.4
+   },
+   {
+    "w": " bleeding,",
+    "s": 28.4,
+    "e": 28.84
+   },
+   {
+    "w": " unexplained",
+    "s": 29.14,
+    "e": 29.72
+   },
+   {
+    "w": " iron",
+    "s": 29.72,
+    "e": 29.94
+   },
+   {
+    "w": " deficiency",
+    "s": 29.94,
+    "e": 30.28
+   },
+   {
+    "w": " anemia,",
+    "s": 30.28,
+    "e": 30.8
+   }
+  ]
+ },
+ {
+  "start": 31.54,
+  "end": 35.38,
+  "text": " and selected patients with the suspicion of small bowel Crohn's disease. But remember",
+  "words": [
+   {
+    "w": " and",
+    "s": 31.54,
+    "e": 31.6
+   },
+   {
+    "w": " selected",
+    "s": 31.6,
+    "e": 31.98
+   },
+   {
+    "w": " patients",
+    "s": 31.98,
+    "e": 32.5
+   },
+   {
+    "w": " with",
+    "s": 32.5,
+    "e": 32.68
+   },
+   {
+    "w": " the",
+    "s": 32.68,
+    "e": 32.78
+   },
+   {
+    "w": " suspicion",
+    "s": 32.78,
+    "e": 33.1
+   },
+   {
+    "w": " of",
+    "s": 33.1,
+    "e": 33.32
+   },
+   {
+    "w": " small",
+    "s": 33.32,
+    "e": 33.64
+   },
+   {
+    "w": " bowel",
+    "s": 33.64,
+    "e": 33.94
+   },
+   {
+    "w": " Crohn's",
+    "s": 33.94,
+    "e": 34.36
+   },
+   {
+    "w": " disease.",
+    "s": 34.36,
+    "e": 34.64
+   },
+   {
+    "w": " But",
+    "s": 35.02,
+    "e": 35.08
+   },
+   {
+    "w": " remember",
+    "s": 35.08,
+    "e": 35.38
+   }
+  ]
+ },
+ {
+  "start": 35.38,
+  "end": 40.84,
+  "text": " this capsule cannot take the biopsies or perform treatment. Capsule retention is the main",
+  "words": [
+   {
+    "w": " this",
+    "s": 35.38,
+    "e": 36.02
+   },
+   {
+    "w": " capsule",
+    "s": 36.02,
+    "e": 36.38
+   },
+   {
+    "w": " cannot",
+    "s": 36.38,
+    "e": 36.8
+   },
+   {
+    "w": " take",
+    "s": 36.8,
+    "e": 37.1
+   },
+   {
+    "w": " the",
+    "s": 37.1,
+    "e": 37.2
+   },
+   {
+    "w": " biopsies",
+    "s": 37.2,
+    "e": 37.78
+   },
+   {
+    "w": " or",
+    "s": 37.78,
+    "e": 38.22
+   },
+   {
+    "w": " perform",
+    "s": 38.22,
+    "e": 38.54
+   },
+   {
+    "w": " treatment.",
+    "s": 38.54,
+    "e": 39.0
+   },
+   {
+    "w": " Capsule",
+    "s": 39.52,
+    "e": 39.92
+   },
+   {
+    "w": " retention",
+    "s": 39.92,
+    "e": 40.16
+   },
+   {
+    "w": " is",
+    "s": 40.16,
+    "e": 40.48
+   },
+   {
+    "w": " the",
+    "s": 40.48,
+    "e": 40.62
+   },
+   {
+    "w": " main",
+    "s": 40.62,
+    "e": 40.84
+   }
+  ]
+ },
+ {
+  "start": 40.84,
+  "end": 46.16,
+  "text": " consideration here especially in the people with the small bowel narrowing. So it's not a medicine",
+  "words": [
+   {
+    "w": " consideration",
+    "s": 40.84,
+    "e": 41.38
+   },
+   {
+    "w": " here",
+    "s": 41.38,
+    "e": 41.78
+   },
+   {
+    "w": " especially",
+    "s": 41.78,
+    "e": 42.48
+   },
+   {
+    "w": " in",
+    "s": 42.48,
+    "e": 42.84
+   },
+   {
+    "w": " the",
+    "s": 42.84,
+    "e": 42.92
+   },
+   {
+    "w": " people",
+    "s": 42.92,
+    "e": 43.18
+   },
+   {
+    "w": " with",
+    "s": 43.18,
+    "e": 43.44
+   },
+   {
+    "w": " the",
+    "s": 43.44,
+    "e": 43.58
+   },
+   {
+    "w": " small",
+    "s": 43.58,
+    "e": 43.82
+   },
+   {
+    "w": " bowel",
+    "s": 43.82,
+    "e": 44.1
+   },
+   {
+    "w": " narrowing.",
+    "s": 44.1,
+    "e": 44.56
+   },
+   {
+    "w": " So",
+    "s": 45.08,
+    "e": 45.24
+   },
+   {
+    "w": " it's",
+    "s": 45.24,
+    "e": 45.58
+   },
+   {
+    "w": " not",
+    "s": 45.58,
+    "e": 45.7
+   },
+   {
+    "w": " a",
+    "s": 45.7,
+    "e": 45.84
+   },
+   {
+    "w": " medicine",
+    "s": 45.84,
+    "e": 46.16
+   }
+  ]
+ },
+ {
+  "start": 46.16,
+  "end": 48.7,
+  "text": " it's advanced diagnostic investigation.",
+  "words": [
+   {
+    "w": " it's",
+    "s": 46.16,
+    "e": 46.82
+   },
+   {
+    "w": " advanced",
+    "s": 46.82,
+    "e": 47.26
+   },
+   {
+    "w": " diagnostic",
+    "s": 47.26,
+    "e": 47.96
+   },
+   {
+    "w": " investigation.",
+    "s": 47.96,
+    "e": 48.7
+   }
+  ]
+ }
+]
