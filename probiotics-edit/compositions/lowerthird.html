@@ -1,0 +1,63 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+    }
+    /* right of the speaker, over the empty desk */
+    #lt-card {
+      position: absolute;
+      left: 600px;
+      top: 1395px;
+      width: 440px;
+      height: 132px;
+      border-radius: 24px;
+      background: rgba(6, 22, 38, 0.92);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+    #lt-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 12px;
+      height: 132px;
+      background: #1ec8b5;
+    }
+    #lt-name {
+      position: absolute;
+      left: 36px;
+      top: 22px;
+      font-weight: 900;
+      font-size: 40px;
+      color: #fff;
+      white-space: nowrap;
+    }
+    #lt-role {
+      position: absolute;
+      left: 36px;
+      top: 76px;
+      font-weight: 400;
+      font-size: 30px;
+      color: #8af5e8;
+      white-space: nowrap;
+    }
+  </style>
+  <div id="root" data-composition-id="lowerthird" data-width="1080" data-height="1920">
+    <div id="lt-card">
+      <div id="lt-bar"></div>
+      <div id="lt-name">Dr Dheeraj Mahar</div>
+      <div id="lt-role">DrNB Gastroenterology</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#lt-card", { clipPath: "inset(0% 100% 0% 0% round 24px)" }, { clipPath: "inset(0% 0% 0% 0% round 24px)", duration: 0.6, ease: "power3.out" }, 0);
+    tl.fromTo("#lt-name", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 0.25);
+    tl.fromTo("#lt-role", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 0.4);
+    tl.to("#lt-card", { opacity: 0, duration: 0.35, ease: "power2.in" }, 5.45);
+    window.__timelines["lowerthird"] = tl;
+  </script>
+</template>

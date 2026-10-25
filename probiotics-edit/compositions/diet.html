@@ -1,0 +1,80 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+      color: #fff;
+    }
+    #dt-title {
+      position: absolute;
+      left: 60px;
+      top: 290px;
+      width: 960px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 76px;
+      letter-spacing: -0.02em;
+    }
+    .dt-tile {
+      position: absolute;
+      width: 440px;
+      height: 280px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(138, 245, 232, 0.3);
+      text-align: center;
+    }
+    .dt-tile svg {
+      position: absolute;
+      left: 160px;
+      top: 34px;
+      width: 120px;
+      height: 120px;
+    }
+    .dt-tile div {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 180px;
+      font-weight: 700;
+      font-size: 46px;
+    }
+    #dt-t1 { left: 80px; top: 430px; }
+    #dt-t2 { left: 560px; top: 430px; }
+    #dt-t3 { left: 80px; top: 740px; }
+    #dt-t4 { left: 560px; top: 740px; }
+  </style>
+  <div id="root" data-composition-id="diet" data-width="1080" data-height="1920">
+    <div id="dt-title">What can you do?</div>
+
+    <div id="dt-t1" class="dt-tile">
+      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="#E9F6F4" /><circle cx="60" cy="60" r="40" fill="none" stroke="#B9D4CF" stroke-width="3" /><path d="M60 60 L60 22 A38 38 0 0 1 93 79 Z" fill="#5EE38A" /><path d="M60 60 L93 79 A38 38 0 0 1 27 79 Z" fill="#FFB547" /><path d="M60 60 L27 79 A38 38 0 0 1 60 22 Z" fill="#FF5E62" /></svg>
+      <div>Balanced diet</div>
+    </div>
+    <div id="dt-t2" class="dt-tile">
+      <svg viewBox="0 0 120 120"><path d="M60 110 V30" stroke="#E9C46A" stroke-width="6" stroke-linecap="round" /><g fill="#E9C46A"><ellipse cx="46" cy="40" rx="10" ry="18" transform="rotate(-30 46 40)" /><ellipse cx="74" cy="40" rx="10" ry="18" transform="rotate(30 74 40)" /><ellipse cx="46" cy="64" rx="10" ry="18" transform="rotate(-30 46 64)" /><ellipse cx="74" cy="64" rx="10" ry="18" transform="rotate(30 74 64)" /><ellipse cx="46" cy="88" rx="10" ry="18" transform="rotate(-30 46 88)" /><ellipse cx="74" cy="88" rx="10" ry="18" transform="rotate(30 74 88)" /><ellipse cx="60" cy="18" rx="9" ry="16" /></g></svg>
+      <div>Plenty of fibre</div>
+    </div>
+    <div id="dt-t3" class="dt-tile">
+      <svg viewBox="0 0 120 120"><ellipse cx="60" cy="50" rx="48" ry="14" fill="#FFFFFF" /><path d="M12 50 A48 48 0 0 0 108 50 Z" fill="#8AC6D9" /><path d="M24 64 A36 36 0 0 0 96 64" stroke="#5A9DB3" stroke-width="4" fill="none" /><ellipse cx="60" cy="50" rx="40" ry="9" fill="#F5F1E6" /></svg>
+      <div>Curd</div>
+    </div>
+    <div id="dt-t4" class="dt-tile">
+      <svg viewBox="0 0 120 120"><path d="M32 14 H88 L80 110 H40 Z" fill="rgba(255,255,255,0.25)" stroke="#E9F6F4" stroke-width="4" stroke-linejoin="round" /><path d="M37 44 H83 L78 106 H42 Z" fill="#F5F1E6" /><circle cx="52" cy="62" r="4" fill="#5EE38A" /><circle cx="66" cy="78" r="3" fill="#5EE38A" /></svg>
+      <div>Buttermilk</div>
+    </div>
+  </div>
+  <script>
+    // scene clock: 0 = 42.5 s in the talk
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dt-title", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 0.3); // 42.84
+    [["#dt-t1", 2.35], ["#dt-t2", 3.4], ["#dt-t3", 5.55], ["#dt-t4", 6.1]].forEach(([id, at]) => { // balanced 44.88, fibre 45.96, curd 48.10, buttermilk 48.66
+      tl.fromTo(id, { opacity: 0, y: 40, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, at);
+      tl.fromTo(`${id} svg`, { scale: 0.3, rotation: -25, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.4)" }, at + 0.05);
+    });
+    tl.to("#root > *", { opacity: 0, duration: 0.3, ease: "power2.in" }, 6.55);
+    window.__timelines["diet"] = tl;
+  </script>
+</template>

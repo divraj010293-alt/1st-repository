@@ -1,0 +1,61 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    /* darkens the bookshelf so the panel reads; clear by the speaker's head */
+    #fr-scrim {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1300px;
+      background: linear-gradient(180deg, rgba(0, 8, 16, 0.55) 0%, rgba(0, 8, 16, 0.35) 75%, rgba(0, 8, 16, 0) 100%);
+    }
+    #fr-panel {
+      position: absolute;
+      left: 40px;
+      top: 236px;
+      width: 1000px;
+      height: 864px;
+      border-radius: 44px;
+      background: rgba(6, 22, 38, 0.86);
+      border: 2.5px solid rgba(30, 200, 181, 0.35);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    #fr-chip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 209px;
+      text-align: center;
+    }
+    #fr-chip span {
+      display: inline-block;
+      padding: 0 30px;
+      height: 54px;
+      line-height: 54px;
+      border-radius: 27px;
+      background: #1ec8b5;
+      color: #04222b;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: 3px;
+    }
+  </style>
+  <div id="root" data-composition-id="frame" data-width="1080" data-height="1920">
+    <div id="fr-scrim"></div>
+    <div id="fr-panel"></div>
+    <div id="fr-chip"><span>PROBIOTICS</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // on screen from frame 0 (the thumbnail); a slow edge glow keeps the panel alive
+    tl.fromTo("#fr-panel", { borderColor: "rgba(30,200,181,0.25)" }, { borderColor: "rgba(30,200,181,0.6)", duration: 6, ease: "sine.inOut", yoyo: true, repeat: 8 }, 0);
+    tl.to(["#fr-scrim", "#fr-panel", "#fr-chip"], { opacity: 0, duration: 0.3, ease: "power2.in" }, 54.55);
+    window.__timelines["frame"] = tl;
+  </script>
+</template>

@@ -1,0 +1,113 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+      color: #fff;
+    }
+    #df-title {
+      position: absolute;
+      left: 60px;
+      top: 290px;
+      width: 960px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 76px;
+      letter-spacing: -0.02em;
+    }
+    #df-title em {
+      font-style: normal;
+      color: #8af5e8;
+    }
+    .df-row {
+      position: absolute;
+      left: 90px;
+      width: 900px;
+      height: 150px;
+    }
+    .df-op {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 80px;
+      height: 150px;
+      line-height: 150px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 80px;
+      color: #1ec8b5;
+    }
+    .df-bar {
+      position: absolute;
+      left: 100px;
+      top: 0;
+      width: 800px;
+      height: 150px;
+      border-radius: 75px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 2.5px solid rgba(138, 245, 232, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding-left: 26px;
+    }
+    .df-bar svg {
+      flex: 0 0 100px;
+      width: 100px;
+      height: 100px;
+    }
+    .df-bar div {
+      font-weight: 700;
+      font-size: 50px;
+    }
+    #df-r1 { top: 450px; }
+    #df-r2 { top: 630px; }
+    #df-r3 { top: 810px; }
+    #df-r3 .df-bar {
+      background: #1ec8b5;
+      border-color: #1ec8b5;
+      color: #04222b;
+    }
+  </style>
+  <div id="root" data-composition-id="define" data-width="1080" data-height="1920">
+    <div id="df-title">What are <em>probiotics?</em></div>
+
+    <div id="df-r1" class="df-row">
+      <div class="df-bar">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#5EE38A" /><rect x="22" y="38" width="56" height="24" rx="12" fill="#063A20" /><path d="M78 50 q10 -6 14 4" stroke="#063A20" stroke-width="4" fill="none" stroke-linecap="round" /></svg>
+        <div>Live micro&shy;organisms</div>
+      </div>
+    </div>
+    <div id="df-r2" class="df-row">
+      <div class="df-op">+</div>
+      <div class="df-bar">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#FFD23F" /><path d="M30 34 h40 l-5 40 h-30 Z" fill="#2A1A00" /><path d="M34 50 h32" stroke="#FFD23F" stroke-width="5" /></svg>
+        <div>In adequate amounts</div>
+      </div>
+    </div>
+    <div id="df-r3" class="df-row">
+      <div class="df-op">=</div>
+      <div class="df-bar">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#04222B" /><path d="M50 76 C20 56 22 30 38 28 C45 27 49 32 50 36 C51 32 55 27 62 28 C78 30 80 56 50 76 Z" fill="#FF5E62" /></svg>
+        <div>A benefit to health</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // scene clock: 0 = 16.9 s in the talk
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#df-title", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 0.15); // "so what are probiotics" 17.08
+    [["#df-r1", 2.5], ["#df-r2", 4.75], ["#df-r3", 6.3]].forEach(([id, at]) => { // live 19.44, taken 21.66, beneficial 23.26
+      tl.fromTo(`${id} .df-bar`, { opacity: 0, scaleX: 0.6, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.4, ease: "power3.out" }, at);
+      tl.fromTo(`${id} .df-bar div`, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, at + 0.15);
+      tl.fromTo(`${id} .df-bar svg`, { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, at + 0.05);
+    });
+    tl.fromTo("#df-r2 .df-op", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 4.65);
+    tl.fromTo("#df-r3 .df-op", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 6.2);
+    tl.fromTo("#df-r3 .df-bar svg path", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.15, duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1 }, 7.0);
+    tl.to("#root > *", { opacity: 0, duration: 0.3, ease: "power2.in" }, 7.75);
+    window.__timelines["define"] = tl;
+  </script>
+</template>

@@ -1,0 +1,127 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+      color: #fff;
+    }
+    #mg-remember {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 300px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 34px;
+      letter-spacing: 6px;
+      color: #8af5e8;
+    }
+    #mg-pill {
+      position: absolute;
+      left: 290px;
+      top: 360px;
+      width: 500px;
+      height: 400px;
+    }
+    #mg-not {
+      position: absolute;
+      left: 60px;
+      top: 800px;
+      width: 960px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 96px;
+      letter-spacing: -0.03em;
+    }
+    #mg-not span {
+      color: #ff5e62;
+    }
+    .mg-chip {
+      position: absolute;
+      left: 140px;
+      width: 800px;
+      height: 150px;
+      border-radius: 75px;
+      line-height: 150px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 64px;
+      letter-spacing: -0.01em;
+    }
+    #mg-c1 {
+      top: 330px;
+      background: #1ec8b5;
+      color: #04222b;
+    }
+    #mg-c2 {
+      top: 560px;
+      background: #ffd23f;
+      color: #2a1a00;
+    }
+    #mg-plus {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 478px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 72px;
+      line-height: 80px;
+      color: #fff;
+    }
+    #mg-diff {
+      position: absolute;
+      left: 60px;
+      top: 790px;
+      width: 960px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 74px;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+  </style>
+  <div id="root" data-composition-id="magic" data-width="1080" data-height="1920">
+    <div id="mg-remember">REMEMBER</div>
+    <svg id="mg-pill" viewBox="0 0 500 400">
+      <g transform="rotate(-28 250 200)">
+        <rect x="110" y="150" width="280" height="110" rx="55" fill="#E9F6F4" />
+        <path d="M250 150 H165 a55 55 0 0 0 0 110 H250 Z" fill="#B48CFF" />
+      </g>
+      <g id="mg-spark" fill="#FFD23F">
+        <path d="M90 90 l10 28 28 10 -28 10 -10 28 -10 -28 -28 -10 28 -10 Z" />
+        <path d="M410 70 l7 20 20 7 -20 7 -7 20 -7 -20 -20 -7 20 -7 Z" />
+        <path d="M400 290 l9 24 24 9 -24 9 -9 24 -9 -24 -24 -9 24 -9 Z" />
+        <path d="M120 300 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6 Z" />
+      </g>
+      <g id="mg-x" stroke="#FF5E62" stroke-width="26" stroke-linecap="round">
+        <path id="mg-x1" d="M120 70 L380 330" />
+        <path id="mg-x2" d="M380 70 L120 330" />
+      </g>
+    </svg>
+    <div id="mg-not">Not <span>magic</span> pills</div>
+
+    <div id="mg-c1" class="mg-chip">Right probiotic</div>
+    <div id="mg-plus">+</div>
+    <div id="mg-c2" class="mg-chip">Right condition</div>
+    <div id="mg-diff">makes all the difference</div>
+  </div>
+  <script>
+    // scene clock: 0 = 49.2 s in the talk
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#mg-remember", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 0.15); // 49.38
+    tl.fromTo("#mg-pill", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 0.6); // "probiotics" 49.90
+    tl.fromTo("#mg-spark path", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(3)", stagger: 0.06 }, 1.55); // "magic" 50.80
+    tl.fromTo("#mg-not", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 1.4); // "not" 50.64
+    tl.fromTo(["#mg-x1", "#mg-x2"], { strokeDasharray: 370, strokeDashoffset: 370 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out", stagger: 0.1 }, 1.9); // "pills" 51.14
+    tl.to(["#mg-remember", "#mg-pill", "#mg-not"], { opacity: 0, scale: 0.92, duration: 0.25, ease: "power2.in" }, 2.3);
+    tl.fromTo("#mg-c1", { opacity: 0, x: -260 }, { opacity: 1, x: 0, duration: 0.4, ease: "power4.out" }, 2.55); // "right probiotic" 51.78
+    tl.fromTo("#mg-plus", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 3.3);
+    tl.fromTo("#mg-c2", { opacity: 0, x: 260 }, { opacity: 1, x: 0, duration: 0.4, ease: "power4.out" }, 3.5); // "right condition" 52.72
+    tl.fromTo("#mg-diff", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, 4.0); // "makes all the difference" 53.20
+    tl.to("#root > *", { opacity: 0, duration: 0.25, ease: "power2.in" }, 5.4);
+    window.__timelines["magic"] = tl;
+  </script>
+</template>

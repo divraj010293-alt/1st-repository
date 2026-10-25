@@ -1,0 +1,152 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+      color: #fff;
+    }
+    #gt-title {
+      position: absolute;
+      left: 60px;
+      top: 290px;
+      width: 960px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 76px;
+      letter-spacing: -0.02em;
+    }
+    #gt-dish {
+      position: absolute;
+      left: 90px;
+      top: 440px;
+      width: 420px;
+      height: 420px;
+    }
+    .gt-txt {
+      position: absolute;
+      left: 560px;
+      width: 440px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+    #gt-micro {
+      top: 520px;
+      font-size: 56px;
+      line-height: 1.1;
+    }
+    #gt-incl {
+      top: 670px;
+      font-weight: 400;
+      font-size: 38px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    #gt-good {
+      top: 590px;
+      font-size: 72px;
+      line-height: 1.05;
+      color: #5ee38a;
+    }
+    #gt-dishlabel {
+      position: absolute;
+      left: 90px;
+      top: 890px;
+      width: 420px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 34px;
+      color: #5ee38a;
+    }
+    .gt-row {
+      position: absolute;
+      left: 540px;
+      width: 470px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .gt-row svg {
+      flex: 0 0 96px;
+      width: 96px;
+      height: 96px;
+    }
+    .gt-row div {
+      font-weight: 700;
+      font-size: 42px;
+      line-height: 1.12;
+    }
+    #gt-r1 { top: 440px; }
+    #gt-r2 { top: 600px; }
+    #gt-r3 { top: 760px; }
+  </style>
+  <div id="root" data-composition-id="gut" data-width="1080" data-height="1920">
+    <div id="gt-title">Inside your gut</div>
+
+    <svg id="gt-dish" viewBox="0 0 420 420">
+      <circle cx="210" cy="210" r="196" fill="rgba(30,200,181,0.10)" stroke="#1EC8B5" stroke-width="6" />
+      <circle cx="210" cy="210" r="172" fill="none" stroke="rgba(30,200,181,0.25)" stroke-width="2" />
+      <!-- microbes: .gt-g turn green on "some of them are good" -->
+      <g fill="#cfe7ef">
+        <g class="gt-m gt-g"><rect x="120" y="110" width="70" height="26" rx="13" transform="rotate(20 155 123)" /></g>
+        <g class="gt-m"><circle cx="270" cy="105" r="16" /></g>
+        <g class="gt-m gt-g"><rect x="250" y="160" width="76" height="28" rx="14" transform="rotate(-35 288 174)" /></g>
+        <g class="gt-m gt-g"><circle cx="95" cy="200" r="20" /></g>
+        <g class="gt-m"><rect x="150" y="190" width="64" height="24" rx="12" transform="rotate(70 182 202)" /></g>
+        <g class="gt-m gt-g"><circle cx="230" cy="240" r="15" /></g>
+        <g class="gt-m gt-g"><rect x="290" y="235" width="72" height="26" rx="13" transform="rotate(10 326 248)" /></g>
+        <g class="gt-m"><circle cx="330" cy="310" r="13" /></g>
+        <g class="gt-m gt-g"><rect x="100" y="280" width="78" height="28" rx="14" transform="rotate(-20 139 294)" /></g>
+        <g class="gt-m gt-g"><circle cx="200" cy="330" r="18" /></g>
+        <g class="gt-m"><rect x="220" y="290" width="58" height="22" rx="11" transform="rotate(45 249 301)" /></g>
+        <g class="gt-m"><circle cx="150" cy="370" r="11" /></g>
+        <g class="gt-m gt-g"><circle cx="280" cy="370" r="14" /></g>
+        <g class="gt-m"><circle cx="190" cy="80" r="10" /></g>
+      </g>
+    </svg>
+    <div id="gt-dishlabel">Good bacteria</div>
+
+    <div id="gt-micro" class="gt-txt">Tiny micro&shy;organisms</div>
+    <div id="gt-incl" class="gt-txt">including bacteria</div>
+    <div id="gt-good" class="gt-txt">Some are good</div>
+
+    <div id="gt-r1" class="gt-row">
+      <svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="46" fill="#1EC8B5" /><path d="M22 46 h52 a26 26 0 0 1 -52 0 Z" fill="#04222B" /><path d="M36 36 q4 -8 0 -16 M48 36 q4 -8 0 -16 M60 36 q4 -8 0 -16" stroke="#04222B" stroke-width="4" fill="none" stroke-linecap="round" /></svg>
+      <div>Digest food</div>
+    </div>
+    <div id="gt-r2" class="gt-row">
+      <svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="46" fill="#1EC8B5" /><path d="M48 20 L70 28 V48 C70 62 60 72 48 77 C36 72 26 62 26 48 V28 Z" fill="#04222B" /></svg>
+      <div>Protect the gut lining</div>
+    </div>
+    <div id="gt-r3" class="gt-row">
+      <svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="46" fill="#1EC8B5" /><rect x="26" y="38" width="44" height="20" rx="10" fill="#04222B" /><path d="M20 20 L76 76" stroke="#FF5E62" stroke-width="7" stroke-linecap="round" /></svg>
+      <div>Keep harmful bacteria in check</div>
+    </div>
+  </div>
+  <script>
+    // scene clock: 0 = 6.6 s in the talk
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#gt-title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.2);
+    tl.fromTo("#gt-dish", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 0.45);
+    // "microorganisms" 8.26
+    tl.fromTo(".gt-m", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(2.5)", stagger: 0.05 }, 1.6);
+    tl.fromTo(".gt-m", { x: 0 }, { x: 6, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 6, stagger: 0.1 }, 2.3);
+    tl.fromTo("#gt-micro", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, 1.6);
+    tl.fromTo("#gt-incl", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.6); // "including the bacteria"
+    // "some of them are good" 10.6
+    tl.to(["#gt-micro", "#gt-incl"], { opacity: 0, duration: 0.25, ease: "power2.in" }, 3.9);
+    tl.fromTo("#gt-good", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 4.0);
+    tl.to(".gt-g", { fill: "#5EE38A", duration: 0.35, stagger: 0.04 }, 4.0);
+    tl.to(".gt-m:not(.gt-g)", { opacity: 0.3, duration: 0.35 }, 4.0);
+    tl.fromTo("#gt-dishlabel", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 4.3);
+    // "they are good because..." 11.76: the benefits replace the label
+    tl.to("#gt-good", { opacity: 0, x: 30, duration: 0.25, ease: "power2.in" }, 5.6);
+    [["#gt-r1", 6.3], ["#gt-r2", 7.1], ["#gt-r3", 8.45]].forEach(([id, at]) => { // digest 12.96, protect 13.74, keep 15.10
+      tl.fromTo(id, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, at);
+      tl.fromTo(`${id} svg`, { scale: 0.4, rotation: -20 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, at);
+    });
+    tl.to("#root > *", { opacity: 0, duration: 0.3, ease: "power2.in" }, 10.15);
+    window.__timelines["gut"] = tl;
+  </script>
+</template>

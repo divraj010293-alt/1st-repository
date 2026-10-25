@@ -1,0 +1,101 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    #ec-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #04121f 0%, #062033 55%, #04121f 100%);
+    }
+    #ec-pill {
+      position: absolute;
+      left: 390px;
+      top: 470px;
+      width: 300px;
+      height: 240px;
+    }
+    .ec-line {
+      position: absolute;
+      left: 60px;
+      width: 960px;
+    }
+    #ec-name { top: 760px; font-weight: 900; font-size: 84px; letter-spacing: -0.02em; }
+    #ec-role { top: 870px; font-weight: 400; font-size: 46px; color: #8af5e8; }
+    #ec-bar {
+      position: absolute;
+      left: 460px;
+      top: 950px;
+      width: 160px;
+      height: 6px;
+      background: #1ec8b5;
+    }
+    #ec-follow { top: 1000px; font-weight: 700; font-size: 42px; line-height: 1.25; }
+    #ec-btns {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1140px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .ec-btn {
+      width: 250px;
+      height: 80px;
+      line-height: 76px;
+      border-radius: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      font-weight: 700;
+      font-size: 36px;
+    }
+    #ec-b1 {
+      background: #1ec8b5;
+      border-color: #1ec8b5;
+      color: #04222b;
+      font-weight: 900;
+    }
+    #ec-disc { top: 1300px; font-weight: 400; font-size: 30px; line-height: 1.5; color: rgba(255, 255, 255, 0.72); }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1080" data-height="1920">
+    <div id="ec-bg"></div>
+    <svg id="ec-pill" viewBox="0 0 300 240">
+      <g transform="rotate(-25 150 120)">
+        <rect x="30" y="80" width="240" height="90" rx="45" fill="#E9F6F4" />
+        <path d="M150 80 H75 a45 45 0 0 0 0 90 H150 Z" fill="#1EC8B5" />
+      </g>
+    </svg>
+    <div id="ec-name" class="ec-line">Dr Dheeraj Mahar</div>
+    <div id="ec-role" class="ec-line">DrNB Gastroenterology</div>
+    <div id="ec-bar"></div>
+    <div id="ec-follow" class="ec-line">Follow for more evidence-based<br />gastroenterology insights</div>
+    <div id="ec-btns">
+      <div id="ec-b1" class="ec-btn">Follow</div>
+      <div id="ec-b2" class="ec-btn">Save</div>
+      <div id="ec-b3" class="ec-btn">Share</div>
+    </div>
+    <div id="ec-disc" class="ec-line">For educational purposes only.<br />Please consult your doctor for medical advice.</div>
+  </div>
+  <script>
+    // scene clock: 0 = 54.9 s, as he says "follow for more..."
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ec-bg", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 0);
+    tl.fromTo("#ec-pill", { opacity: 0, scale: 0.5, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2)" }, 0.2);
+    [["#ec-name", 0.35], ["#ec-role", 0.5], ["#ec-follow", 0.8]].forEach(([id, at]) => {
+      tl.fromTo(id, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at);
+    });
+    tl.fromTo("#ec-bar", { scaleX: 0, transformOrigin: "50% 50%" }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 0.65);
+    ["#ec-b1", "#ec-b2", "#ec-b3"].forEach((id, i) => {
+      tl.fromTo(id, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)" }, 1.05 + i * 0.15);
+    });
+    tl.to("#ec-b1", { scale: 1.08, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3 }, 2.2);
+    tl.fromTo("#ec-disc", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.6);
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>
