@@ -622,6 +622,36 @@ function sceneSymptoms(t, a) {
   });
 }
 
+function sceneHCC(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const T = Q.hcc;
+    rise(t, T, () => chip('EK AUR ZAROORI BAAT', 540, 330, 1, { bg: C.amber, fg: '#2A1A00', s: 26 }), .35, 20);
+    rise(t, T + 0.15, () => {
+      text('Liver cancer (HCC)', 540, 455, { w: 900, s: 76, align: 'center', maxW: 960 });
+      text('surveillance', 540, 540, { w: 900, s: 76, color: C.tealL, align: 'center' });
+    });
+    rise(t, T + 0.4, () => {
+      liver(540, 700, 0.5);
+      // ultrasound scan sweep across the liver
+      ctx.save(); liverPath(540, 700, 0.5); ctx.clip();
+      const sx = 540 + 170 * Math.sin((t - T) * 2.6);
+      const g = ctx.createLinearGradient(sx - 40, 0, sx + 40, 0);
+      g.addColorStop(0, 'rgba(138,245,232,0)'); g.addColorStop(.5, 'rgba(138,245,232,0.7)'); g.addColorStop(1, 'rgba(138,245,232,0)');
+      ctx.fillStyle = g; ctx.fillRect(sx - 40, 580, 80, 240); ctx.restore();
+    });
+    rise(t, T + 0.8, () => {
+      card(60, 840, 960, 300, { edge: C.tealL, lw: 3 });
+      iconCalendar(155, 925, 100, '6M');
+      text('Ultrasound', 240, 912, { w: 900, s: 50 });
+      text('har 6 mahine', 240 + measure('Ultrasound ', 900, 50), 912, { w: 900, s: 50, color: C.yellow, maxW: 420 });
+      text('Cirrhosis ya high-risk', 240, 980, { w: 700, s: 40, color: C.muted, maxW: 740 });
+      text('patients mein', 240, 1030, { w: 700, s: 40, color: C.muted });
+      text('Doctor aapke risk ke hisaab se decide karenge', 540, 1105, { w: 500, s: 30, color: C.muted, align: 'center', maxW: 900 });
+    }, .45, 30);
+  });
+}
+
 function lowerThird(t) {
   const a = env(t, 0.8, 6.5, .5, .4);
   if (a <= 0) return;
@@ -710,7 +740,8 @@ function draw(t) {
   sceneReport(t, env(t, Q.oneReport - 0.1, Q.easl + 0.05, .3, .3));
   sceneGuidelines(t, env(t, Q.easl - 0.15, Q.yaad + 0.05, .3, .3));
   sceneRemember(t, env(t, Q.yaad - 0.15, Q.symptoms + 0.05, .3, .3));
-  sceneSymptoms(t, env(t, Q.symptoms - 0.15, Q.outro + 0.3, .3, .3));
+  sceneSymptoms(t, env(t, Q.symptoms - 0.15, Q.hcc + 0.1, .3, .3));
+  sceneHCC(t, env(t, Q.hcc - 0.1, Q.outro + 0.3, .3, .3));
 
   lowerThird(t);
   captions(t);

@@ -12,8 +12,9 @@ SRC_DURATION = 98.70
 # Long pause before "aaj treatment..." tightened; cut sits on frame boundaries.
 CUTS = [(2301 / FPS, 2315 / FPS)]
 CONCLUSION = 2.6  # on-screen finish of the cut-off last sentence
+HCC_CARD = 3.4  # on-screen only: liver cancer surveillance note (not in the voiceover)
 END_CARD = 3.4
-OUTRO_HOLD = CONCLUSION + END_CARD
+OUTRO_HOLD = CONCLUSION + HCC_CARD + END_CARD
 
 
 def remap(t):
@@ -190,7 +191,8 @@ SRC_CUES = {
 cues = {k: round(remap(v), 3) for k, v in SRC_CUES.items()}
 end_speech = remap(SRC_DURATION)
 cues["conclusion"] = round(end_speech, 3)
-cues["outro"] = round(end_speech + CONCLUSION, 3)
+cues["hcc"] = round(end_speech + CONCLUSION, 3)
+cues["outro"] = round(end_speech + CONCLUSION + HCC_CARD, 3)
 DURATION = round(round((end_speech + OUTRO_HOLD) * FPS) / FPS, 3)
 
 # Slow Ken Burns drift on the static background: (t, zoom, dx, dy) keyframes, eased between.

@@ -258,6 +258,13 @@ place(Q["conclusion"] - 0.7, riser(0.7), -12)
 place(Q["conclusion"] + 0.25, impact(), -5)
 place(Q["conclusion"] + 0.35, chime(), -8)
 place(Q["conclusion"] + 0.8, tick(), -9)
+place(Q["hcc"] - 0.15, whoosh(0.5), -8)
+place(Q["hcc"] + 0.05, alert(), -9)
+place(Q["hcc"] + 0.4, pop(), -8)
+for k in range(4):
+    place(Q["hcc"] + 0.6 + k * 0.38, blip(1700, 0.035), -18)
+place(Q["hcc"] + 0.8, pop(), -7)
+place(Q["hcc"] + 1.1, tick(), -9)
 place(Q["outro"] - 0.1, whoosh(0.6), -8)
 place(Q["outro"] + 0.1, chime(), -9)
 for k in range(3):
