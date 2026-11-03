@@ -1,0 +1,1994 @@
+{
+ "fps": 30,
+ "mode": "draft",
+ "duration": 118.967,
+ "speechEnd": 114.66,
+ "captions": [
+  {
+   "start": 0.3,
+   "end": 1.25,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": true,
+     "s": 0.3
+    },
+    {
+     "w": "Glycinate:",
+     "hi": true,
+     "s": 0.587
+    }
+   ]
+  },
+  {
+   "start": 1.25,
+   "end": 4.2,
+   "words": [
+    {
+     "w": "kya",
+     "hi": false,
+     "s": 1.25
+    },
+    {
+     "w": "sach",
+     "hi": false,
+     "s": 1.521
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 1.846
+    },
+    {
+     "w": "natural",
+     "hi": true,
+     "s": 2.171
+    },
+    {
+     "w": "sleeping",
+     "hi": true,
+     "s": 2.658
+    },
+    {
+     "w": "pill",
+     "hi": true,
+     "s": 3.2
+    },
+    {
+     "w": "hai?",
+     "hi": false,
+     "s": 3.525
+    }
+   ]
+  },
+  {
+   "start": 4.2,
+   "end": 5.48,
+   "words": [
+    {
+     "w": "Aajkal",
+     "hi": false,
+     "s": 4.2
+    },
+    {
+     "w": "neend",
+     "hi": true,
+     "s": 4.569
+    },
+    {
+     "w": "na",
+     "hi": false,
+     "s": 4.892
+    },
+    {
+     "w": "aaye,",
+     "hi": false,
+     "s": 5.077
+    }
+   ]
+  },
+  {
+   "start": 5.48,
+   "end": 6.46,
+   "words": [
+    {
+     "w": "toh",
+     "hi": false,
+     "s": 5.48
+    },
+    {
+     "w": "log",
+     "hi": false,
+     "s": 5.73
+    },
+    {
+     "w": "turant",
+     "hi": false,
+     "s": 5.98
+    }
+   ]
+  },
+  {
+   "start": 6.46,
+   "end": 7.74,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": true,
+     "s": 6.46
+    },
+    {
+     "w": "tablets",
+     "hi": true,
+     "s": 6.873
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 7.21
+    },
+    {
+     "w": "salaah",
+     "hi": false,
+     "s": 7.36
+    }
+   ]
+  },
+  {
+   "start": 7.74,
+   "end": 9.49,
+   "words": [
+    {
+     "w": "dene",
+     "hi": false,
+     "s": 7.74
+    },
+    {
+     "w": "lagte",
+     "hi": false,
+     "s": 8.16
+    },
+    {
+     "w": "hain.",
+     "hi": false,
+     "s": 8.65
+    }
+   ]
+  },
+  {
+   "start": 9.49,
+   "end": 10.47,
+   "words": [
+    {
+     "w": "Lekin",
+     "hi": false,
+     "s": 9.49
+    },
+    {
+     "w": "scientific",
+     "hi": true,
+     "s": 9.707
+    },
+    {
+     "w": "evidence",
+     "hi": true,
+     "s": 10.08
+    }
+   ]
+  },
+  {
+   "start": 10.47,
+   "end": 12.22,
+   "words": [
+    {
+     "w": "kya",
+     "hi": false,
+     "s": 10.47
+    },
+    {
+     "w": "kehta",
+     "hi": false,
+     "s": 10.859
+    },
+    {
+     "w": "hai?",
+     "hi": false,
+     "s": 11.403
+    }
+   ]
+  },
+  {
+   "start": 12.22,
+   "end": 13.5,
+   "words": [
+    {
+     "w": "3",
+     "hi": true,
+     "s": 12.22
+    },
+    {
+     "w": "badi",
+     "hi": false,
+     "s": 12.384
+    },
+    {
+     "w": "studies",
+     "hi": true,
+     "s": 12.711
+    },
+    {
+     "w": "ne",
+     "hi": false,
+     "s": 13.202
+    }
+   ]
+  },
+  {
+   "start": 13.5,
+   "end": 15.25,
+   "words": [
+    {
+     "w": "kya",
+     "hi": false,
+     "s": 13.5
+    },
+    {
+     "w": "paaya,",
+     "hi": false,
+     "s": 13.804
+    },
+    {
+     "w": "dekhiye.",
+     "hi": false,
+     "s": 14.291
+    }
+   ]
+  },
+  {
+   "start": 15.25,
+   "end": 16.53,
+   "words": [
+    {
+     "w": "2021",
+     "hi": true,
+     "s": 15.25
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 15.475
+    },
+    {
+     "w": "BMC",
+     "hi": true,
+     "s": 15.7
+    },
+    {
+     "w": "Complementary",
+     "hi": false,
+     "s": 15.888
+    }
+   ]
+  },
+  {
+   "start": 16.53,
+   "end": 17.81,
+   "words": [
+    {
+     "w": "Medicine",
+     "hi": false,
+     "s": 16.53
+    },
+    {
+     "w": "and",
+     "hi": false,
+     "s": 16.905
+    },
+    {
+     "w": "Therapies",
+     "hi": false,
+     "s": 17.093
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 17.505
+    }
+   ]
+  },
+  {
+   "start": 17.81,
+   "end": 18.79,
+   "words": [
+    {
+     "w": "ek",
+     "hi": false,
+     "s": 17.81
+    },
+    {
+     "w": "systematic",
+     "hi": true,
+     "s": 17.96
+    },
+    {
+     "w": "review",
+     "hi": true,
+     "s": 18.41
+    }
+   ]
+  },
+  {
+   "start": 18.79,
+   "end": 20.84,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 18.79
+    },
+    {
+     "w": "meta-analysis",
+     "hi": true,
+     "s": 19.02
+    },
+    {
+     "w": "prakashit",
+     "hi": false,
+     "s": 19.709
+    },
+    {
+     "w": "hua.",
+     "hi": false,
+     "s": 20.214
+    }
+   ]
+  },
+  {
+   "start": 20.84,
+   "end": 21.82,
+   "words": [
+    {
+     "w": "Ismein",
+     "hi": false,
+     "s": 20.84
+    },
+    {
+     "w": "3",
+     "hi": true,
+     "s": 21.153
+    },
+    {
+     "w": "randomized",
+     "hi": false,
+     "s": 21.27
+    }
+   ]
+  },
+  {
+   "start": 21.82,
+   "end": 22.5,
+   "words": [
+    {
+     "w": "controlled",
+     "hi": false,
+     "s": 21.82
+    },
+    {
+     "w": "trials",
+     "hi": false,
+     "s": 22.18
+    }
+   ]
+  },
+  {
+   "start": 22.5,
+   "end": 24.08,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 22.5
+    },
+    {
+     "w": "kul",
+     "hi": false,
+     "s": 22.703
+    },
+    {
+     "w": "151",
+     "hi": true,
+     "s": 22.905
+    },
+    {
+     "w": "buzurg",
+     "hi": false,
+     "s": 23.108
+    },
+    {
+     "w": "participants",
+     "hi": false,
+     "s": 23.432
+    }
+   ]
+  },
+  {
+   "start": 24.08,
+   "end": 25.53,
+   "words": [
+    {
+     "w": "shaamil",
+     "hi": false,
+     "s": 24.08
+    },
+    {
+     "w": "the.",
+     "hi": false,
+     "s": 24.74
+    }
+   ]
+  },
+  {
+   "start": 25.53,
+   "end": 26.51,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": false,
+     "s": 25.53
+    },
+    {
+     "w": "lene",
+     "hi": false,
+     "s": 25.98
+    },
+    {
+     "w": "se,",
+     "hi": false,
+     "s": 26.225
+    }
+   ]
+  },
+  {
+   "start": 26.51,
+   "end": 27.79,
+   "words": [
+    {
+     "w": "placebo",
+     "hi": true,
+     "s": 26.51
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 26.91
+    },
+    {
+     "w": "tulna",
+     "hi": false,
+     "s": 27.088
+    },
+    {
+     "w": "mein,",
+     "hi": false,
+     "s": 27.399
+    }
+   ]
+  },
+  {
+   "start": 27.79,
+   "end": 29.37,
+   "words": [
+    {
+     "w": "sone",
+     "hi": false,
+     "s": 27.79
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 28.071
+    },
+    {
+     "w": "lagne",
+     "hi": false,
+     "s": 28.352
+    },
+    {
+     "w": "wala",
+     "hi": false,
+     "s": 28.681
+    },
+    {
+     "w": "samay",
+     "hi": false,
+     "s": 28.962
+    }
+   ]
+  },
+  {
+   "start": 29.37,
+   "end": 31.72,
+   "words": [
+    {
+     "w": "lagbhag",
+     "hi": false,
+     "s": 29.37
+    },
+    {
+     "w": "17",
+     "hi": true,
+     "s": 29.933
+    },
+    {
+     "w": "minute",
+     "hi": true,
+     "s": 30.183
+    },
+    {
+     "w": "kam",
+     "hi": false,
+     "s": 30.683
+    },
+    {
+     "w": "hua.",
+     "hi": false,
+     "s": 30.995
+    }
+   ]
+  },
+  {
+   "start": 31.72,
+   "end": 33.3,
+   "words": [
+    {
+     "w": "Lekin",
+     "hi": false,
+     "s": 31.72
+    },
+    {
+     "w": "total",
+     "hi": true,
+     "s": 32.038
+    },
+    {
+     "w": "sleep",
+     "hi": true,
+     "s": 32.356
+    },
+    {
+     "w": "time",
+     "hi": true,
+     "s": 32.675
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 32.947
+    }
+   ]
+  },
+  {
+   "start": 33.3,
+   "end": 35.65,
+   "words": [
+    {
+     "w": "koi",
+     "hi": false,
+     "s": 33.3
+    },
+    {
+     "w": "significant",
+     "hi": false,
+     "s": 33.57
+    },
+    {
+     "w": "farak",
+     "hi": true,
+     "s": 34.273
+    },
+    {
+     "w": "nahi",
+     "hi": true,
+     "s": 34.651
+    },
+    {
+     "w": "tha.",
+     "hi": false,
+     "s": 34.976
+    }
+   ]
+  },
+  {
+   "start": 35.65,
+   "end": 36.93,
+   "words": [
+    {
+     "w": "Aur",
+     "hi": false,
+     "s": 35.65
+    },
+    {
+     "w": "in",
+     "hi": false,
+     "s": 35.9
+    },
+    {
+     "w": "studies",
+     "hi": false,
+     "s": 36.1
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 36.55
+    }
+   ]
+  },
+  {
+   "start": 36.93,
+   "end": 37.91,
+   "words": [
+    {
+     "w": "evidence",
+     "hi": false,
+     "s": 36.93
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 37.321
+    },
+    {
+     "w": "quality",
+     "hi": true,
+     "s": 37.478
+    }
+   ]
+  },
+  {
+   "start": 37.91,
+   "end": 40.26,
+   "words": [
+    {
+     "w": "low",
+     "hi": true,
+     "s": 37.91
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 38.295
+    },
+    {
+     "w": "very",
+     "hi": true,
+     "s": 38.602
+    },
+    {
+     "w": "low",
+     "hi": true,
+     "s": 39.064
+    },
+    {
+     "w": "thi.",
+     "hi": false,
+     "s": 39.448
+    }
+   ]
+  },
+  {
+   "start": 40.26,
+   "end": 41.54,
+   "words": [
+    {
+     "w": "2025",
+     "hi": true,
+     "s": 40.26
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 40.517
+    },
+    {
+     "w": "ek",
+     "hi": false,
+     "s": 40.774
+    },
+    {
+     "w": "randomized",
+     "hi": false,
+     "s": 40.946
+    }
+   ]
+  },
+  {
+   "start": 41.54,
+   "end": 43.02,
+   "words": [
+    {
+     "w": "placebo-controlled",
+     "hi": false,
+     "s": 41.54
+    },
+    {
+     "w": "trial",
+     "hi": true,
+     "s": 42.364
+    },
+    {
+     "w": "aaya,",
+     "hi": false,
+     "s": 42.652
+    }
+   ]
+  },
+  {
+   "start": 43.02,
+   "end": 44.3,
+   "words": [
+    {
+     "w": "jismein",
+     "hi": false,
+     "s": 43.02
+    },
+    {
+     "w": "kharab",
+     "hi": false,
+     "s": 43.38
+    },
+    {
+     "w": "neend",
+     "hi": false,
+     "s": 43.7
+    },
+    {
+     "w": "wale",
+     "hi": false,
+     "s": 43.98
+    }
+   ]
+  },
+  {
+   "start": 44.3,
+   "end": 46.65,
+   "words": [
+    {
+     "w": "155",
+     "hi": true,
+     "s": 44.3
+    },
+    {
+     "w": "healthy",
+     "hi": false,
+     "s": 44.57
+    },
+    {
+     "w": "adults",
+     "hi": false,
+     "s": 45.057
+    },
+    {
+     "w": "shaamil",
+     "hi": false,
+     "s": 45.489
+    },
+    {
+     "w": "the.",
+     "hi": false,
+     "s": 45.976
+    }
+   ]
+  },
+  {
+   "start": 46.65,
+   "end": 47.93,
+   "words": [
+    {
+     "w": "4",
+     "hi": true,
+     "s": 46.65
+    },
+    {
+     "w": "hafte",
+     "hi": false,
+     "s": 46.83
+    },
+    {
+     "w": "tak",
+     "hi": false,
+     "s": 47.25
+    },
+    {
+     "w": "roz",
+     "hi": false,
+     "s": 47.55
+    }
+   ]
+  },
+  {
+   "start": 47.93,
+   "end": 48.61,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": true,
+     "s": 47.93
+    },
+    {
+     "w": "Bisglycinate,",
+     "hi": true,
+     "s": 48.184
+    }
+   ]
+  },
+  {
+   "start": 48.61,
+   "end": 49.89,
+   "words": [
+    {
+     "w": "250",
+     "hi": true,
+     "s": 48.61
+    },
+    {
+     "w": "mg",
+     "hi": false,
+     "s": 48.797
+    },
+    {
+     "w": "elemental",
+     "hi": false,
+     "s": 48.947
+    },
+    {
+     "w": "magnesium,",
+     "hi": false,
+     "s": 49.36
+    }
+   ]
+  },
+  {
+   "start": 49.89,
+   "end": 51.07,
+   "words": [
+    {
+     "w": "dene",
+     "hi": false,
+     "s": 49.89
+    },
+    {
+     "w": "par",
+     "hi": false,
+     "s": 50.49
+    }
+   ]
+  },
+  {
+   "start": 51.07,
+   "end": 52.05,
+   "words": [
+    {
+     "w": "insomnia",
+     "hi": false,
+     "s": 51.07
+    },
+    {
+     "w": "severity",
+     "hi": false,
+     "s": 51.416
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 51.762
+    }
+   ]
+  },
+  {
+   "start": 52.05,
+   "end": 53.33,
+   "words": [
+    {
+     "w": "placebo",
+     "hi": false,
+     "s": 52.05
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 52.45
+    },
+    {
+     "w": "thoda",
+     "hi": true,
+     "s": 52.628
+    },
+    {
+     "w": "zyada",
+     "hi": false,
+     "s": 52.939
+    }
+   ]
+  },
+  {
+   "start": 53.33,
+   "end": 54.78,
+   "words": [
+    {
+     "w": "sudhaar",
+     "hi": false,
+     "s": 53.33
+    },
+    {
+     "w": "hua.",
+     "hi": false,
+     "s": 53.99
+    }
+   ]
+  },
+  {
+   "start": 54.78,
+   "end": 55.76,
+   "words": [
+    {
+     "w": "Lekin",
+     "hi": false,
+     "s": 54.78
+    },
+    {
+     "w": "effect",
+     "hi": false,
+     "s": 55.08
+    },
+    {
+     "w": "size",
+     "hi": false,
+     "s": 55.423
+    }
+   ]
+  },
+  {
+   "start": 55.76,
+   "end": 57.51,
+   "words": [
+    {
+     "w": "bahut",
+     "hi": true,
+     "s": 55.76
+    },
+    {
+     "w": "chhota",
+     "hi": true,
+     "s": 56.227
+    },
+    {
+     "w": "tha.",
+     "hi": false,
+     "s": 56.76
+    }
+   ]
+  },
+  {
+   "start": 57.51,
+   "end": 58.79,
+   "words": [
+    {
+     "w": "Aur",
+     "hi": false,
+     "s": 57.51
+    },
+    {
+     "w": "2026",
+     "hi": true,
+     "s": 57.826
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 58.205
+    },
+    {
+     "w": "ek",
+     "hi": false,
+     "s": 58.457
+    }
+   ]
+  },
+  {
+   "start": 58.79,
+   "end": 59.77,
+   "words": [
+    {
+     "w": "systematic",
+     "hi": true,
+     "s": 58.79
+    },
+    {
+     "w": "review",
+     "hi": true,
+     "s": 59.24
+    },
+    {
+     "w": "ne",
+     "hi": false,
+     "s": 59.54
+    }
+   ]
+  },
+  {
+   "start": 59.77,
+   "end": 60.75,
+   "words": [
+    {
+     "w": "12",
+     "hi": true,
+     "s": 59.77
+    },
+    {
+     "w": "randomized",
+     "hi": false,
+     "s": 59.92
+    },
+    {
+     "w": "trials",
+     "hi": false,
+     "s": 60.37
+    }
+   ]
+  },
+  {
+   "start": 60.75,
+   "end": 62.5,
+   "words": [
+    {
+     "w": "ka",
+     "hi": false,
+     "s": 60.75
+    },
+    {
+     "w": "analysis",
+     "hi": false,
+     "s": 61.017
+    },
+    {
+     "w": "kiya.",
+     "hi": false,
+     "s": 61.683
+    }
+   ]
+  },
+  {
+   "start": 62.5,
+   "end": 63.15,
+   "words": [
+    {
+     "w": "Conclusion:",
+     "hi": false,
+     "s": 62.5
+    }
+   ]
+  },
+  {
+   "start": 63.15,
+   "end": 64.13,
+   "words": [
+    {
+     "w": "abhi",
+     "hi": false,
+     "s": 63.15
+    },
+    {
+     "w": "insomnia",
+     "hi": false,
+     "s": 63.42
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 63.87
+    }
+   ]
+  },
+  {
+   "start": 64.13,
+   "end": 65.41,
+   "words": [
+    {
+     "w": "routine",
+     "hi": true,
+     "s": 64.13
+    },
+    {
+     "w": "treatment",
+     "hi": false,
+     "s": 64.49
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 64.93
+    },
+    {
+     "w": "liye",
+     "hi": false,
+     "s": 65.09
+    }
+   ]
+  },
+  {
+   "start": 65.41,
+   "end": 67.29,
+   "words": [
+    {
+     "w": "magnesium",
+     "hi": false,
+     "s": 65.41
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 65.87
+    },
+    {
+     "w": "recommend",
+     "hi": false,
+     "s": 66.038
+    },
+    {
+     "w": "karne",
+     "hi": false,
+     "s": 66.498
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 66.791
+    },
+    {
+     "w": "liye",
+     "hi": false,
+     "s": 66.959
+    }
+   ]
+  },
+  {
+   "start": 67.29,
+   "end": 69.34,
+   "words": [
+    {
+     "w": "paryaapt",
+     "hi": true,
+     "s": 67.29
+    },
+    {
+     "w": "evidence",
+     "hi": true,
+     "s": 67.821
+    },
+    {
+     "w": "nahi",
+     "hi": true,
+     "s": 68.353
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 68.671
+    }
+   ]
+  },
+  {
+   "start": 69.34,
+   "end": 70.32,
+   "words": [
+    {
+     "w": "Toh",
+     "hi": false,
+     "s": 69.34
+    },
+    {
+     "w": "kya",
+     "hi": false,
+     "s": 69.554
+    },
+    {
+     "w": "Magnesium",
+     "hi": false,
+     "s": 69.769
+    }
+   ]
+  },
+  {
+   "start": 70.32,
+   "end": 71.87,
+   "words": [
+    {
+     "w": "bilkul",
+     "hi": true,
+     "s": 70.32
+    },
+    {
+     "w": "kaam",
+     "hi": false,
+     "s": 70.663
+    },
+    {
+     "w": "nahi",
+     "hi": false,
+     "s": 70.92
+    },
+    {
+     "w": "karta?",
+     "hi": false,
+     "s": 71.177
+    }
+   ]
+  },
+  {
+   "start": 71.87,
+   "end": 74.52,
+   "words": [
+    {
+     "w": "Aisa",
+     "hi": false,
+     "s": 71.87
+    },
+    {
+     "w": "kehna",
+     "hi": false,
+     "s": 72.243
+    },
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 72.678
+    },
+    {
+     "w": "sahi",
+     "hi": false,
+     "s": 72.989
+    },
+    {
+     "w": "nahi",
+     "hi": false,
+     "s": 73.362
+    },
+    {
+     "w": "hoga.",
+     "hi": false,
+     "s": 73.735
+    }
+   ]
+  },
+  {
+   "start": 74.52,
+   "end": 75.5,
+   "words": [
+    {
+     "w": "Kuch",
+     "hi": true,
+     "s": 74.52
+    },
+    {
+     "w": "logon",
+     "hi": false,
+     "s": 74.838
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 75.208
+    }
+   ]
+  },
+  {
+   "start": 75.5,
+   "end": 76.78,
+   "words": [
+    {
+     "w": "fayda",
+     "hi": false,
+     "s": 75.5
+    },
+    {
+     "w": "ho",
+     "hi": false,
+     "s": 75.85
+    },
+    {
+     "w": "sakta",
+     "hi": false,
+     "s": 76.05
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 76.4
+    }
+   ]
+  },
+  {
+   "start": 76.78,
+   "end": 78.36,
+   "words": [
+    {
+     "w": "lekin",
+     "hi": false,
+     "s": 76.78
+    },
+    {
+     "w": "har",
+     "hi": true,
+     "s": 77.155
+    },
+    {
+     "w": "us",
+     "hi": false,
+     "s": 77.423
+    },
+    {
+     "w": "vyakti",
+     "hi": false,
+     "s": 77.637
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 78.066
+    }
+   ]
+  },
+  {
+   "start": 78.36,
+   "end": 79.64,
+   "words": [
+    {
+     "w": "jise",
+     "hi": false,
+     "s": 78.36
+    },
+    {
+     "w": "neend",
+     "hi": false,
+     "s": 78.637
+    },
+    {
+     "w": "nahi",
+     "hi": false,
+     "s": 78.96
+    },
+    {
+     "w": "aati,",
+     "hi": false,
+     "s": 79.237
+    }
+   ]
+  },
+  {
+   "start": 79.64,
+   "end": 80.62,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": false,
+     "s": 79.64
+    },
+    {
+     "w": "tablets",
+     "hi": false,
+     "s": 80.053
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 80.39
+    }
+   ]
+  },
+  {
+   "start": 80.62,
+   "end": 82.37,
+   "words": [
+    {
+     "w": "zaroorat",
+     "hi": true,
+     "s": 80.62
+    },
+    {
+     "w": "nahi",
+     "hi": true,
+     "s": 81.256
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 81.638
+    }
+   ]
+  },
+  {
+   "start": 82.37,
+   "end": 83.95,
+   "words": [
+    {
+     "w": "Lambe",
+     "hi": false,
+     "s": 82.37
+    },
+    {
+     "w": "samay",
+     "hi": false,
+     "s": 82.698
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 83.026
+    },
+    {
+     "w": "insomnia",
+     "hi": false,
+     "s": 83.214
+    },
+    {
+     "w": "ka",
+     "hi": false,
+     "s": 83.683
+    }
+   ]
+  },
+  {
+   "start": 83.95,
+   "end": 84.63,
+   "words": [
+    {
+     "w": "first-line",
+     "hi": true,
+     "s": 83.95
+    },
+    {
+     "w": "treatment",
+     "hi": false,
+     "s": 84.263
+    }
+   ]
+  },
+  {
+   "start": 84.63,
+   "end": 86.98,
+   "words": [
+    {
+     "w": "CBT-I,",
+     "hi": true,
+     "s": 84.63
+    },
+    {
+     "w": "yaani",
+     "hi": false,
+     "s": 85.062
+    },
+    {
+     "w": "sleep",
+     "hi": true,
+     "s": 85.441
+    },
+    {
+     "w": "therapy",
+     "hi": true,
+     "s": 85.819
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 86.306
+    }
+   ]
+  },
+  {
+   "start": 86.98,
+   "end": 88.86,
+   "words": [
+    {
+     "w": "Aur",
+     "hi": false,
+     "s": 86.98
+    },
+    {
+     "w": "agar",
+     "hi": false,
+     "s": 87.253
+    },
+    {
+     "w": "3",
+     "hi": true,
+     "s": 87.58
+    },
+    {
+     "w": "mahine",
+     "hi": true,
+     "s": 87.744
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 88.18
+    },
+    {
+     "w": "zyada",
+     "hi": false,
+     "s": 88.398
+    }
+   ]
+  },
+  {
+   "start": 88.86,
+   "end": 90.14,
+   "words": [
+    {
+     "w": "neend",
+     "hi": false,
+     "s": 88.86
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 89.183
+    },
+    {
+     "w": "problem",
+     "hi": false,
+     "s": 89.368
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 89.783
+    }
+   ]
+  },
+  {
+   "start": 90.14,
+   "end": 92.19,
+   "words": [
+    {
+     "w": "toh",
+     "hi": false,
+     "s": 90.14
+    },
+    {
+     "w": "doctor",
+     "hi": true,
+     "s": 90.467
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 90.99
+    },
+    {
+     "w": "miliye.",
+     "hi": false,
+     "s": 91.252
+    }
+   ]
+  },
+  {
+   "start": 92.19,
+   "end": 92.87,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": false,
+     "s": 92.19
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 92.63
+    }
+   ]
+  },
+  {
+   "start": 92.87,
+   "end": 94.95,
+   "words": [
+    {
+     "w": "loose",
+     "hi": true,
+     "s": 92.87
+    },
+    {
+     "w": "motions",
+     "hi": true,
+     "s": 93.282
+    },
+    {
+     "w": "ho",
+     "hi": false,
+     "s": 93.811
+    },
+    {
+     "w": "sakte",
+     "hi": false,
+     "s": 94.046
+    },
+    {
+     "w": "hain,",
+     "hi": false,
+     "s": 94.458
+    }
+   ]
+  },
+  {
+   "start": 94.95,
+   "end": 95.93,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 94.95
+    },
+    {
+     "w": "kuch",
+     "hi": false,
+     "s": 95.138
+    },
+    {
+     "w": "antibiotics",
+     "hi": true,
+     "s": 95.363
+    }
+   ]
+  },
+  {
+   "start": 95.93,
+   "end": 97.51,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 95.93
+    },
+    {
+     "w": "osteoporosis",
+     "hi": false,
+     "s": 96.144
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 96.744
+    },
+    {
+     "w": "dawaon",
+     "hi": false,
+     "s": 96.916
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 97.259
+    }
+   ]
+  },
+  {
+   "start": 97.51,
+   "end": 99.86,
+   "words": [
+    {
+     "w": "2",
+     "hi": true,
+     "s": 97.51
+    },
+    {
+     "w": "ghante",
+     "hi": true,
+     "s": 97.71
+    },
+    {
+     "w": "ka",
+     "hi": false,
+     "s": 98.243
+    },
+    {
+     "w": "gap",
+     "hi": false,
+     "s": 98.51
+    },
+    {
+     "w": "rakhein.",
+     "hi": false,
+     "s": 98.843
+    }
+   ]
+  },
+  {
+   "start": 99.86,
+   "end": 101.74,
+   "words": [
+    {
+     "w": "Agar",
+     "hi": false,
+     "s": 99.86
+    },
+    {
+     "w": "aapko",
+     "hi": false,
+     "s": 100.137
+    },
+    {
+     "w": "kidney",
+     "hi": true,
+     "s": 100.46
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 100.829
+    },
+    {
+     "w": "bimari",
+     "hi": false,
+     "s": 101.014
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 101.383
+    }
+   ]
+  },
+  {
+   "start": 101.74,
+   "end": 103.32,
+   "words": [
+    {
+     "w": "toh",
+     "hi": false,
+     "s": 101.74
+    },
+    {
+     "w": "bina",
+     "hi": false,
+     "s": 101.982
+    },
+    {
+     "w": "doctor",
+     "hi": false,
+     "s": 102.272
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 102.659
+    },
+    {
+     "w": "salaah",
+     "hi": false,
+     "s": 102.853
+    }
+   ]
+  },
+  {
+   "start": 103.32,
+   "end": 104.0,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": false,
+     "s": 103.32
+    },
+    {
+     "w": "supplements",
+     "hi": false,
+     "s": 103.595
+    }
+   ]
+  },
+  {
+   "start": 104.0,
+   "end": 105.75,
+   "words": [
+    {
+     "w": "bilkul",
+     "hi": true,
+     "s": 104.0
+    },
+    {
+     "w": "na",
+     "hi": true,
+     "s": 104.589
+    },
+    {
+     "w": "lein.",
+     "hi": false,
+     "s": 104.884
+    }
+   ]
+  },
+  {
+   "start": 105.75,
+   "end": 106.7,
+   "words": [
+    {
+     "w": "Yaad",
+     "hi": false,
+     "s": 105.75
+    },
+    {
+     "w": "rakhiye:",
+     "hi": false,
+     "s": 105.975
+    }
+   ]
+  },
+  {
+   "start": 106.7,
+   "end": 108.28,
+   "words": [
+    {
+     "w": "Magnesium",
+     "hi": false,
+     "s": 106.7
+    },
+    {
+     "w": "ek",
+     "hi": false,
+     "s": 107.102
+    },
+    {
+     "w": "essential",
+     "hi": true,
+     "s": 107.249
+    },
+    {
+     "w": "mineral",
+     "hi": true,
+     "s": 107.651
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 107.98
+    }
+   ]
+  },
+  {
+   "start": 108.28,
+   "end": 110.93,
+   "words": [
+    {
+     "w": "lekin",
+     "hi": false,
+     "s": 108.28
+    },
+    {
+     "w": "koi",
+     "hi": false,
+     "s": 108.654
+    },
+    {
+     "w": "proven",
+     "hi": true,
+     "s": 108.922
+    },
+    {
+     "w": "sleeping",
+     "hi": true,
+     "s": 109.35
+    },
+    {
+     "w": "pill",
+     "hi": true,
+     "s": 109.885
+    },
+    {
+     "w": "nahi.",
+     "hi": false,
+     "s": 110.206
+    }
+   ]
+  },
+  {
+   "start": 110.93,
+   "end": 112.81,
+   "words": [
+    {
+     "w": "Aisi",
+     "hi": false,
+     "s": 110.93
+    },
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 111.16
+    },
+    {
+     "w": "evidence-based",
+     "hi": true,
+     "s": 111.351
+    },
+    {
+     "w": "jaankari",
+     "hi": false,
+     "s": 111.964
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 112.347
+    },
+    {
+     "w": "liye",
+     "hi": false,
+     "s": 112.5
+    }
+   ]
+  },
+  {
+   "start": 112.81,
+   "end": 114.66,
+   "words": [
+    {
+     "w": "follow",
+     "hi": true,
+     "s": 112.81
+    },
+    {
+     "w": "karein,",
+     "hi": false,
+     "s": 113.126
+    },
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 113.481
+    },
+    {
+     "w": "share",
+     "hi": true,
+     "s": 113.678
+    },
+    {
+     "w": "karein.",
+     "hi": false,
+     "s": 113.955
+    }
+   ]
+  }
+ ],
+ "cues": {
+  "hook": 0.3,
+  "trend": 4.2,
+  "mag": 6.46,
+  "question": 9.49,
+  "three": 12.22,
+  "s1": 15.25,
+  "s1n": 20.84,
+  "s1sol": 25.53,
+  "s1tst": 31.72,
+  "s1q": 35.65,
+  "s2": 40.26,
+  "s2n": 43.02,
+  "s2dose": 46.65,
+  "s2res": 51.07,
+  "s2small": 54.78,
+  "s3": 57.51,
+  "s3grid": 59.77,
+  "s3c": 62.5,
+  "close": 69.34,
+  "closeNo": 71.87,
+  "some": 74.52,
+  "some2": 76.78,
+  "cbti": 82.37,
+  "cbti2": 84.63,
+  "doc": 86.98,
+  "side": 92.19,
+  "gap": 94.95,
+  "kidney": 99.86,
+  "yaad": 105.75,
+  "cta": 110.93,
+  "outro": 114.96
+ }
+}
