@@ -1,4 +1,4 @@
-"""Synthesise the music bed and sound effects for the edit (48 kHz stereo WAVs).
+"""Synthesise the sound effects for the edit (48 kHz stereo WAV). No music: the voice carries it.
 
 usage: python3 audio.py <outDir>
 Everything is generated here from oscillators and filtered noise, so there are no
@@ -211,14 +211,14 @@ for k in range(3):
 for s in ("s1", "s2", "s3"):
     place(Q[s] - 0.15, whoosh(0.55), -8)
     place(Q[s] + 0.1, chime(), -12)
-place(Q["s1"] + 2.0, whoosh(1.2, up=False), -16)
-place(Q["s1"] + 3.2, thud(110), -8)
-for c, d in (("s1n", 0), ("s1n", 1.2), ("s2n", 0), ("s2dose", 0), ("s2dose", 1.0), ("some", 0), ("some2", 0)):
+place(Q["s1meta"], whoosh(1.2, up=False), -16)
+place(Q["s1meta"] + 1.2, thud(110), -8)
+for c, d in (("s1n", 0), ("s1n", 1.2), ("s2n", 0), ("s2dose", 0), ("s2mg", 0), ("some", 0), ("some2", 0)):
     place(Q[c] + d - 0.1, pop(), -7)
 place(Q["s1sol"] - 0.1, whoosh(0.45), -10)
 for k in range(8):
-    place(Q["s1sol"] + 2.5 + k * 0.1, blip(1200 + 80 * k, 0.03), -16)
-place(Q["s1sol"] + 3.3, tick(), -8)
+    place(Q["s17"] + k * 0.1, blip(1200 + 80 * k, 0.03), -16)
+place(Q["s17"] + 0.8, tick(), -8)
 place(Q["s1tst"], thud(90), -8)
 place(Q["s1q"] - 0.1, whoosh(0.45), -10)
 for k in range(4):
@@ -233,8 +233,8 @@ place(Q["s2small"], thud(100), -8)
 for k in range(12):
     place(Q["s3grid"] + k * 0.08, pop(900, 500, 0.04), -16, -0.6 + k * 0.1)
 place(Q["s3c"] - 0.1, whoosh(0.45), -10)
-place(Q["s3c"] + 3.0, impact(), -6)
-place(Q["s3c"] + 3.1, buzz(), -9)
+place(Q["s3nahi"] + 0.3, impact(), -6)
+place(Q["s3nahi"] + 0.4, buzz(), -9)
 place(Q["close"] - 0.15, whoosh(0.5), -9)
 place(Q["some"] + 0.3, tick(), -8)
 place(Q["some2"] + 0.3, buzz(), -9)
@@ -249,9 +249,9 @@ place(Q["kidney"] - 0.1, thud(90), -5)
 place(Q["kidney"] + 0.1, alert(), -8)
 place(Q["yaad"] - 0.15, whoosh(0.5), -9)
 place(Q["yaad"] + 1.6, tick(), -8)
-place(Q["yaad"] + 3.4, buzz(), -8)
-place(Q["cta"] + 1.6, pop(), -7, -0.4)
-place(Q["cta"] + 1.85, pop(), -7, 0.4)
+place(Q["yaad2"] + 1.0, buzz(), -8)
+place(Q["follow"], pop(), -7, -0.4)
+place(Q["follow"] + 0.25, pop(), -7, 0.4)
 place(Q["outro"] - 0.6, riser(0.6), -12)
 place(Q["outro"] - 0.1, whoosh(0.6), -8)
 place(Q["outro"] + 0.1, chime(), -9)
@@ -259,92 +259,6 @@ for k in range(3):
     place(Q["outro"] + 0.9 + k * 0.15, pop(700 + 120 * k, 300, 0.07), -10, -0.5 + 0.5 * k)
 sfx = sfx[:N]
 
-# ------------------------------------------------------------------ music
-BPM = 78
-beat = 60 / BPM
-bar = 4 * beat
-
-
-def midi(m):
-    return 440 * 2 ** ((m - 69) / 12)
-
-
-# Fmaj7 - Em7 - Dm9 - Cmaj7, two bars each (soft, night-time feel)
-CHORDS = [
-    (41, [57, 60, 64, 65, 69]),
-    (40, [55, 59, 62, 64, 67]),
-    (38, [57, 60, 62, 64, 65]),
-    (36, [55, 59, 60, 64, 67]),
-]
-music = np.zeros((N + SR * 4, 2))
-
-
-def add(t0, x, pan=0.0, g=1.0):
-    i = int(t0 * SR)
-    if i >= len(music):
-        return
-    x = x[: len(music) - i]
-    l, r = np.cos((pan + 1) * np.pi / 4), np.sin((pan + 1) * np.pi / 4)
-    music[i:i + len(x), 0] += x * g * l
-    music[i:i + len(x), 1] += x * g * r
-
-
-def pad_note(f, d):
-    t = tt(d)
-    x = sum(signal.sawtooth(2 * np.pi * f * (1 + det) * t + ph) for det, ph in [(-0.004, 0), (0, 1.3), (0.0045, 2.1)])
-    sos = signal.butter(2, 900, fs=SR, output="sos")
-    x = signal.sosfilt(sos, x)
-    e = np.minimum(1, t / 0.8) * np.minimum(1, (d - t) / 0.9)
-    return x * e
-
-
-def pluck(f, d=0.6):
-    t = tt(d)
-    x = (np.sin(2 * np.pi * f * t) + 0.35 * np.sin(4 * np.pi * f * t) + 0.12 * np.sin(6 * np.pi * f * t))
-    return x * np.exp(-t / 0.16) * np.minimum(1, t / 0.003)
-
-
-def kick():
-    return sweep(140, 45, 0.3) * env_ad(int(0.3 * SR), 0.001, 0.09)
-
-
-def hat():
-    return bandnoise(0.06, 6000, 14000) * env_ad(int(0.06 * SR), 0.0005, 0.015)
-
-
-total_bars = int(np.ceil((DUR + 2) / bar))
-for b in range(total_bars):
-    t0 = b * bar
-    root, notes = CHORDS[(b // 2) % 4]
-    if b % 2 == 0:
-        for k, m in enumerate(notes[:4]):
-            add(t0, pad_note(midi(m), 2 * bar + 0.8), pan=-0.5 + k / 3, g=0.05)
-        add(t0, np.sin(2 * np.pi * midi(root) * tt(2 * bar)) * np.minimum(1, tt(2 * bar) / 0.05)
-            * np.minimum(1, (2 * bar - tt(2 * bar)) / 0.3), g=0.16)
-    # arpeggio: 8ths, pattern over chord tones an octave up
-    pat = [0, 2, 4, 3, 1, 3, 2, 4]
-    for k in range(8):
-        f = midi(notes[pat[k]] + 12)
-        add(t0 + k * beat / 2, pluck(f), pan=(-0.35 if k % 2 else 0.35), g=0.10 if k % 2 else 0.13)
-    # light beat from bar 2 on: kick on 1 & 3, hats on the off-beats
-    if b >= 1:
-        for k in (0, 2):
-            add(t0 + k * beat, kick(), g=0.32)
-        for k in range(4):
-            add(t0 + k * beat + beat / 2, hat(), pan=0.25, g=0.05)
-
-# simple stereo echo on the whole bed
-d = int(beat * 0.75 * SR)
-echo = np.zeros_like(music)
-echo[d:, 0] = music[:-d, 1] * 0.25
-echo[d:, 1] = music[:-d, 0] * 0.25
-music = music + echo
-music = music[:N]
-# fade in, and fade out over the last 1.6 s
-fi, fo = int(0.6 * SR), int(1.6 * SR)
-music[:fi] *= np.linspace(0, 1, fi)[:, None]
-music[-fo:] *= np.linspace(1, 0, fo)[:, None] ** 1.5
-music = norm(music, 0.5)
 sfx = np.clip(sfx, -1, 1)
 
 
@@ -359,6 +273,5 @@ def write(path, x):
 
 out = pathlib.Path(sys.argv[1])
 out.mkdir(parents=True, exist_ok=True)
-write(out / "music.wav", music)
 write(out / "sfx.wav", sfx)
-print("wrote", out / "music.wav", out / "sfx.wav", f"{DUR:.2f}s")
+print("wrote", out / "sfx.wav", f"{DUR:.2f}s")

@@ -1,12 +1,12 @@
 {
  "fps": 30,
- "mode": "draft",
- "duration": 118.967,
- "speechEnd": 114.66,
+ "mode": "recorded",
+ "duration": 140.467,
+ "speechEnd": 136.169,
  "captions": [
   {
    "start": 0.3,
-   "end": 1.25,
+   "end": 1.76,
    "words": [
     {
      "w": "Magnesium",
@@ -16,1979 +16,1985 @@
     {
      "w": "Glycinate:",
      "hi": true,
-     "s": 0.587
+     "s": 0.831
     }
    ]
   },
   {
-   "start": 1.25,
-   "end": 4.2,
+   "start": 1.76,
+   "end": 4.404,
    "words": [
     {
      "w": "kya",
      "hi": false,
-     "s": 1.25
+     "s": 1.76
     },
     {
      "w": "sach",
      "hi": false,
-     "s": 1.521
+     "s": 1.999
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 1.846
+     "s": 2.286
     },
     {
      "w": "natural",
      "hi": true,
-     "s": 2.171
+     "s": 2.572
     },
     {
      "w": "sleeping",
      "hi": true,
-     "s": 2.658
+     "s": 3.003
     },
     {
      "w": "pill",
      "hi": true,
-     "s": 3.2
+     "s": 3.481
     },
     {
      "w": "hai?",
      "hi": false,
-     "s": 3.525
+     "s": 3.767
     }
    ]
   },
   {
-   "start": 4.2,
-   "end": 5.48,
+   "start": 4.404,
+   "end": 5.674,
    "words": [
     {
      "w": "Aajkal",
      "hi": false,
-     "s": 4.2
+     "s": 4.404
     },
     {
      "w": "neend",
      "hi": true,
-     "s": 4.569
+     "s": 4.77
     },
     {
      "w": "na",
      "hi": false,
-     "s": 4.892
+     "s": 5.091
     },
     {
      "w": "aaye,",
      "hi": false,
-     "s": 5.077
+     "s": 5.274
     }
    ]
   },
   {
-   "start": 5.48,
-   "end": 6.46,
+   "start": 5.674,
+   "end": 6.704,
    "words": [
     {
      "w": "toh",
      "hi": false,
-     "s": 5.48
+     "s": 5.674
     },
     {
      "w": "log",
      "hi": false,
-     "s": 5.73
+     "s": 5.938
     },
     {
      "w": "turant",
      "hi": false,
-     "s": 5.98
+     "s": 6.202
     }
    ]
   },
   {
-   "start": 6.46,
-   "end": 7.74,
+   "start": 6.704,
+   "end": 8.311,
    "words": [
     {
      "w": "Magnesium",
      "hi": true,
-     "s": 6.46
+     "s": 6.704
     },
     {
      "w": "tablets",
      "hi": true,
-     "s": 6.873
+     "s": 7.229
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 7.21
+     "s": 7.658
     },
     {
      "w": "salaah",
      "hi": false,
-     "s": 7.36
+     "s": 7.849
     }
    ]
   },
   {
-   "start": 7.74,
-   "end": 9.49,
+   "start": 8.311,
+   "end": 10.085,
    "words": [
     {
      "w": "dene",
      "hi": false,
-     "s": 7.74
+     "s": 8.311
     },
     {
      "w": "lagte",
      "hi": false,
-     "s": 8.16
+     "s": 8.738
     },
     {
      "w": "hain.",
      "hi": false,
-     "s": 8.65
+     "s": 9.237
     }
    ]
   },
   {
-   "start": 9.49,
-   "end": 10.47,
+   "start": 10.085,
+   "end": 11.295,
    "words": [
     {
      "w": "Lekin",
      "hi": false,
-     "s": 9.49
+     "s": 10.085
     },
     {
      "w": "scientific",
      "hi": true,
-     "s": 9.707
+     "s": 10.358
     },
     {
      "w": "evidence",
      "hi": true,
-     "s": 10.08
+     "s": 10.825
     }
    ]
   },
   {
-   "start": 10.47,
-   "end": 12.22,
+   "start": 11.295,
+   "end": 13.264,
    "words": [
     {
      "w": "kya",
      "hi": false,
-     "s": 10.47
+     "s": 11.295
     },
     {
      "w": "kehta",
      "hi": false,
-     "s": 10.859
+     "s": 11.745
     },
     {
      "w": "hai?",
      "hi": false,
-     "s": 11.403
+     "s": 12.374
     }
    ]
   },
   {
-   "start": 12.22,
-   "end": 13.5,
+   "start": 13.264,
+   "end": 14.334,
    "words": [
     {
      "w": "3",
      "hi": true,
-     "s": 12.22
+     "s": 13.264
     },
     {
      "w": "badi",
      "hi": false,
-     "s": 12.384
+     "s": 13.399
     },
     {
      "w": "studies",
      "hi": true,
-     "s": 12.711
+     "s": 13.669
     },
     {
      "w": "ne",
      "hi": false,
-     "s": 13.202
+     "s": 14.074
     }
    ]
   },
   {
-   "start": 13.5,
-   "end": 15.25,
+   "start": 14.334,
+   "end": 16.126,
    "words": [
     {
      "w": "kya",
      "hi": false,
-     "s": 13.5
+     "s": 14.334
     },
     {
      "w": "paaya,",
      "hi": false,
-     "s": 13.804
+     "s": 14.647
     },
     {
      "w": "dekhiye.",
      "hi": false,
-     "s": 14.291
+     "s": 15.149
     }
    ]
   },
   {
-   "start": 15.25,
-   "end": 16.53,
+   "start": 16.126,
+   "end": 19.366,
    "words": [
     {
      "w": "2021",
      "hi": true,
-     "s": 15.25
+     "s": 16.126
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 15.475
+     "s": 16.719
     },
     {
      "w": "BMC",
      "hi": true,
-     "s": 15.7
+     "s": 17.311
     },
     {
      "w": "Complementary",
      "hi": false,
-     "s": 15.888
+     "s": 17.805
     }
    ]
   },
   {
-   "start": 16.53,
-   "end": 17.81,
+   "start": 19.366,
+   "end": 20.586,
    "words": [
     {
      "w": "Medicine",
      "hi": false,
-     "s": 16.53
+     "s": 19.366
     },
     {
      "w": "and",
      "hi": false,
-     "s": 16.905
+     "s": 19.722
     },
     {
      "w": "Therapies",
      "hi": false,
-     "s": 17.093
+     "s": 19.9
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 17.505
+     "s": 20.292
     }
    ]
   },
   {
-   "start": 17.81,
-   "end": 18.79,
+   "start": 20.586,
+   "end": 22.026,
    "words": [
     {
      "w": "ek",
      "hi": false,
-     "s": 17.81
+     "s": 20.586
     },
     {
      "w": "systematic",
      "hi": true,
-     "s": 17.96
+     "s": 20.813
     },
     {
      "w": "review",
      "hi": true,
-     "s": 18.41
+     "s": 21.493
     }
    ]
   },
   {
-   "start": 18.79,
-   "end": 20.84,
+   "start": 22.026,
+   "end": 24.525,
    "words": [
     {
      "w": "aur",
      "hi": false,
-     "s": 18.79
+     "s": 22.026
     },
     {
      "w": "meta-analysis",
      "hi": true,
-     "s": 19.02
+     "s": 22.316
     },
     {
      "w": "prakashit",
      "hi": false,
-     "s": 19.709
+     "s": 23.188
     },
     {
      "w": "hua.",
      "hi": false,
-     "s": 20.214
+     "s": 23.827
     }
    ]
   },
   {
-   "start": 20.84,
-   "end": 21.82,
+   "start": 24.525,
+   "end": 25.997,
    "words": [
     {
      "w": "Ismein",
      "hi": false,
-     "s": 20.84
+     "s": 24.525
     },
     {
      "w": "3",
      "hi": true,
-     "s": 21.153
+     "s": 25.009
     },
     {
      "w": "randomized",
      "hi": false,
-     "s": 21.27
+     "s": 25.191
     }
    ]
   },
   {
-   "start": 21.82,
-   "end": 22.5,
+   "start": 25.997,
+   "end": 27.055,
    "words": [
     {
      "w": "controlled",
      "hi": false,
-     "s": 21.82
+     "s": 25.997
     },
     {
      "w": "trials",
      "hi": false,
-     "s": 22.18
+     "s": 26.584
     }
    ]
   },
   {
-   "start": 22.5,
-   "end": 24.08,
+   "start": 27.055,
+   "end": 29.87,
    "words": [
     {
      "w": "aur",
      "hi": false,
-     "s": 22.5
+     "s": 27.055
     },
     {
      "w": "kul",
      "hi": false,
-     "s": 22.703
+     "s": 27.425
     },
     {
      "w": "151",
      "hi": true,
-     "s": 22.905
+     "s": 27.794
     },
     {
      "w": "buzurg",
      "hi": false,
-     "s": 23.108
+     "s": 28.164
     },
     {
      "w": "participants",
      "hi": false,
-     "s": 23.432
+     "s": 28.755
     }
    ]
   },
   {
-   "start": 24.08,
-   "end": 25.53,
+   "start": 29.87,
+   "end": 31.259,
    "words": [
     {
      "w": "shaamil",
      "hi": false,
-     "s": 24.08
+     "s": 29.87
     },
     {
      "w": "the.",
      "hi": false,
-     "s": 24.74
+     "s": 30.493
     }
    ]
   },
   {
-   "start": 25.53,
-   "end": 26.51,
+   "start": 31.259,
+   "end": 32.479,
    "words": [
     {
      "w": "Magnesium",
      "hi": false,
-     "s": 25.53
+     "s": 31.259
     },
     {
      "w": "lene",
      "hi": false,
-     "s": 25.98
+     "s": 31.829
     },
     {
      "w": "se,",
      "hi": false,
-     "s": 26.225
+     "s": 32.14
     }
    ]
   },
   {
-   "start": 26.51,
-   "end": 27.79,
+   "start": 32.479,
+   "end": 33.959,
    "words": [
     {
      "w": "placebo",
      "hi": true,
-     "s": 26.51
+     "s": 32.479
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 26.91
+     "s": 32.946
     },
     {
      "w": "tulna",
      "hi": false,
-     "s": 27.088
+     "s": 33.153
     },
     {
      "w": "mein,",
      "hi": false,
-     "s": 27.399
+     "s": 33.516
     }
    ]
   },
   {
-   "start": 27.79,
-   "end": 29.37,
+   "start": 33.959,
+   "end": 35.629,
    "words": [
     {
      "w": "sone",
      "hi": false,
-     "s": 27.79
+     "s": 33.959
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 28.071
+     "s": 34.257
     },
     {
      "w": "lagne",
      "hi": false,
-     "s": 28.352
+     "s": 34.555
     },
     {
      "w": "wala",
      "hi": false,
-     "s": 28.681
+     "s": 34.903
     },
     {
      "w": "samay",
      "hi": false,
-     "s": 28.962
+     "s": 35.201
     }
    ]
   },
   {
-   "start": 29.37,
-   "end": 31.72,
+   "start": 35.629,
+   "end": 38.509,
    "words": [
     {
      "w": "lagbhag",
      "hi": false,
-     "s": 29.37
+     "s": 35.629
     },
     {
      "w": "17",
      "hi": true,
-     "s": 29.933
+     "s": 36.341
     },
     {
      "w": "minute",
      "hi": true,
-     "s": 30.183
+     "s": 36.657
     },
     {
      "w": "kam",
      "hi": false,
-     "s": 30.683
+     "s": 37.289
     },
     {
      "w": "hua.",
      "hi": false,
-     "s": 30.995
+     "s": 37.685
     }
    ]
   },
   {
-   "start": 31.72,
-   "end": 33.3,
+   "start": 38.509,
+   "end": 40.173,
    "words": [
     {
      "w": "Lekin",
      "hi": false,
-     "s": 31.72
+     "s": 38.509
     },
     {
      "w": "total",
      "hi": true,
-     "s": 32.038
+     "s": 38.845
     },
     {
      "w": "sleep",
      "hi": true,
-     "s": 32.356
+     "s": 39.181
     },
     {
      "w": "time",
      "hi": true,
-     "s": 32.675
+     "s": 39.517
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 32.947
+     "s": 39.805
     }
    ]
   },
   {
-   "start": 33.3,
-   "end": 35.65,
+   "start": 40.173,
+   "end": 42.713,
    "words": [
     {
      "w": "koi",
      "hi": false,
-     "s": 33.3
+     "s": 40.173
     },
     {
      "w": "significant",
      "hi": false,
-     "s": 33.57
+     "s": 40.469
     },
     {
      "w": "farak",
      "hi": true,
-     "s": 34.273
+     "s": 41.238
     },
     {
      "w": "nahi",
      "hi": true,
-     "s": 34.651
+     "s": 41.653
     },
     {
      "w": "tha.",
      "hi": false,
-     "s": 34.976
+     "s": 42.008
     }
    ]
   },
   {
-   "start": 35.65,
-   "end": 36.93,
+   "start": 42.713,
+   "end": 44.023,
    "words": [
     {
      "w": "Aur",
      "hi": false,
-     "s": 35.65
+     "s": 42.713
     },
     {
      "w": "in",
      "hi": false,
-     "s": 35.9
+     "s": 42.969
     },
     {
      "w": "studies",
      "hi": false,
-     "s": 36.1
+     "s": 43.174
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 36.55
+     "s": 43.636
     }
    ]
   },
   {
-   "start": 36.93,
-   "end": 37.91,
+   "start": 44.023,
+   "end": 44.723,
    "words": [
     {
      "w": "evidence",
      "hi": false,
-     "s": 36.93
+     "s": 44.023
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 37.321
+     "s": 44.293
     },
     {
      "w": "quality",
      "hi": true,
-     "s": 37.478
+     "s": 44.4
     }
    ]
   },
   {
-   "start": 37.91,
-   "end": 40.26,
+   "start": 44.723,
+   "end": 47.109,
    "words": [
     {
      "w": "low",
      "hi": true,
-     "s": 37.91
+     "s": 44.723
     },
     {
      "w": "se",
      "hi": false,
-     "s": 38.295
+     "s": 45.115
     },
     {
      "w": "very",
      "hi": true,
-     "s": 38.602
+     "s": 45.428
     },
     {
      "w": "low",
      "hi": true,
-     "s": 39.064
+     "s": 45.898
     },
     {
      "w": "thi.",
      "hi": false,
-     "s": 39.448
+     "s": 46.289
     }
    ]
   },
   {
-   "start": 40.26,
-   "end": 41.54,
+   "start": 47.109,
+   "end": 49.529,
    "words": [
     {
      "w": "2025",
      "hi": true,
-     "s": 40.26
+     "s": 47.109
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 40.517
+     "s": 47.61
     },
     {
      "w": "ek",
      "hi": false,
-     "s": 40.774
+     "s": 48.112
     },
     {
      "w": "randomized",
      "hi": false,
-     "s": 40.946
+     "s": 48.446
     }
    ]
   },
   {
-   "start": 41.54,
-   "end": 43.02,
+   "start": 49.529,
+   "end": 51.777,
    "words": [
     {
      "w": "placebo-controlled",
      "hi": false,
-     "s": 41.54
+     "s": 49.529
     },
     {
      "w": "trial",
      "hi": true,
-     "s": 42.364
+     "s": 50.804
     },
     {
      "w": "aaya,",
      "hi": false,
-     "s": 42.652
+     "s": 51.251
     }
    ]
   },
   {
-   "start": 43.02,
-   "end": 44.3,
+   "start": 51.777,
+   "end": 53.397,
    "words": [
     {
      "w": "jismein",
      "hi": false,
-     "s": 43.02
+     "s": 51.777
     },
     {
      "w": "kharab",
      "hi": false,
-     "s": 43.38
+     "s": 52.239
     },
     {
      "w": "neend",
      "hi": false,
-     "s": 43.7
+     "s": 52.65
     },
     {
      "w": "wale",
      "hi": false,
-     "s": 43.98
+     "s": 53.009
     }
    ]
   },
   {
-   "start": 44.3,
-   "end": 46.65,
+   "start": 53.397,
+   "end": 56.552,
    "words": [
     {
      "w": "155",
      "hi": true,
-     "s": 44.3
+     "s": 53.397
     },
     {
      "w": "healthy",
      "hi": false,
-     "s": 44.57
+     "s": 53.776
     },
     {
      "w": "adults",
      "hi": false,
-     "s": 45.057
+     "s": 54.458
     },
     {
      "w": "shaamil",
      "hi": false,
-     "s": 45.489
+     "s": 55.065
     },
     {
      "w": "the.",
      "hi": false,
-     "s": 45.976
+     "s": 55.747
     }
    ]
   },
   {
-   "start": 46.65,
-   "end": 47.93,
+   "start": 56.552,
+   "end": 57.937,
    "words": [
     {
      "w": "4",
      "hi": true,
-     "s": 46.65
+     "s": 56.552
     },
     {
      "w": "hafte",
      "hi": false,
-     "s": 46.83
+     "s": 56.748
     },
     {
      "w": "tak",
      "hi": false,
-     "s": 47.25
+     "s": 57.204
     },
     {
      "w": "roz",
      "hi": false,
-     "s": 47.55
+     "s": 57.531
     }
    ]
   },
   {
-   "start": 47.93,
-   "end": 48.61,
+   "start": 57.937,
+   "end": 59.542,
    "words": [
     {
      "w": "Magnesium",
      "hi": true,
-     "s": 47.93
+     "s": 57.937
     },
     {
      "w": "Bisglycinate,",
      "hi": true,
-     "s": 48.184
+     "s": 58.582
     }
    ]
   },
   {
-   "start": 48.61,
-   "end": 49.89,
+   "start": 59.542,
+   "end": 62.122,
    "words": [
     {
      "w": "250",
      "hi": true,
-     "s": 48.61
+     "s": 59.542
     },
     {
      "w": "mg",
      "hi": false,
-     "s": 48.797
+     "s": 59.933
     },
     {
      "w": "elemental",
      "hi": false,
-     "s": 48.947
+     "s": 60.245
     },
     {
      "w": "magnesium,",
      "hi": false,
-     "s": 49.36
+     "s": 61.105
     }
    ]
   },
   {
-   "start": 49.89,
-   "end": 51.07,
+   "start": 62.122,
+   "end": 63.175,
    "words": [
     {
      "w": "dene",
      "hi": false,
-     "s": 49.89
+     "s": 62.122
     },
     {
      "w": "par",
      "hi": false,
-     "s": 50.49
+     "s": 62.653
     }
    ]
   },
   {
-   "start": 51.07,
-   "end": 52.05,
+   "start": 63.175,
+   "end": 64.375,
    "words": [
     {
      "w": "insomnia",
      "hi": false,
-     "s": 51.07
+     "s": 63.175
     },
     {
      "w": "severity",
      "hi": false,
-     "s": 51.416
+     "s": 63.606
     },
     {
      "w": "mein",
      "hi": false,
-     "s": 51.762
+     "s": 64.037
     }
    ]
   },
   {
-   "start": 52.05,
-   "end": 53.33,
+   "start": 64.375,
+   "end": 66.275,
    "words": [
     {
      "w": "placebo",
      "hi": false,
-     "s": 52.05
+     "s": 64.375
     },
     {
      "w": "se",
      "hi": false,
-     "s": 52.45
+     "s": 64.982
     },
     {
      "w": "thoda",
      "hi": true,
-     "s": 52.628
+     "s": 65.251
     },
     {
      "w": "zyada",
      "hi": false,
-     "s": 52.939
+     "s": 65.723
     }
    ]
   },
   {
-   "start": 53.33,
-   "end": 54.78,
+   "start": 66.275,
+   "end": 67.744,
    "words": [
     {
      "w": "sudhaar",
      "hi": false,
-     "s": 53.33
+     "s": 66.275
     },
     {
      "w": "hua.",
      "hi": false,
-     "s": 53.99
+     "s": 66.946
     }
    ]
   },
   {
-   "start": 54.78,
-   "end": 55.76,
+   "start": 67.744,
+   "end": 68.994,
    "words": [
     {
      "w": "Lekin",
      "hi": false,
-     "s": 54.78
+     "s": 67.744
     },
     {
      "w": "effect",
      "hi": false,
-     "s": 55.08
+     "s": 68.134
     },
     {
      "w": "size",
      "hi": false,
-     "s": 55.423
+     "s": 68.58
     }
    ]
   },
   {
-   "start": 55.76,
-   "end": 57.51,
+   "start": 68.994,
+   "end": 70.61,
    "words": [
     {
      "w": "bahut",
      "hi": true,
-     "s": 55.76
+     "s": 68.994
     },
     {
      "w": "chhota",
      "hi": true,
-     "s": 56.227
+     "s": 69.416
     },
     {
      "w": "tha.",
      "hi": false,
-     "s": 56.76
+     "s": 69.898
     }
    ]
   },
   {
-   "start": 57.51,
-   "end": 58.79,
+   "start": 70.61,
+   "end": 72.2,
    "words": [
     {
      "w": "Aur",
      "hi": false,
-     "s": 57.51
+     "s": 70.61
     },
     {
      "w": "2026",
      "hi": true,
-     "s": 57.826
+     "s": 71.007
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 58.205
+     "s": 71.484
     },
     {
      "w": "ek",
      "hi": false,
-     "s": 58.457
+     "s": 71.802
     }
    ]
   },
   {
-   "start": 58.79,
-   "end": 59.77,
+   "start": 72.2,
+   "end": 73.34,
    "words": [
     {
      "w": "systematic",
      "hi": true,
-     "s": 58.79
+     "s": 72.2
     },
     {
      "w": "review",
      "hi": true,
-     "s": 59.24
+     "s": 72.73
     },
     {
      "w": "ne",
      "hi": false,
-     "s": 59.54
+     "s": 73.083
     }
    ]
   },
   {
-   "start": 59.77,
-   "end": 60.75,
+   "start": 73.34,
+   "end": 74.84,
    "words": [
     {
      "w": "12",
      "hi": true,
-     "s": 59.77
+     "s": 73.34
     },
     {
      "w": "randomized",
      "hi": false,
-     "s": 59.92
+     "s": 73.577
     },
     {
      "w": "trials",
      "hi": false,
-     "s": 60.37
+     "s": 74.287
     }
    ]
   },
   {
-   "start": 60.75,
-   "end": 62.5,
+   "start": 74.84,
+   "end": 77.016,
    "words": [
     {
      "w": "ka",
      "hi": false,
-     "s": 60.75
+     "s": 74.84
     },
     {
      "w": "analysis",
      "hi": false,
-     "s": 61.017
+     "s": 75.188
     },
     {
      "w": "kiya.",
      "hi": false,
-     "s": 61.683
+     "s": 76.057
     }
    ]
   },
   {
-   "start": 62.5,
-   "end": 63.15,
+   "start": 77.016,
+   "end": 78.053,
    "words": [
     {
      "w": "Conclusion:",
      "hi": false,
-     "s": 62.5
+     "s": 77.016
     }
    ]
   },
   {
-   "start": 63.15,
-   "end": 64.13,
+   "start": 78.053,
+   "end": 79.174,
    "words": [
     {
      "w": "abhi",
      "hi": false,
-     "s": 63.15
+     "s": 78.053
     },
     {
      "w": "insomnia",
      "hi": false,
-     "s": 63.42
+     "s": 78.365
     },
     {
      "w": "ke",
      "hi": false,
-     "s": 63.87
+     "s": 78.886
     }
    ]
   },
   {
-   "start": 64.13,
-   "end": 65.41,
+   "start": 79.174,
+   "end": 80.843,
    "words": [
     {
      "w": "routine",
      "hi": true,
-     "s": 64.13
+     "s": 79.174
     },
     {
      "w": "treatment",
      "hi": false,
-     "s": 64.49
+     "s": 79.651
     },
     {
      "w": "ke",
      "hi": false,
-     "s": 64.93
+     "s": 80.233
     },
     {
      "w": "liye",
      "hi": false,
-     "s": 65.09
+     "s": 80.445
     }
    ]
   },
   {
-   "start": 65.41,
-   "end": 67.29,
+   "start": 80.843,
+   "end": 83.423,
    "words": [
     {
      "w": "magnesium",
      "hi": false,
-     "s": 65.41
+     "s": 80.843
     },
     {
      "w": "ko",
      "hi": false,
-     "s": 65.87
+     "s": 81.483
     },
     {
      "w": "recommend",
      "hi": false,
-     "s": 66.038
+     "s": 81.715
     },
     {
      "w": "karne",
      "hi": false,
-     "s": 66.498
+     "s": 82.355
     },
     {
      "w": "ke",
      "hi": false,
-     "s": 66.791
+     "s": 82.762
     },
     {
      "w": "liye",
      "hi": false,
-     "s": 66.959
+     "s": 82.994
     }
    ]
   },
   {
-   "start": 67.29,
-   "end": 69.34,
+   "start": 83.423,
+   "end": 85.683,
    "words": [
     {
      "w": "paryaapt",
      "hi": true,
-     "s": 67.29
+     "s": 83.423
     },
     {
      "w": "evidence",
      "hi": true,
-     "s": 67.821
+     "s": 84.02
     },
     {
      "w": "nahi",
      "hi": true,
-     "s": 68.353
+     "s": 84.617
     },
     {
      "w": "hai.",
      "hi": false,
-     "s": 68.671
+     "s": 84.975
     }
    ]
   },
   {
-   "start": 69.34,
-   "end": 70.32,
+   "start": 85.683,
+   "end": 86.853,
    "words": [
     {
      "w": "Toh",
      "hi": false,
-     "s": 69.34
+     "s": 85.683
     },
     {
      "w": "kya",
      "hi": false,
-     "s": 69.554
+     "s": 85.943
     },
     {
      "w": "Magnesium",
      "hi": false,
-     "s": 69.769
+     "s": 86.202
     }
    ]
   },
   {
-   "start": 70.32,
-   "end": 71.87,
+   "start": 86.853,
+   "end": 88.651,
    "words": [
     {
      "w": "bilkul",
      "hi": true,
-     "s": 70.32
+     "s": 86.853
     },
     {
      "w": "kaam",
      "hi": false,
-     "s": 70.663
+     "s": 87.267
     },
     {
      "w": "nahi",
      "hi": false,
-     "s": 70.92
+     "s": 87.577
     },
     {
      "w": "karta?",
      "hi": false,
-     "s": 71.177
+     "s": 87.887
     }
    ]
   },
   {
-   "start": 71.87,
-   "end": 74.52,
+   "start": 88.651,
+   "end": 91.323,
    "words": [
     {
      "w": "Aisa",
      "hi": false,
-     "s": 71.87
+     "s": 88.651
     },
     {
      "w": "kehna",
      "hi": false,
-     "s": 72.243
+     "s": 89.028
     },
     {
      "w": "bhi",
      "hi": false,
-     "s": 72.678
+     "s": 89.467
     },
     {
      "w": "sahi",
      "hi": false,
-     "s": 72.989
+     "s": 89.781
     },
     {
      "w": "nahi",
      "hi": false,
-     "s": 73.362
+     "s": 90.157
     },
     {
      "w": "hoga.",
      "hi": false,
-     "s": 73.735
+     "s": 90.534
     }
    ]
   },
   {
-   "start": 74.52,
-   "end": 75.5,
+   "start": 91.323,
+   "end": 92.103,
    "words": [
     {
      "w": "Kuch",
      "hi": true,
-     "s": 74.52
+     "s": 91.323
     },
     {
      "w": "logon",
      "hi": false,
-     "s": 74.838
+     "s": 91.57
     },
     {
      "w": "ko",
      "hi": false,
-     "s": 75.208
+     "s": 91.858
     }
    ]
   },
   {
-   "start": 75.5,
-   "end": 76.78,
+   "start": 92.103,
+   "end": 93.713,
    "words": [
     {
      "w": "fayda",
      "hi": false,
-     "s": 75.5
+     "s": 92.103
     },
     {
      "w": "ho",
      "hi": false,
-     "s": 75.85
+     "s": 92.549
     },
     {
      "w": "sakta",
      "hi": false,
-     "s": 76.05
+     "s": 92.804
     },
     {
      "w": "hai,",
      "hi": false,
-     "s": 76.4
+     "s": 93.25
     }
    ]
   },
   {
-   "start": 76.78,
-   "end": 78.36,
+   "start": 93.713,
+   "end": 95.063,
    "words": [
     {
      "w": "lekin",
      "hi": false,
-     "s": 76.78
+     "s": 93.713
     },
     {
      "w": "har",
      "hi": true,
-     "s": 77.155
+     "s": 94.03
     },
     {
      "w": "us",
      "hi": false,
-     "s": 77.423
+     "s": 94.257
     },
     {
      "w": "vyakti",
      "hi": false,
-     "s": 77.637
+     "s": 94.439
     },
     {
      "w": "ko",
      "hi": false,
-     "s": 78.066
+     "s": 94.802
     }
    ]
   },
   {
-   "start": 78.36,
-   "end": 79.64,
+   "start": 95.063,
+   "end": 96.483,
    "words": [
     {
      "w": "jise",
      "hi": false,
-     "s": 78.36
+     "s": 95.063
     },
     {
      "w": "neend",
      "hi": false,
-     "s": 78.637
+     "s": 95.372
     },
     {
      "w": "nahi",
      "hi": false,
-     "s": 78.96
+     "s": 95.733
     },
     {
      "w": "aati,",
      "hi": false,
-     "s": 79.237
+     "s": 96.042
     }
    ]
   },
   {
-   "start": 79.64,
-   "end": 80.62,
+   "start": 96.483,
+   "end": 97.801,
    "words": [
     {
      "w": "Magnesium",
      "hi": false,
-     "s": 79.64
+     "s": 96.483
     },
     {
      "w": "tablets",
      "hi": false,
-     "s": 80.053
+     "s": 97.05
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 80.39
+     "s": 97.515
     }
    ]
   },
   {
-   "start": 80.62,
-   "end": 82.37,
+   "start": 97.801,
+   "end": 99.596,
    "words": [
     {
      "w": "zaroorat",
      "hi": true,
-     "s": 80.62
+     "s": 97.801
     },
     {
      "w": "nahi",
      "hi": true,
-     "s": 81.256
+     "s": 98.458
     },
     {
      "w": "hai.",
      "hi": false,
-     "s": 81.638
+     "s": 98.852
     }
    ]
   },
   {
-   "start": 82.37,
-   "end": 83.95,
+   "start": 99.596,
+   "end": 101.326,
    "words": [
     {
      "w": "Lambe",
      "hi": false,
-     "s": 82.37
+     "s": 99.596
     },
     {
      "w": "samay",
      "hi": false,
-     "s": 82.698
+     "s": 99.957
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 83.026
+     "s": 100.318
     },
     {
      "w": "insomnia",
      "hi": false,
-     "s": 83.214
+     "s": 100.524
     },
     {
      "w": "ka",
      "hi": false,
-     "s": 83.683
+     "s": 101.04
     }
    ]
   },
   {
-   "start": 83.95,
-   "end": 84.63,
+   "start": 101.326,
+   "end": 102.546,
    "words": [
     {
      "w": "first-line",
      "hi": true,
-     "s": 83.95
+     "s": 101.326
     },
     {
      "w": "treatment",
      "hi": false,
-     "s": 84.263
+     "s": 101.921
     }
    ]
   },
   {
-   "start": 84.63,
-   "end": 86.98,
+   "start": 102.546,
+   "end": 105.495,
    "words": [
     {
      "w": "CBT-I,",
      "hi": true,
-     "s": 84.63
+     "s": 102.546
     },
     {
      "w": "yaani",
      "hi": false,
-     "s": 85.062
+     "s": 103.108
     },
     {
      "w": "sleep",
      "hi": true,
-     "s": 85.441
+     "s": 103.6
     },
     {
      "w": "therapy",
      "hi": true,
-     "s": 85.819
+     "s": 104.091
     },
     {
      "w": "hai.",
      "hi": false,
-     "s": 86.306
+     "s": 104.724
     }
    ]
   },
   {
-   "start": 86.98,
-   "end": 88.86,
+   "start": 105.495,
+   "end": 107.357,
    "words": [
     {
      "w": "Aur",
      "hi": false,
-     "s": 86.98
+     "s": 105.495
     },
     {
      "w": "agar",
      "hi": false,
-     "s": 87.253
+     "s": 105.765
     },
     {
      "w": "3",
      "hi": true,
-     "s": 87.58
+     "s": 106.089
     },
     {
      "w": "mahine",
      "hi": true,
-     "s": 87.744
+     "s": 106.251
     },
     {
      "w": "se",
      "hi": false,
-     "s": 88.18
+     "s": 106.683
     },
     {
      "w": "zyada",
      "hi": false,
-     "s": 88.398
+     "s": 106.899
     }
    ]
   },
   {
-   "start": 88.86,
-   "end": 90.14,
+   "start": 107.357,
+   "end": 108.595,
    "words": [
     {
      "w": "neend",
      "hi": false,
-     "s": 88.86
+     "s": 107.357
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 89.183
+     "s": 107.669
     },
     {
      "w": "problem",
      "hi": false,
-     "s": 89.368
+     "s": 107.847
     },
     {
      "w": "hai,",
      "hi": false,
-     "s": 89.783
+     "s": 108.248
     }
    ]
   },
   {
-   "start": 90.14,
-   "end": 92.19,
+   "start": 108.595,
+   "end": 110.439,
    "words": [
     {
      "w": "toh",
      "hi": false,
-     "s": 90.14
+     "s": 108.595
     },
     {
      "w": "doctor",
      "hi": true,
-     "s": 90.467
+     "s": 108.882
     },
     {
      "w": "se",
      "hi": false,
-     "s": 90.99
+     "s": 109.342
     },
     {
      "w": "miliye.",
      "hi": false,
-     "s": 91.252
+     "s": 109.572
     }
    ]
   },
   {
-   "start": 92.19,
-   "end": 92.87,
+   "start": 110.439,
+   "end": 111.089,
    "words": [
     {
      "w": "Magnesium",
      "hi": false,
-     "s": 92.19
+     "s": 110.439
     },
     {
      "w": "se",
      "hi": false,
-     "s": 92.63
+     "s": 110.857
     }
    ]
   },
   {
-   "start": 92.87,
-   "end": 94.95,
+   "start": 111.089,
+   "end": 113.156,
    "words": [
     {
      "w": "loose",
      "hi": true,
-     "s": 92.87
+     "s": 111.089
     },
     {
      "w": "motions",
      "hi": true,
-     "s": 93.282
+     "s": 111.498
     },
     {
      "w": "ho",
      "hi": false,
-     "s": 93.811
+     "s": 112.024
     },
     {
      "w": "sakte",
      "hi": false,
-     "s": 94.046
+     "s": 112.258
     },
     {
      "w": "hain,",
      "hi": false,
-     "s": 94.458
+     "s": 112.667
     }
    ]
   },
   {
-   "start": 94.95,
-   "end": 95.93,
+   "start": 113.156,
+   "end": 114.576,
    "words": [
     {
      "w": "aur",
      "hi": false,
-     "s": 94.95
+     "s": 113.156
     },
     {
      "w": "kuch",
      "hi": false,
-     "s": 95.138
+     "s": 113.435
     },
     {
      "w": "antibiotics",
      "hi": true,
-     "s": 95.363
+     "s": 113.77
     }
    ]
   },
   {
-   "start": 95.93,
-   "end": 97.51,
+   "start": 114.576,
+   "end": 116.581,
    "words": [
     {
      "w": "aur",
      "hi": false,
-     "s": 95.93
+     "s": 114.576
     },
     {
      "w": "osteoporosis",
      "hi": false,
-     "s": 96.144
+     "s": 114.851
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 96.744
+     "s": 115.621
     },
     {
      "w": "dawaon",
      "hi": false,
-     "s": 96.916
+     "s": 115.841
     },
     {
      "w": "se",
      "hi": false,
-     "s": 97.259
+     "s": 116.281
     }
    ]
   },
   {
-   "start": 97.51,
-   "end": 99.86,
+   "start": 116.581,
+   "end": 119.001,
    "words": [
     {
      "w": "2",
      "hi": true,
-     "s": 97.51
+     "s": 116.581
     },
     {
      "w": "ghante",
      "hi": true,
-     "s": 97.71
+     "s": 116.788
     },
     {
      "w": "ka",
      "hi": false,
-     "s": 98.243
+     "s": 117.34
     },
     {
      "w": "gap",
      "hi": false,
-     "s": 98.51
+     "s": 117.616
     },
     {
      "w": "rakhein.",
      "hi": false,
-     "s": 98.843
+     "s": 117.961
     }
    ]
   },
   {
-   "start": 99.86,
-   "end": 101.74,
+   "start": 119.001,
+   "end": 120.921,
    "words": [
     {
      "w": "Agar",
      "hi": false,
-     "s": 99.86
+     "s": 119.001
     },
     {
      "w": "aapko",
      "hi": false,
-     "s": 100.137
+     "s": 119.284
     },
     {
      "w": "kidney",
      "hi": true,
-     "s": 100.46
+     "s": 119.614
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 100.829
+     "s": 119.992
     },
     {
      "w": "bimari",
      "hi": false,
-     "s": 101.014
+     "s": 120.18
     },
     {
      "w": "hai,",
      "hi": false,
-     "s": 101.383
+     "s": 120.558
     }
    ]
   },
   {
-   "start": 101.74,
-   "end": 103.32,
+   "start": 120.921,
+   "end": 122.521,
    "words": [
     {
      "w": "toh",
      "hi": false,
-     "s": 101.74
+     "s": 120.921
     },
     {
      "w": "bina",
      "hi": false,
-     "s": 101.982
+     "s": 121.166
     },
     {
      "w": "doctor",
      "hi": false,
-     "s": 102.272
+     "s": 121.46
     },
     {
      "w": "ki",
      "hi": false,
-     "s": 102.659
+     "s": 121.853
     },
     {
      "w": "salaah",
      "hi": false,
-     "s": 102.853
+     "s": 122.049
     }
    ]
   },
   {
-   "start": 103.32,
-   "end": 104.0,
+   "start": 122.521,
+   "end": 123.781,
    "words": [
     {
      "w": "Magnesium",
      "hi": false,
-     "s": 103.32
+     "s": 122.521
     },
     {
      "w": "supplements",
      "hi": false,
-     "s": 103.595
+     "s": 123.062
     }
    ]
   },
   {
-   "start": 104.0,
-   "end": 105.75,
+   "start": 123.781,
+   "end": 125.407,
    "words": [
     {
      "w": "bilkul",
      "hi": true,
-     "s": 104.0
+     "s": 123.781
     },
     {
      "w": "na",
      "hi": true,
-     "s": 104.589
+     "s": 124.318
     },
     {
      "w": "lein.",
      "hi": false,
-     "s": 104.884
+     "s": 124.587
     }
    ]
   },
   {
-   "start": 105.75,
-   "end": 106.7,
+   "start": 125.407,
+   "end": 126.484,
    "words": [
     {
      "w": "Yaad",
      "hi": false,
-     "s": 105.75
+     "s": 125.407
     },
     {
      "w": "rakhiye:",
      "hi": false,
-     "s": 105.975
+     "s": 125.68
     }
    ]
   },
   {
-   "start": 106.7,
-   "end": 108.28,
+   "start": 126.484,
+   "end": 128.634,
    "words": [
     {
      "w": "Magnesium",
      "hi": false,
-     "s": 106.7
+     "s": 126.484
     },
     {
      "w": "ek",
      "hi": false,
-     "s": 107.102
+     "s": 127.039
     },
     {
      "w": "essential",
      "hi": true,
-     "s": 107.249
+     "s": 127.241
     },
     {
      "w": "mineral",
      "hi": true,
-     "s": 107.651
+     "s": 127.797
     },
     {
      "w": "hai,",
      "hi": false,
-     "s": 107.98
+     "s": 128.251
     }
    ]
   },
   {
-   "start": 108.28,
-   "end": 110.93,
+   "start": 128.634,
+   "end": 131.533,
    "words": [
     {
      "w": "lekin",
      "hi": false,
-     "s": 108.28
+     "s": 128.634
     },
     {
      "w": "koi",
      "hi": false,
-     "s": 108.654
+     "s": 129.049
     },
     {
      "w": "proven",
      "hi": true,
-     "s": 108.922
+     "s": 129.345
     },
     {
      "w": "sleeping",
      "hi": true,
-     "s": 109.35
+     "s": 129.82
     },
     {
      "w": "pill",
      "hi": true,
-     "s": 109.885
+     "s": 130.412
     },
     {
      "w": "nahi.",
      "hi": false,
-     "s": 110.206
+     "s": 130.768
     }
    ]
   },
   {
-   "start": 110.93,
-   "end": 112.81,
+   "start": 131.533,
+   "end": 134.283,
    "words": [
     {
      "w": "Aisi",
      "hi": false,
-     "s": 110.93
+     "s": 131.533
     },
     {
      "w": "aur",
      "hi": false,
-     "s": 111.16
+     "s": 131.874
     },
     {
      "w": "evidence-based",
      "hi": true,
-     "s": 111.351
+     "s": 132.158
     },
     {
      "w": "jaankari",
      "hi": false,
-     "s": 111.964
+     "s": 133.067
     },
     {
      "w": "ke",
      "hi": false,
-     "s": 112.347
+     "s": 133.635
     },
     {
      "w": "liye",
      "hi": false,
-     "s": 112.5
+     "s": 133.862
     }
    ]
   },
   {
-   "start": 112.81,
-   "end": 114.66,
+   "start": 134.283,
+   "end": 136.169,
    "words": [
     {
      "w": "follow",
      "hi": true,
-     "s": 112.81
+     "s": 134.283
     },
     {
      "w": "karein,",
      "hi": false,
-     "s": 113.126
+     "s": 134.606
     },
     {
      "w": "aur",
      "hi": false,
-     "s": 113.481
+     "s": 134.97
     },
     {
      "w": "share",
      "hi": true,
-     "s": 113.678
+     "s": 135.172
     },
     {
      "w": "karein.",
      "hi": false,
-     "s": 113.955
+     "s": 135.455
     }
    ]
   }
  ],
  "cues": {
   "hook": 0.3,
-  "trend": 4.2,
-  "mag": 6.46,
-  "question": 9.49,
-  "three": 12.22,
-  "s1": 15.25,
-  "s1n": 20.84,
-  "s1sol": 25.53,
-  "s1tst": 31.72,
-  "s1q": 35.65,
-  "s2": 40.26,
-  "s2n": 43.02,
-  "s2dose": 46.65,
-  "s2res": 51.07,
-  "s2small": 54.78,
-  "s3": 57.51,
-  "s3grid": 59.77,
-  "s3c": 62.5,
-  "close": 69.34,
-  "closeNo": 71.87,
-  "some": 74.52,
-  "some2": 76.78,
-  "cbti": 82.37,
-  "cbti2": 84.63,
-  "doc": 86.98,
-  "side": 92.19,
-  "gap": 94.95,
-  "kidney": 99.86,
-  "yaad": 105.75,
-  "cta": 110.93,
-  "outro": 114.96
+  "trend": 4.404,
+  "mag": 6.704,
+  "question": 10.085,
+  "three": 13.264,
+  "s1": 16.126,
+  "s1meta": 20.586,
+  "s1n": 24.525,
+  "s1sol": 31.259,
+  "s17": 35.629,
+  "s1tst": 38.509,
+  "s1q": 42.713,
+  "s2": 47.109,
+  "s2n": 51.777,
+  "s2dose": 56.552,
+  "s2mg": 59.542,
+  "s2res": 63.175,
+  "s2small": 67.744,
+  "s3": 70.61,
+  "s3grid": 73.34,
+  "s3c": 77.016,
+  "s3nahi": 83.423,
+  "close": 85.683,
+  "closeNo": 88.651,
+  "some": 91.323,
+  "some2": 93.713,
+  "cbti": 99.596,
+  "cbti2": 102.546,
+  "doc": 105.495,
+  "side": 110.439,
+  "gap": 113.156,
+  "kidney": 119.001,
+  "yaad": 125.407,
+  "yaad2": 128.634,
+  "cta": 131.533,
+  "follow": 134.283,
+  "outro": 136.469
  }
 }

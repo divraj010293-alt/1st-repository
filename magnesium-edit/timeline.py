@@ -2,8 +2,8 @@
 
 Scenes hang off named caption phrases, so the whole edit re-times from one list of phrase
 start times. Until the voiceover is recorded, phrase times are estimated from a typical
-Hindi speaking pace (draft). Once a recording exists, put its phrase start times in
-phrase_times.json (a list of seconds, one per phrase) and rerun.
+Hindi speaking pace (draft). Once a voiceover exists (tts.py writes one), its phrase start
+times go in phrase_times.json (one per phrase, then the end of speech) and this picks them up.
 """
 import json
 import pathlib
@@ -31,7 +31,7 @@ kya kehta hai?
 kya paaya, dekhiye.
 [s1] *2021 mein *BMC Complementary
 Medicine and Therapies mein
-ek *systematic *review
+[+s1meta] ek *systematic *review
 aur *meta-analysis prakashit hua.
 [s1n] Ismein *3 randomized
 controlled trials
@@ -40,7 +40,7 @@ shaamil the.
 [s1sol] Magnesium lene se,
 *placebo ki tulna mein,
 sone mein lagne wala samay
-lagbhag *17 *minute kam hua.
+[+s17] lagbhag *17 *minute kam hua.
 [s1tst] Lekin *total *sleep *time mein
 koi significant *farak *nahi tha.
 [s1q] Aur in studies mein
@@ -52,7 +52,7 @@ placebo-controlled *trial aaya,
 *155 healthy adults shaamil the.
 [s2dose] *4 hafte tak roz
 *Magnesium *Bisglycinate,
-*250 mg elemental magnesium,
+[+s2mg] *250 mg elemental magnesium,
 dene par
 [s2res] insomnia severity mein
 placebo se *thoda zyada
@@ -67,7 +67,7 @@ ka analysis kiya.
 abhi insomnia ke
 *routine treatment ke liye
 magnesium ko recommend karne ke liye
-*paryaapt *evidence *nahi hai.
+[+s3nahi] *paryaapt *evidence *nahi hai.
 [close] Toh kya Magnesium
 *bilkul kaam nahi karta?
 [+closeNo] Aisa kehna bhi sahi nahi hoga.
@@ -94,9 +94,9 @@ Magnesium supplements
 *bilkul *na lein.
 [yaad] Yaad rakhiye:
 Magnesium ek *essential *mineral hai,
-lekin koi *proven *sleeping *pill nahi.
+[+yaad2] lekin koi *proven *sleeping *pill nahi.
 [cta] Aisi aur *evidence-based jaankari ke liye
-*follow karein, aur *share karein.
+[+follow] *follow karein, aur *share karein.
 """
 
 phrases = []
@@ -112,7 +112,7 @@ for line in PHRASES.strip().splitlines():
 times_file = HERE / "phrase_times.json"
 if times_file.exists():
     starts = json.load(open(times_file))
-    assert len(starts) == len(phrases), (len(starts), len(phrases))
+    assert len(starts) in (len(phrases), len(phrases) + 1), (len(starts), len(phrases))  # optional trailing end-of-speech
     mode = "recorded"
 else:
     starts, t = [], 0.3
@@ -131,7 +131,7 @@ captions, cues = [], {}
 for i, p in enumerate(phrases):
     s = starts[i]
     nxt = starts[i + 1] if i + 1 < len(starts) else speech_end
-    speak = nxt - s - (SENTENCE_GAP if p["words"][-1]["w"][-1] in ".?:!" else PHRASE_GAP) if mode == "draft" else (nxt - s) * 0.9
+    speak = max(0.3, nxt - s - (SENTENCE_GAP if p["words"][-1]["w"][-1] in ".?:!" else PHRASE_GAP))
     # spread words across the phrase by length (vowel-heavy Hindi: chars are a fair proxy)
     lens = [len(w["w"]) + 2 for w in p["words"]]
     acc, ws = 0, []

@@ -452,7 +452,7 @@ function sceneStudy1(t, a) {
     studyHeader(t, Q.s1, 1, '2021', 'BMC Complementary Medicine & Therapies', 'Systematic review + Meta-analysis', M.lav);
     block(t, Q.s1 + 0.4, Q.s1n, () => {
       // meta-analysis: several trials pooled into one result
-      const k = eInOut(prog(t, Q.s1 + 2.0, 1.2));
+      const k = eInOut(prog(t, Q.s1meta, 1.2));
       [300, 540, 780].forEach((x, i) => docIcon(lerp(x, 540, k), 700, 150, '#F4F2FF', 1 - 0.7 * k * (i !== 1)));
       if (k > 0.6) alpha((k - 0.6) / 0.4, () => { circle(540, 700, 110, null, M.lav, 6); });
       text('Kai trials ka', 540, 900, { w: 600, s: 44, color: C.muted, align: 'center' });
@@ -466,8 +466,9 @@ function sceneStudy1(t, a) {
       card(60, 520, 960, 360, { edge: C.tealL, lw: 3 });
       clockIcon(200, 700, 95, 11, Math.floor((t * 20) % 60));
       text('Sone mein lagne wala samay', 340, 610, { w: 600, s: 36, color: C.muted, maxW: 650 });
-      const k = eOut(prog(t, Q.s1sol + 2.5, .8));
-      text(`−${Math.round(17 * k)} min`, 340, 740, { w: 900, s: 120, color: C.tealL });
+      const k = eOut(prog(t, Q.s17, .8));
+      if (k > 0) text(`−${Math.round(17 * k)} min`, 340, 740, { w: 900, s: 120, color: C.tealL });
+      else text('? min', 340, 740, { w: 900, s: 120, color: 'rgba(255,255,255,0.35)' });
       text('placebo ki tulna mein', 340, 810, { w: 600, s: 34, color: C.muted });
       rise(t, Q.s1tst - 0.1, () => {
         card(60, 920, 960, 200, { edge: 'rgba(255,255,255,0.3)', lw: 3 });
@@ -512,7 +513,7 @@ function sceneStudy2(t, a) {
     block(t, Q.s2n, Q.s2res, () => {
       statCard(t, Q.s2n, 60, 520, 460, 330, '155', 'Healthy adults (kharab neend)', C.tealL, (x, y) => peopleRow(x - 105, y + 5, 4, 70, C.tealL, eOut(prog(t, Q.s2n + .2, .8))));
       statCard(t, Q.s2dose, 560, 520, 460, 330, '4 hafte', 'Roz supplement', M.lav, (x, y) => iconCalendar(x, y, 90, '28'));
-      rise(t, Q.s2dose + 1.0, () => {
+      rise(t, Q.s2mg - 0.1, () => {
         card(60, 890, 960, 190, { edge: M.lav, lw: 3 });
         pill(190, 985, 150, 36, -0.2);
         text('Mg Bisglycinate', 310, 965, { w: 900, s: 48 });
@@ -560,8 +561,8 @@ function sceneStudy3(t, a) {
       card(60, 870, 960, 330, { edge: C.coral, lw: 4 });
       text('Routine insomnia treatment ke liye:', 540, 950, { w: 600, s: 38, color: C.muted, align: 'center', maxW: 900 });
       text('Paryaapt evidence', 540, 1040, { w: 900, s: 66, align: 'center' });
-      scaled(540, 1130, eBack(prog(t, Q.s3c + 3.0, .45)), () => {
-        iconCross(380, 1125, 34, eOut(prog(t, Q.s3c + 3.1, .4)));
+      scaled(540, 1130, eBack(prog(t, Q.s3nahi + 0.3, .45)), () => {
+        iconCross(380, 1125, 34, eOut(prog(t, Q.s3nahi + 0.4, .4)));
         text('NAHI', 560, 1150, { w: 900, s: 72, color: C.coral, align: 'center' });
       });
     });
@@ -647,17 +648,17 @@ function sceneYaad(t, a) {
       text('Essential mineral', 110, 640, { w: 900, s: 66, color: C.tealL, maxW: 780 });
       iconCheck(940, 585, 40, eOut(prog(t, Q.yaad + 1.6, .4)), C.tealL);
     });
-    rise(t, Q.yaad + 2.4, () => {
+    rise(t, Q.yaad2 - 0.1, () => {
       text('≠', 540, 800, { w: 900, s: 110, align: 'center' });
       card(60, 830, 960, 230, { edge: C.coral, lw: 3 });
       text('Proven', 110, 920, { w: 600, s: 44, color: C.muted });
       const w = measure('sleeping pill', 900, 66);
       text('sleeping pill', 110, 1000, { w: 900, s: 66 });
-      strike(100, 120 + w, 978, prog(t, Q.yaad + 3.4, .4), C.coral, 10);
-      iconCross(940, 945, 40, eOut(prog(t, Q.yaad + 3.5, .4)));
+      strike(100, 120 + w, 978, prog(t, Q.yaad2 + 1.0, .4), C.coral, 10);
+      iconCross(940, 945, 40, eOut(prog(t, Q.yaad2 + 1.1, .4)));
     });
     const btn = (str, cx, i, fill) => {
-      const k = eBack(prog(t, Q.cta + 1.6 + i * 0.25, .45));
+      const k = eBack(prog(t, Q.follow + i * 0.25, .45));
       if (k <= 0) return;
       scaled(cx, 1160, k, () => {
         const w = 330; rrect(cx - w / 2, 1120, w, 84, 42, fill ? M.lav : 'rgba(255,255,255,0.08)', fill ? null : 'rgba(255,255,255,0.5)', 3);

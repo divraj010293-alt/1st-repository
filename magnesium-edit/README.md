@@ -1,26 +1,30 @@
 # Magnesium & sleep explainer
 
-Script-first edit: the graphics were built from the script before the voiceover was recorded.
+- `output/magnesium-final.mp4`: final video (1080×1920, 30 fps, 2:20, −14 LUFS).
+  Voiceover + sound effects, **no background music**.
+- `script.md`: revised script (Devanagari), with sources
+- `voiceover.wav`: the synthesised Hindi voiceover (24 kHz mono)
 
-- `script.md`: revised script to record from (Devanagari), with sources
-- `output/magnesium-draft.mp4`: **draft**, timed to an estimated speaking pace, music + SFX, no voice
-  (1080×1920, 1:59). Doubles as a pace guide for recording.
+## Voiceover
+An AI-generated Hindi male voice (Kokoro-82M, voice `hm_psi`, 1.2× speed), not Dr Mahar's own voice.
+`tts.py` holds the spoken text, one line per caption phrase. Hindi is in Devanagari, English terms
+are in English, and numbers are written the way they're spoken. It synthesises sentence by sentence and
+writes `phrase_times.json`, which `timeline.py` uses to time every caption and animation.
 
-## Scenes
-Hook → 3 AM / "Magnesium lo!" trend → "Scientific evidence?" with the 3 studies →
-Study 1 (2021 meta-analysis: 3 RCTs, 151 older adults, −17 min vs placebo, no total-sleep-time difference, low/very low quality) →
-Study 2 (2025 RCT: 155 healthy adults with poor sleep, 4 weeks, 250 mg elemental Mg bisglycinate, ISI −3.9 vs −2.3, d = 0.2) →
-Study 3 (2026 review of 12 RCTs: not enough evidence for routine use) →
-"Kuch logon ko fayda / har kisi ko zaroorat nahi" → CBT-I first line, doctor after 3 months →
-safety (loose motions, 2-hour gap, kidney disease) → "Essential mineral ≠ proven sleeping pill" → follow/share → end card with sources.
+Model files (all fetched from npm/PyPI):
+- `kokoro-q8.onnx`: concatenate the 6 parts of the `kokoro-q8-shards` npm package
+  (sha256 `fbae9257…a1478`)
+- `voices/hm_psi.bin`: from the `kokoro-js` npm package
+- Python: `onnxruntime`, `kokoro-onnx` (phoneme vocabulary), `espeakng-loader` + `phonemizer-fork` (eSpeak NG Hindi/English)
 
-## When the voiceover arrives
-1. Get phrase start times from the recording (Whisper word timestamps, matched to the 78 phrases in `timeline.py`)
-   and save them as `phrase_times.json`: a list of 79 numbers (78 phrase starts, then the end of speech).
-2. Rebuild:
+## Rebuild
 ```sh
-python3 timeline.py                    # switches from draft to recorded timing automatically
+python3 tts.py <kokoroDir> voiceover.wav hm_psi 1.2   # also writes phrase_times.json
+python3 timeline.py
 node render.js /tmp/frames 4
-python3 audio.py /tmp/audio
-python3 build.py /tmp/frames /tmp/audio output/magnesium-final.mp4 voiceover.wav
+python3 audio.py /tmp/audio                            # sound effects only
+python3 build.py /tmp/frames /tmp/audio voiceover.wav output/magnesium-final.mp4
 ```
+
+To swap in a real recording later, replace `voiceover.wav` and write its 78 phrase start times
+(plus end of speech) to `phrase_times.json`. Then rerun from `timeline.py`.
