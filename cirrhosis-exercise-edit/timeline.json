@@ -1,0 +1,2066 @@
+{
+ "fps": 30,
+ "duration": 106.933,
+ "srcDuration": 103.34,
+ "captions": [
+  {
+   "start": 0.0,
+   "end": 1.55,
+   "words": [
+    {
+     "w": "Kya",
+     "hi": false,
+     "s": 0.0
+    },
+    {
+     "w": "liver",
+     "hi": true,
+     "s": 0.21
+    },
+    {
+     "w": "cirrhosis",
+     "hi": true,
+     "s": 0.503
+    },
+    {
+     "w": "hone",
+     "hi": false,
+     "s": 0.965
+    },
+    {
+     "w": "par",
+     "hi": false,
+     "s": 1.216
+    }
+   ]
+  },
+  {
+   "start": 1.55,
+   "end": 2.75,
+   "words": [
+    {
+     "w": "patient",
+     "hi": false,
+     "s": 1.55
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 1.871
+    },
+    {
+     "w": "zyada",
+     "hi": false,
+     "s": 2.013
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 2.262
+    },
+    {
+     "w": "zyada",
+     "hi": false,
+     "s": 2.405
+    }
+   ]
+  },
+  {
+   "start": 2.75,
+   "end": 3.78,
+   "words": [
+    {
+     "w": "aaram",
+     "hi": true,
+     "s": 2.75
+    },
+    {
+     "w": "karna",
+     "hi": false,
+     "s": 3.038
+    },
+    {
+     "w": "chahiye",
+     "hi": false,
+     "s": 3.327
+    }
+   ]
+  },
+  {
+   "start": 3.78,
+   "end": 4.7,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 3.78
+    },
+    {
+     "w": "physical",
+     "hi": true,
+     "s": 3.926
+    },
+    {
+     "w": "activity",
+     "hi": true,
+     "s": 4.218
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 4.51
+    }
+   ]
+  },
+  {
+   "start": 4.7,
+   "end": 5.86,
+   "words": [
+    {
+     "w": "bachna",
+     "hi": true,
+     "s": 4.7
+    },
+    {
+     "w": "chahiye?",
+     "hi": false,
+     "s": 5.174
+    }
+   ]
+  },
+  {
+   "start": 5.86,
+   "end": 6.3,
+   "words": [
+    {
+     "w": "Ji",
+     "hi": false,
+     "s": 5.86
+    },
+    {
+     "w": "nahi,",
+     "hi": true,
+     "s": 6.007
+    }
+   ]
+  },
+  {
+   "start": 6.3,
+   "end": 7.5,
+   "words": [
+    {
+     "w": "aisa",
+     "hi": false,
+     "s": 6.3
+    },
+    {
+     "w": "bilkul",
+     "hi": true,
+     "s": 6.555
+    },
+    {
+     "w": "nahi",
+     "hi": true,
+     "s": 6.894
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 7.149
+    }
+   ]
+  },
+  {
+   "start": 7.5,
+   "end": 9.4,
+   "words": [
+    {
+     "w": "Balki",
+     "hi": false,
+     "s": 7.5
+    },
+    {
+     "w": "liver",
+     "hi": false,
+     "s": 7.772
+    },
+    {
+     "w": "cirrhosis",
+     "hi": false,
+     "s": 8.044
+    },
+    {
+     "w": "patients",
+     "hi": false,
+     "s": 8.471
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 8.86
+    },
+    {
+     "w": "liye",
+     "hi": false,
+     "s": 9.015
+    }
+   ]
+  },
+  {
+   "start": 9.4,
+   "end": 10.2,
+   "words": [
+    {
+     "w": "exercise",
+     "hi": true,
+     "s": 9.4
+    },
+    {
+     "w": "karna",
+     "hi": false,
+     "s": 9.833
+    }
+   ]
+  },
+  {
+   "start": 10.2,
+   "end": 11.92,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 10.2
+    },
+    {
+     "w": "zyada",
+     "hi": true,
+     "s": 10.473
+    },
+    {
+     "w": "important",
+     "hi": true,
+     "s": 10.855
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 11.455
+    }
+   ]
+  },
+  {
+   "start": 11.92,
+   "end": 12.9,
+   "words": [
+    {
+     "w": "Liver",
+     "hi": false,
+     "s": 11.92
+    },
+    {
+     "w": "cirrhosis",
+     "hi": false,
+     "s": 12.145
+    },
+    {
+     "w": "jo",
+     "hi": false,
+     "s": 12.5
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 12.628
+    }
+   ]
+  },
+  {
+   "start": 12.9,
+   "end": 13.8,
+   "words": [
+    {
+     "w": "wo",
+     "hi": false,
+     "s": 12.9
+    },
+    {
+     "w": "sirf",
+     "hi": false,
+     "s": 13.058
+    },
+    {
+     "w": "liver",
+     "hi": true,
+     "s": 13.294
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 13.57
+    }
+   ]
+  },
+  {
+   "start": 13.8,
+   "end": 15.6,
+   "words": [
+    {
+     "w": "affect",
+     "hi": false,
+     "s": 13.8
+    },
+    {
+     "w": "nahi",
+     "hi": false,
+     "s": 14.402
+    },
+    {
+     "w": "karta.",
+     "hi": false,
+     "s": 14.854
+    }
+   ]
+  },
+  {
+   "start": 15.6,
+   "end": 16.5,
+   "words": [
+    {
+     "w": "Isme",
+     "hi": false,
+     "s": 15.6
+    },
+    {
+     "w": "dheere-dheere",
+     "hi": false,
+     "s": 15.837
+    }
+   ]
+  },
+  {
+   "start": 16.5,
+   "end": 17.6,
+   "words": [
+    {
+     "w": "hamari",
+     "hi": false,
+     "s": 16.5
+    },
+    {
+     "w": "body",
+     "hi": false,
+     "s": 16.753
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 16.943
+    },
+    {
+     "w": "muscles",
+     "hi": true,
+     "s": 17.069
+    },
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 17.354
+    }
+   ]
+  },
+  {
+   "start": 17.6,
+   "end": 18.6,
+   "words": [
+    {
+     "w": "weak",
+     "hi": true,
+     "s": 17.6
+    },
+    {
+     "w": "hone",
+     "hi": false,
+     "s": 17.812
+    },
+    {
+     "w": "lagti",
+     "hi": false,
+     "s": 18.025
+    },
+    {
+     "w": "hain,",
+     "hi": false,
+     "s": 18.272
+    }
+   ]
+  },
+  {
+   "start": 18.6,
+   "end": 19.8,
+   "words": [
+    {
+     "w": "jise",
+     "hi": false,
+     "s": 18.6
+    },
+    {
+     "w": "hum",
+     "hi": false,
+     "s": 18.779
+    },
+    {
+     "w": "bolte",
+     "hi": false,
+     "s": 18.928
+    },
+    {
+     "w": "hain",
+     "hi": false,
+     "s": 19.137
+    },
+    {
+     "w": "sarcopenia.",
+     "hi": true,
+     "s": 19.316
+    }
+   ]
+  },
+  {
+   "start": 19.8,
+   "end": 20.9,
+   "words": [
+    {
+     "w": "To",
+     "hi": false,
+     "s": 19.8
+    },
+    {
+     "w": "muscle",
+     "hi": false,
+     "s": 19.909
+    },
+    {
+     "w": "weakness",
+     "hi": false,
+     "s": 20.128
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 20.402
+    },
+    {
+     "w": "wajah",
+     "hi": false,
+     "s": 20.511
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 20.703
+    }
+   ]
+  },
+  {
+   "start": 20.9,
+   "end": 22.6,
+   "words": [
+    {
+     "w": "patient",
+     "hi": false,
+     "s": 20.9
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 21.213
+    },
+    {
+     "w": "kamzori",
+     "hi": true,
+     "s": 21.352
+    },
+    {
+     "w": "feel",
+     "hi": false,
+     "s": 21.665
+    },
+    {
+     "w": "ho",
+     "hi": false,
+     "s": 21.873
+    },
+    {
+     "w": "sakti",
+     "hi": false,
+     "s": 22.012
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 22.255
+    }
+   ]
+  },
+  {
+   "start": 22.6,
+   "end": 23.6,
+   "words": [
+    {
+     "w": "chalne-phirne",
+     "hi": true,
+     "s": 22.6
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 23.093
+    },
+    {
+     "w": "kshamta",
+     "hi": false,
+     "s": 23.224
+    }
+   ]
+  },
+  {
+   "start": 23.6,
+   "end": 25.0,
+   "words": [
+    {
+     "w": "kam",
+     "hi": true,
+     "s": 23.6
+    },
+    {
+     "w": "ho",
+     "hi": false,
+     "s": 23.893
+    },
+    {
+     "w": "sakti",
+     "hi": false,
+     "s": 24.127
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 24.537
+    }
+   ]
+  },
+  {
+   "start": 25.0,
+   "end": 26.2,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 25.0
+    },
+    {
+     "w": "overall",
+     "hi": true,
+     "s": 25.172
+    },
+    {
+     "w": "health",
+     "hi": true,
+     "s": 25.483
+    },
+    {
+     "w": "par",
+     "hi": false,
+     "s": 25.759
+    },
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 25.931
+    }
+   ]
+  },
+  {
+   "start": 26.2,
+   "end": 27.76,
+   "words": [
+    {
+     "w": "effect",
+     "hi": false,
+     "s": 26.2
+    },
+    {
+     "w": "aa",
+     "hi": false,
+     "s": 26.659
+    },
+    {
+     "w": "sakta",
+     "hi": false,
+     "s": 26.889
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 27.291
+    }
+   ]
+  },
+  {
+   "start": 27.76,
+   "end": 28.9,
+   "words": [
+    {
+     "w": "To",
+     "hi": false,
+     "s": 27.76
+    },
+    {
+     "w": "aaiye",
+     "hi": false,
+     "s": 27.915
+    },
+    {
+     "w": "samajhte",
+     "hi": false,
+     "s": 28.187
+    },
+    {
+     "w": "hain",
+     "hi": false,
+     "s": 28.576
+    }
+   ]
+  },
+  {
+   "start": 28.9,
+   "end": 30.3,
+   "words": [
+    {
+     "w": "liver",
+     "hi": false,
+     "s": 28.9
+    },
+    {
+     "w": "cirrhosis",
+     "hi": false,
+     "s": 29.144
+    },
+    {
+     "w": "wale",
+     "hi": false,
+     "s": 29.527
+    },
+    {
+     "w": "patient",
+     "hi": false,
+     "s": 29.735
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 30.049
+    }
+   ]
+  },
+  {
+   "start": 30.3,
+   "end": 31.96,
+   "words": [
+    {
+     "w": "kaun-kaun",
+     "hi": true,
+     "s": 30.3
+    },
+    {
+     "w": "si",
+     "hi": false,
+     "s": 30.691
+    },
+    {
+     "w": "exercises",
+     "hi": true,
+     "s": 30.833
+    },
+    {
+     "w": "karni",
+     "hi": false,
+     "s": 31.223
+    },
+    {
+     "w": "chahiye.",
+     "hi": false,
+     "s": 31.472
+    }
+   ]
+  },
+  {
+   "start": 31.96,
+   "end": 33.2,
+   "words": [
+    {
+     "w": "To",
+     "hi": false,
+     "s": 31.96
+    },
+    {
+     "w": "sabse",
+     "hi": false,
+     "s": 32.098
+    },
+    {
+     "w": "pehle",
+     "hi": false,
+     "s": 32.34
+    },
+    {
+     "w": "hai",
+     "hi": false,
+     "s": 32.582
+    },
+    {
+     "w": "walking.",
+     "hi": true,
+     "s": 32.755
+    }
+   ]
+  },
+  {
+   "start": 33.2,
+   "end": 34.6,
+   "words": [
+    {
+     "w": "Hamein",
+     "hi": false,
+     "s": 33.2
+    },
+    {
+     "w": "rozana",
+     "hi": false,
+     "s": 33.532
+    },
+    {
+     "w": "15-20",
+     "hi": true,
+     "s": 33.865
+    },
+    {
+     "w": "minute",
+     "hi": true,
+     "s": 34.156
+    }
+   ]
+  },
+  {
+   "start": 34.6,
+   "end": 36.38,
+   "words": [
+    {
+     "w": "walk",
+     "hi": false,
+     "s": 34.6
+    },
+    {
+     "w": "karni",
+     "hi": false,
+     "s": 35.027
+    },
+    {
+     "w": "chahiye,",
+     "hi": false,
+     "s": 35.526
+    }
+   ]
+  },
+  {
+   "start": 36.38,
+   "end": 37.9,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 36.38
+    },
+    {
+     "w": "dheere-dheere",
+     "hi": false,
+     "s": 36.535
+    },
+    {
+     "w": "capacity",
+     "hi": true,
+     "s": 37.002
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 37.312
+    },
+    {
+     "w": "according",
+     "hi": false,
+     "s": 37.437
+    }
+   ]
+  },
+  {
+   "start": 37.9,
+   "end": 39.56,
+   "words": [
+    {
+     "w": "us",
+     "hi": false,
+     "s": 37.9
+    },
+    {
+     "w": "duration",
+     "hi": true,
+     "s": 38.057
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 38.448
+    },
+    {
+     "w": "badha",
+     "hi": false,
+     "s": 38.605
+    },
+    {
+     "w": "sakte",
+     "hi": false,
+     "s": 38.879
+    },
+    {
+     "w": "hain.",
+     "hi": false,
+     "s": 39.153
+    }
+   ]
+  },
+  {
+   "start": 39.56,
+   "end": 40.2,
+   "words": [
+    {
+     "w": "Doosri",
+     "hi": false,
+     "s": 39.56
+    },
+    {
+     "w": "hain",
+     "hi": false,
+     "s": 39.896
+    }
+   ]
+  },
+  {
+   "start": 40.2,
+   "end": 41.74,
+   "words": [
+    {
+     "w": "muscle",
+     "hi": true,
+     "s": 40.2
+    },
+    {
+     "w": "strengthening",
+     "hi": true,
+     "s": 40.524
+    },
+    {
+     "w": "exercises,",
+     "hi": false,
+     "s": 41.131
+    }
+   ]
+  },
+  {
+   "start": 41.74,
+   "end": 42.6,
+   "words": [
+    {
+     "w": "jaise",
+     "hi": false,
+     "s": 41.74
+    },
+    {
+     "w": "chair",
+     "hi": true,
+     "s": 42.048
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 42.355
+    }
+   ]
+  },
+  {
+   "start": 42.6,
+   "end": 43.92,
+   "words": [
+    {
+     "w": "uthna-baithna,",
+     "hi": true,
+     "s": 42.6
+    }
+   ]
+  },
+  {
+   "start": 43.92,
+   "end": 45.96,
+   "words": [
+    {
+     "w": "wall",
+     "hi": true,
+     "s": 43.92
+    },
+    {
+     "w": "push-ups",
+     "hi": true,
+     "s": 44.389
+    },
+    {
+     "w": "karna,",
+     "hi": false,
+     "s": 45.171
+    }
+   ]
+  },
+  {
+   "start": 45.96,
+   "end": 47.0,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 45.96
+    },
+    {
+     "w": "kuch",
+     "hi": false,
+     "s": 46.159
+    },
+    {
+     "w": "cases",
+     "hi": false,
+     "s": 46.399
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 46.678
+    }
+   ]
+  },
+  {
+   "start": 47.0,
+   "end": 48.98,
+   "words": [
+    {
+     "w": "resistance",
+     "hi": true,
+     "s": 47.0
+    },
+    {
+     "w": "band",
+     "hi": true,
+     "s": 47.754
+    },
+    {
+     "w": "exercises",
+     "hi": false,
+     "s": 48.131
+    }
+   ]
+  },
+  {
+   "start": 48.98,
+   "end": 50.86,
+   "words": [
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 48.98
+    },
+    {
+     "w": "kar",
+     "hi": false,
+     "s": 49.34
+    },
+    {
+     "w": "sakte",
+     "hi": false,
+     "s": 49.701
+    },
+    {
+     "w": "hain.",
+     "hi": false,
+     "s": 50.205
+    }
+   ]
+  },
+  {
+   "start": 50.86,
+   "end": 51.9,
+   "words": [
+    {
+     "w": "In",
+     "hi": false,
+     "s": 50.86
+    },
+    {
+     "w": "exercises",
+     "hi": false,
+     "s": 51.061
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 51.615
+    }
+   ]
+  },
+  {
+   "start": 51.9,
+   "end": 53.0,
+   "words": [
+    {
+     "w": "muscle",
+     "hi": true,
+     "s": 51.9
+    },
+    {
+     "w": "strength",
+     "hi": true,
+     "s": 52.252
+    },
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 52.692
+    }
+   ]
+  },
+  {
+   "start": 53.0,
+   "end": 55.38,
+   "words": [
+    {
+     "w": "muscle",
+     "hi": true,
+     "s": 53.0
+    },
+    {
+     "w": "mass",
+     "hi": true,
+     "s": 53.626
+    },
+    {
+     "w": "badhta",
+     "hi": false,
+     "s": 54.095
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 54.72
+    }
+   ]
+  },
+  {
+   "start": 55.38,
+   "end": 56.6,
+   "words": [
+    {
+     "w": "Teesri",
+     "hi": false,
+     "s": 55.38
+    },
+    {
+     "w": "exercise",
+     "hi": false,
+     "s": 55.77
+    },
+    {
+     "w": "hai",
+     "hi": false,
+     "s": 56.258
+    }
+   ]
+  },
+  {
+   "start": 56.6,
+   "end": 58.44,
+   "words": [
+    {
+     "w": "balance",
+     "hi": true,
+     "s": 56.6
+    },
+    {
+     "w": "and",
+     "hi": false,
+     "s": 56.991
+    },
+    {
+     "w": "flexibility",
+     "hi": true,
+     "s": 57.208
+    },
+    {
+     "w": "exercises.",
+     "hi": false,
+     "s": 57.772
+    }
+   ]
+  },
+  {
+   "start": 58.44,
+   "end": 59.4,
+   "words": [
+    {
+     "w": "Isme",
+     "hi": false,
+     "s": 58.44
+    },
+    {
+     "w": "hum",
+     "hi": false,
+     "s": 58.611
+    },
+    {
+     "w": "muscle",
+     "hi": false,
+     "s": 58.753
+    },
+    {
+     "w": "stretching",
+     "hi": true,
+     "s": 58.981
+    }
+   ]
+  },
+  {
+   "start": 59.4,
+   "end": 60.8,
+   "words": [
+    {
+     "w": "kar",
+     "hi": false,
+     "s": 59.4
+    },
+    {
+     "w": "sakte",
+     "hi": false,
+     "s": 59.739
+    },
+    {
+     "w": "hain,",
+     "hi": false,
+     "s": 60.213
+    }
+   ]
+  },
+  {
+   "start": 60.8,
+   "end": 61.7,
+   "words": [
+    {
+     "w": "chair",
+     "hi": true,
+     "s": 60.8
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 61.063
+    },
+    {
+     "w": "madad",
+     "hi": false,
+     "s": 61.214
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 61.477
+    }
+   ]
+  },
+  {
+   "start": 61.7,
+   "end": 63.1,
+   "words": [
+    {
+     "w": "balance",
+     "hi": true,
+     "s": 61.7
+    },
+    {
+     "w": "exercises",
+     "hi": false,
+     "s": 61.997
+    },
+    {
+     "w": "kar",
+     "hi": false,
+     "s": 62.361
+    },
+    {
+     "w": "sakte",
+     "hi": false,
+     "s": 62.526
+    },
+    {
+     "w": "hain.",
+     "hi": false,
+     "s": 62.757
+    }
+   ]
+  },
+  {
+   "start": 63.1,
+   "end": 64.0,
+   "words": [
+    {
+     "w": "To",
+     "hi": false,
+     "s": 63.1
+    },
+    {
+     "w": "in",
+     "hi": false,
+     "s": 63.244
+    },
+    {
+     "w": "exercises",
+     "hi": false,
+     "s": 63.388
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 63.784
+    }
+   ]
+  },
+  {
+   "start": 64.0,
+   "end": 65.3,
+   "words": [
+    {
+     "w": "body",
+     "hi": false,
+     "s": 64.0
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 64.199
+    },
+    {
+     "w": "balance",
+     "hi": true,
+     "s": 64.399
+    },
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 64.698
+    },
+    {
+     "w": "mobility",
+     "hi": true,
+     "s": 64.864
+    }
+   ]
+  },
+  {
+   "start": 65.3,
+   "end": 66.92,
+   "words": [
+    {
+     "w": "behtar",
+     "hi": false,
+     "s": 65.3
+    },
+    {
+     "w": "rehne",
+     "hi": false,
+     "s": 65.591
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 65.845
+    },
+    {
+     "w": "madad",
+     "hi": false,
+     "s": 66.063
+    },
+    {
+     "w": "milti",
+     "hi": false,
+     "s": 66.318
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 66.572
+    }
+   ]
+  },
+  {
+   "start": 66.92,
+   "end": 67.9,
+   "words": [
+    {
+     "w": "Lekin",
+     "hi": false,
+     "s": 66.92
+    },
+    {
+     "w": "yaad",
+     "hi": true,
+     "s": 67.194
+    },
+    {
+     "w": "rakhiye,",
+     "hi": true,
+     "s": 67.43
+    }
+   ]
+  },
+  {
+   "start": 67.9,
+   "end": 69.4,
+   "words": [
+    {
+     "w": "agar",
+     "hi": false,
+     "s": 67.9
+    },
+    {
+     "w": "liver",
+     "hi": false,
+     "s": 68.112
+    },
+    {
+     "w": "cirrhosis",
+     "hi": false,
+     "s": 68.36
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 68.749
+    },
+    {
+     "w": "wajah",
+     "hi": false,
+     "s": 68.891
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 69.138
+    }
+   ]
+  },
+  {
+   "start": 69.4,
+   "end": 71.84,
+   "words": [
+    {
+     "w": "pet",
+     "hi": true,
+     "s": 69.4
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 69.661
+    },
+    {
+     "w": "paani",
+     "hi": true,
+     "s": 69.974
+    },
+    {
+     "w": "bahut",
+     "hi": false,
+     "s": 70.34
+    },
+    {
+     "w": "bhar",
+     "hi": false,
+     "s": 70.705
+    },
+    {
+     "w": "gaya",
+     "hi": false,
+     "s": 71.018
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 71.332
+    }
+   ]
+  },
+  {
+   "start": 71.84,
+   "end": 73.52,
+   "words": [
+    {
+     "w": "ya",
+     "hi": false,
+     "s": 71.84
+    },
+    {
+     "w": "phir",
+     "hi": false,
+     "s": 72.149
+    },
+    {
+     "w": "recently",
+     "hi": false,
+     "s": 72.613
+    }
+   ]
+  },
+  {
+   "start": 73.52,
+   "end": 74.4,
+   "words": [
+    {
+     "w": "hematemesis,",
+     "hi": true,
+     "s": 73.52
+    },
+    {
+     "w": "yaani",
+     "hi": false,
+     "s": 74.06
+    }
+   ]
+  },
+  {
+   "start": 74.4,
+   "end": 76.24,
+   "words": [
+    {
+     "w": "khoon",
+     "hi": true,
+     "s": 74.4
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 74.823
+    },
+    {
+     "w": "ulti",
+     "hi": true,
+     "s": 75.065
+    },
+    {
+     "w": "hui",
+     "hi": false,
+     "s": 75.428
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 75.73
+    }
+   ]
+  },
+  {
+   "start": 76.24,
+   "end": 77.2,
+   "words": [
+    {
+     "w": "ya",
+     "hi": false,
+     "s": 76.24
+    },
+    {
+     "w": "phir",
+     "hi": false,
+     "s": 76.426
+    },
+    {
+     "w": "patient",
+     "hi": false,
+     "s": 76.705
+    }
+   ]
+  },
+  {
+   "start": 77.2,
+   "end": 79.22,
+   "words": [
+    {
+     "w": "hepatic",
+     "hi": true,
+     "s": 77.2
+    },
+    {
+     "w": "encephalopathy",
+     "hi": true,
+     "s": 77.652
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 78.456
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 78.757
+    }
+   ]
+  },
+  {
+   "start": 79.22,
+   "end": 80.0,
+   "words": [
+    {
+     "w": "to",
+     "hi": false,
+     "s": 79.22
+    },
+    {
+     "w": "in",
+     "hi": false,
+     "s": 79.357
+    },
+    {
+     "w": "cases",
+     "hi": false,
+     "s": 79.493
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 79.733
+    }
+   ]
+  },
+  {
+   "start": 80.0,
+   "end": 81.7,
+   "words": [
+    {
+     "w": "exercise",
+     "hi": false,
+     "s": 80.0
+    },
+    {
+     "w": "shuru",
+     "hi": false,
+     "s": 80.447
+    },
+    {
+     "w": "karne",
+     "hi": false,
+     "s": 80.76
+    },
+    {
+     "w": "se",
+     "hi": false,
+     "s": 81.072
+    },
+    {
+     "w": "pehle",
+     "hi": true,
+     "s": 81.251
+    }
+   ]
+  },
+  {
+   "start": 81.7,
+   "end": 82.7,
+   "words": [
+    {
+     "w": "gastroenterologist",
+     "hi": true,
+     "s": 81.7
+    },
+    {
+     "w": "ki",
+     "hi": false,
+     "s": 82.275
+    },
+    {
+     "w": "salaah",
+     "hi": true,
+     "s": 82.39
+    }
+   ]
+  },
+  {
+   "start": 82.7,
+   "end": 83.98,
+   "words": [
+    {
+     "w": "leni",
+     "hi": false,
+     "s": 82.7
+    },
+    {
+     "w": "chahiye.",
+     "hi": false,
+     "s": 83.142
+    }
+   ]
+  },
+  {
+   "start": 83.98,
+   "end": 84.9,
+   "words": [
+    {
+     "w": "To",
+     "hi": false,
+     "s": 83.98
+    },
+    {
+     "w": "yaad",
+     "hi": false,
+     "s": 84.149
+    },
+    {
+     "w": "rakhiye,",
+     "hi": false,
+     "s": 84.403
+    }
+   ]
+  },
+  {
+   "start": 84.9,
+   "end": 86.2,
+   "words": [
+    {
+     "w": "liver",
+     "hi": false,
+     "s": 84.9
+    },
+    {
+     "w": "cirrhosis",
+     "hi": false,
+     "s": 85.104
+    },
+    {
+     "w": "mein",
+     "hi": false,
+     "s": 85.425
+    },
+    {
+     "w": "sirf",
+     "hi": false,
+     "s": 85.6
+    },
+    {
+     "w": "liver",
+     "hi": false,
+     "s": 85.775
+    },
+    {
+     "w": "ka",
+     "hi": false,
+     "s": 85.979
+    }
+   ]
+  },
+  {
+   "start": 86.2,
+   "end": 87.78,
+   "words": [
+    {
+     "w": "ilaaj",
+     "hi": true,
+     "s": 86.2
+    },
+    {
+     "w": "karna",
+     "hi": false,
+     "s": 86.563
+    },
+    {
+     "w": "kaafi",
+     "hi": true,
+     "s": 86.927
+    },
+    {
+     "w": "nahi,",
+     "hi": true,
+     "s": 87.29
+    }
+   ]
+  },
+  {
+   "start": 87.78,
+   "end": 89.0,
+   "words": [
+    {
+     "w": "balki",
+     "hi": false,
+     "s": 87.78
+    },
+    {
+     "w": "apni",
+     "hi": false,
+     "s": 88.033
+    },
+    {
+     "w": "muscles",
+     "hi": true,
+     "s": 88.251
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 88.577
+    },
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 88.721
+    }
+   ]
+  },
+  {
+   "start": 89.0,
+   "end": 90.3,
+   "words": [
+    {
+     "w": "strong",
+     "hi": true,
+     "s": 89.0
+    },
+    {
+     "w": "banaye",
+     "hi": false,
+     "s": 89.319
+    },
+    {
+     "w": "rakhna",
+     "hi": false,
+     "s": 89.638
+    },
+    {
+     "w": "hai,",
+     "hi": false,
+     "s": 89.957
+    }
+   ]
+  },
+  {
+   "start": 90.3,
+   "end": 92.22,
+   "words": [
+    {
+     "w": "jiske",
+     "hi": false,
+     "s": 90.3
+    },
+    {
+     "w": "liye",
+     "hi": false,
+     "s": 90.664
+    },
+    {
+     "w": "hum",
+     "hi": false,
+     "s": 90.975
+    },
+    {
+     "w": "kai",
+     "hi": false,
+     "s": 91.235
+    },
+    {
+     "w": "exercises",
+     "hi": false,
+     "s": 91.495
+    }
+   ]
+  },
+  {
+   "start": 92.22,
+   "end": 92.9,
+   "words": [
+    {
+     "w": "kar",
+     "hi": false,
+     "s": 92.22
+    },
+    {
+     "w": "sakte",
+     "hi": false,
+     "s": 92.385
+    },
+    {
+     "w": "hain.",
+     "hi": false,
+     "s": 92.615
+    }
+   ]
+  },
+  {
+   "start": 92.9,
+   "end": 93.9,
+   "words": [
+    {
+     "w": "Apni",
+     "hi": false,
+     "s": 92.9
+    },
+    {
+     "w": "muscle",
+     "hi": true,
+     "s": 93.13
+    },
+    {
+     "w": "strength",
+     "hi": true,
+     "s": 93.437
+    }
+   ]
+  },
+  {
+   "start": 93.9,
+   "end": 95.3,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 93.9
+    },
+    {
+     "w": "muscle",
+     "hi": true,
+     "s": 94.065
+    },
+    {
+     "w": "mass",
+     "hi": true,
+     "s": 94.329
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 94.527
+    },
+    {
+     "w": "banaye",
+     "hi": false,
+     "s": 94.66
+    },
+    {
+     "w": "rakhna",
+     "hi": false,
+     "s": 94.924
+    }
+   ]
+  },
+  {
+   "start": 95.3,
+   "end": 96.0,
+   "words": [
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 95.3
+    },
+    {
+     "w": "treatment",
+     "hi": true,
+     "s": 95.461
+    },
+    {
+     "w": "ka",
+     "hi": false,
+     "s": 95.815
+    }
+   ]
+  },
+  {
+   "start": 96.0,
+   "end": 97.82,
+   "words": [
+    {
+     "w": "ek",
+     "hi": false,
+     "s": 96.0
+    },
+    {
+     "w": "mahatvapurn",
+     "hi": true,
+     "s": 96.223
+    },
+    {
+     "w": "hissa",
+     "hi": true,
+     "s": 96.949
+    },
+    {
+     "w": "hai.",
+     "hi": false,
+     "s": 97.34
+    }
+   ]
+  },
+  {
+   "start": 97.82,
+   "end": 98.9,
+   "words": [
+    {
+     "w": "Isliye",
+     "hi": false,
+     "s": 97.82
+    },
+    {
+     "w": "apni",
+     "hi": false,
+     "s": 98.151
+    },
+    {
+     "w": "dawaiyon",
+     "hi": true,
+     "s": 98.4
+    }
+   ]
+  },
+  {
+   "start": 98.9,
+   "end": 100.58,
+   "words": [
+    {
+     "w": "aur",
+     "hi": false,
+     "s": 98.9
+    },
+    {
+     "w": "sahi",
+     "hi": true,
+     "s": 99.088
+    },
+    {
+     "w": "khaan-paan",
+     "hi": true,
+     "s": 99.315
+    },
+    {
+     "w": "ke",
+     "hi": false,
+     "s": 99.767
+    },
+    {
+     "w": "saath-saath,",
+     "hi": false,
+     "s": 99.918
+    }
+   ]
+  },
+  {
+   "start": 100.58,
+   "end": 101.7,
+   "words": [
+    {
+     "w": "exercise",
+     "hi": true,
+     "s": 100.58
+    },
+    {
+     "w": "ko",
+     "hi": false,
+     "s": 100.992
+    },
+    {
+     "w": "bhi",
+     "hi": false,
+     "s": 101.157
+    },
+    {
+     "w": "apne",
+     "hi": false,
+     "s": 101.363
+    }
+   ]
+  },
+  {
+   "start": 101.7,
+   "end": 103.34,
+   "words": [
+    {
+     "w": "daily",
+     "hi": true,
+     "s": 101.7
+    },
+    {
+     "w": "routine",
+     "hi": true,
+     "s": 101.985
+    },
+    {
+     "w": "ka",
+     "hi": false,
+     "s": 102.352
+    },
+    {
+     "w": "hissa",
+     "hi": false,
+     "s": 102.516
+    },
+    {
+     "w": "banaiye.",
+     "hi": false,
+     "s": 102.801
+    }
+   ]
+  }
+ ],
+ "cues": {
+  "hook": 0.0,
+  "no": 5.86,
+  "yes": 7.5,
+  "muscle": 11.92,
+  "weak": 16.5,
+  "sarco": 18.6,
+  "effects": 19.8,
+  "walkcap": 22.6,
+  "health": 25.0,
+  "which": 27.76,
+  "walk": 31.96,
+  "mins": 33.2,
+  "increase": 36.38,
+  "strength": 39.56,
+  "chair": 41.74,
+  "wall": 43.92,
+  "band": 45.96,
+  "mass": 50.86,
+  "balance": 55.38,
+  "stretch": 58.44,
+  "chairbal": 60.8,
+  "mobility": 63.1,
+  "caution": 66.92,
+  "ascites": 67.9,
+  "bleed": 71.84,
+  "he": 76.24,
+  "consult": 79.22,
+  "gastro": 81.7,
+  "summary": 83.98,
+  "muscles": 87.78,
+  "part": 92.9,
+  "routine": 97.82,
+  "daily": 100.58,
+  "outro": 103.34
+ }
+}

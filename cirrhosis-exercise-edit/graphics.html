@@ -1,0 +1,761 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cirrhosis Exercise Graphics</title>
+<style>
+  @font-face { font-family: Inter; font-weight: 400; src: url(file:///usr/share/fonts/opentype/inter/Inter-Regular.otf); }
+  @font-face { font-family: Inter; font-weight: 500; src: url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf); }
+  @font-face { font-family: Inter; font-weight: 600; src: url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf); }
+  @font-face { font-family: Inter; font-weight: 700; src: url(file:///usr/share/fonts/opentype/inter/Inter-Bold.otf); }
+  @font-face { font-family: Inter; font-weight: 800; src: url(file:///usr/share/fonts/opentype/inter/Inter-ExtraBold.otf); }
+  @font-face { font-family: Inter; font-weight: 900; src: url(file:///usr/share/fonts/opentype/inter/Inter-Black.otf); }
+  html, body { margin: 0; background: transparent; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// Overlay for the liver cirrhosis & exercise explainer. draw(t) paints one transparent frame at
+// edited-timeline time t (seconds); render.js calls it for every frame.
+const W = 1080, H = 1920;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+let TL = null, Q = null; // timeline + cue times
+
+const C = {
+  panel: 'rgba(6,22,38,0.86)', panelEdge: 'rgba(30,200,181,0.35)',
+  teal: '#1EC8B5', tealL: '#8AF5E8', white: '#FFFFFF', muted: 'rgba(255,255,255,0.72)',
+  dim: 'rgba(255,255,255,0.18)', yellow: '#FFD23F', coral: '#FF5E62', amber: '#FFB547',
+  pink: '#F0939B', pinkD: '#A9485A', colon: '#E9A47F', colonD: '#9A5A3E', water: '#5EC8FF',
+};
+
+// ------------------------------------------------------------------ helpers
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const eOut = t => 1 - Math.pow(1 - clamp(t), 3);
+const eIn = t => Math.pow(clamp(t), 3);
+const eInOut = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+const eBack = t => { t = clamp(t); const c1 = 2.0, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+const prog = (t, a, d) => clamp((t - a) / d);
+// visibility envelope: fades in at a, out at b
+const env = (t, a, b, fi = .35, fo = .3) => eOut(prog(t, a, fi)) * (1 - eIn(prog(t, b - fo, fo)));
+const F = (w, s) => `${w} ${s}px Inter`;
+
+function text(str, x, y, { w = 700, s = 48, color = C.white, align = 'left', base = 'alphabetic', maxW = 0, alpha = 1, shadow = true, track = 0 } = {}) {
+  ctx.save();
+  ctx.globalAlpha *= alpha;
+  let size = s;
+  ctx.font = F(w, size);
+  if (track) ctx.letterSpacing = track + 'px';
+  if (maxW) while (ctx.measureText(str).width > maxW && size > 12) { size -= 1; ctx.font = F(w, size); }
+  ctx.textAlign = align; ctx.textBaseline = base;
+  if (shadow) { ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3; }
+  ctx.fillStyle = color;
+  ctx.fillText(str, x, y);
+  ctx.restore();
+  return size;
+}
+function measure(str, w, s) { ctx.save(); ctx.font = F(w, s); const m = ctx.measureText(str).width; ctx.restore(); return m; }
+
+function rrect(x, y, w, h, r, fill, stroke, lw = 3) {
+  ctx.beginPath(); ctx.roundRect(x, y, w, h, r);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.lineWidth = lw; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+function circle(x, y, r, fill, stroke, lw = 3) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.lineWidth = lw; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+// scale everything drawn in fn about (x, y)
+function scaled(x, y, s, fn) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.translate(-x, -y); fn(); ctx.restore(); }
+function alpha(a, fn) { if (a <= 0.001) return; ctx.save(); ctx.globalAlpha *= a; fn(); ctx.restore(); }
+
+// ------------------------------------------------------------------ icons
+function iconCheck(x, y, r, p = 1, color = C.teal) {
+  circle(x, y, r, color);
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = r * 0.22; ctx.strokeStyle = '#06253A';
+  const pts = [[x - r * .42, y + r * .02], [x - r * .1, y + r * .34], [x + r * .46, y - r * .3]];
+  const L1 = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]), L2 = Math.hypot(pts[2][0] - pts[1][0], pts[2][1] - pts[1][1]);
+  const d = p * (L1 + L2);
+  ctx.beginPath(); ctx.moveTo(...pts[0]);
+  if (d <= L1) ctx.lineTo(lerp(pts[0][0], pts[1][0], d / L1), lerp(pts[0][1], pts[1][1], d / L1));
+  else { ctx.lineTo(...pts[1]); const k = (d - L1) / L2; ctx.lineTo(lerp(pts[1][0], pts[2][0], k), lerp(pts[1][1], pts[2][1], k)); }
+  ctx.stroke(); ctx.restore();
+}
+function iconCross(x, y, r, p = 1, color = C.coral) {
+  circle(x, y, r, color);
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineWidth = r * 0.22; ctx.strokeStyle = '#2A0A0C';
+  const k = r * 0.36, a = clamp(p * 2), b = clamp(p * 2 - 1);
+  ctx.beginPath(); ctx.moveTo(x - k, y - k); ctx.lineTo(x - k + 2 * k * a, y - k + 2 * k * a); ctx.stroke();
+  if (b > 0) { ctx.beginPath(); ctx.moveTo(x + k, y - k); ctx.lineTo(x + k - 2 * k * b, y - k + 2 * k * b); ctx.stroke(); }
+  ctx.restore();
+}
+function iconWarn(x, y, s, color = C.amber) {
+  ctx.save(); ctx.beginPath();
+  ctx.moveTo(x, y - s * .55); ctx.lineTo(x + s * .62, y + s * .5); ctx.lineTo(x - s * .62, y + s * .5); ctx.closePath();
+  ctx.lineJoin = 'round'; ctx.lineWidth = s * .12; ctx.strokeStyle = color; ctx.fillStyle = color; ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#2A1A00'; ctx.font = F(900, s * .62); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('!', x, y + s * .1); ctx.restore();
+}
+function iconDrop(x, y, s, color) {
+  ctx.save(); ctx.beginPath();
+  ctx.moveTo(x, y - s * .6);
+  ctx.bezierCurveTo(x + s * .15, y - s * .3, x + s * .45, y, x + s * .45, y + s * .2);
+  ctx.arc(x, y + s * .2, s * .45, 0, Math.PI);
+  ctx.bezierCurveTo(x - s * .45, y, x - s * .15, y - s * .3, x, y - s * .6);
+  ctx.fillStyle = color; ctx.fill();
+  ctx.globalAlpha *= .5; circle(x - s * .15, y + s * .15, s * .1, '#fff');
+  ctx.restore();
+}
+function iconBowel(x, y, s, color) {
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = s * .16; ctx.strokeStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x - s * .45, y - s * .35); ctx.lineTo(x + s * .3, y - s * .35);
+  ctx.arc(x + s * .3, y - s * .12, s * .23, -Math.PI / 2, Math.PI / 2);
+  ctx.lineTo(x - s * .3, y + s * .11);
+  ctx.arc(x - s * .3, y + s * .34, s * .23, -Math.PI / 2, Math.PI / 2, true);
+  ctx.lineTo(x + s * .45, y + s * .57);
+  ctx.stroke(); ctx.restore();
+}
+function iconRecorder(x, y, s, glow = 0) {
+  rrect(x - s * .5, y - s * .38, s, s * .76, s * .14, '#DDE7EE');
+  rrect(x - s * .36, y - s * .24, s * .72, s * .3, s * .06, '#0D2B3E');
+  ctx.save(); ctx.font = F(800, s * .17); ctx.fillStyle = C.tealL; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('REC', x, y - s * .09); ctx.restore();
+  circle(x - s * .22, y + s * .2, s * .07, glow > 0.5 ? C.coral : '#9AA');
+  circle(x + s * .05, y + s * .2, s * .07, '#9AA'); circle(x + s * .27, y + s * .2, s * .07, '#9AA');
+}
+function iconFe(x, y, r, color) {
+  circle(x, y, r, null, color, r * .14);
+  ctx.save(); ctx.fillStyle = color; ctx.font = F(900, r * .9); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('Fe', x, y + r * .04); ctx.restore();
+}
+function iconMicroscope(x, y, s, color) {
+  ctx.save(); ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineCap = 'round'; ctx.lineWidth = s * .1;
+  ctx.save(); ctx.translate(x - s * .05, y - s * .15); ctx.rotate(-0.5); rrect(-s * .1, -s * .38, s * .2, s * .52, s * .05, color); ctx.restore();
+  ctx.beginPath(); ctx.moveTo(x - s * .45, y + s * .48); ctx.lineTo(x + s * .45, y + s * .48); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + s * .05, y + s * .1, s * .33, -1.2, 1.4); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x + s * .02, y + s * .44); ctx.lineTo(x + s * .02, y + s * .48); ctx.stroke();
+  ctx.restore();
+}
+
+// ------------------------------------------------------------------ Hepatitis B icons
+function iconVirus(x, y, r, color, a = 0) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = r * .14; ctx.lineCap = 'round';
+  for (let i = 0; i < 10; i++) {
+    const k = i / 10 * Math.PI * 2;
+    ctx.beginPath(); ctx.moveTo(Math.cos(k) * r * .8, Math.sin(k) * r * .8); ctx.lineTo(Math.cos(k) * r * 1.25, Math.sin(k) * r * 1.25); ctx.stroke();
+    circle(Math.cos(k) * r * 1.3, Math.sin(k) * r * 1.3, r * .16, color);
+  }
+  circle(0, 0, r * .85, color);
+  ctx.globalAlpha *= .35; circle(-r * .25, -r * .25, r * .25, '#fff'); circle(r * .3, r * .2, r * .15, '#fff');
+  ctx.restore();
+}
+// liver silhouette; local box ~600x380 centred on (x, y)
+function liverPath(x, y, s) {
+  const P = (px, py) => [x + (px - 300) * s, y + (py - 190) * s];
+  ctx.beginPath();
+  ctx.moveTo(...P(30, 120));
+  ctx.bezierCurveTo(...P(60, 30), ...P(300, 0), ...P(480, 40));
+  ctx.bezierCurveTo(...P(560, 60), ...P(615, 92), ...P(592, 132));
+  ctx.bezierCurveTo(...P(560, 172), ...P(440, 200), ...P(380, 262));
+  ctx.bezierCurveTo(...P(330, 322), ...P(250, 372), ...P(170, 362));
+  ctx.bezierCurveTo(...P(80, 352), ...P(10, 262), ...P(30, 120));
+  ctx.closePath();
+}
+function liver(x, y, s, { tint = 0 } = {}) {
+  ctx.save();
+  liverPath(x, y, s);
+  const g = ctx.createLinearGradient(x - 300 * s, y - 190 * s, x + 200 * s, y + 190 * s);
+  g.addColorStop(0, '#D36A54'); g.addColorStop(.6, '#A7443A'); g.addColorStop(1, '#6E2622');
+  ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 30 * s; ctx.shadowOffsetY = 10 * s;
+  ctx.fillStyle = g; ctx.fill();
+  ctx.shadowColor = 'transparent';
+  if (tint > 0) { ctx.fillStyle = `rgba(255,181,71,${0.45 * tint})`; ctx.fill(); }
+  ctx.lineWidth = 4 * s; ctx.strokeStyle = 'rgba(255,220,200,0.35)'; ctx.stroke();
+  ctx.clip();
+  const hg = ctx.createLinearGradient(0, y - 190 * s, 0, y);
+  hg.addColorStop(0, 'rgba(255,255,255,0.28)'); hg.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = hg; ctx.fillRect(x - 320 * s, y - 200 * s, 640 * s, 200 * s);
+  ctx.restore();
+}
+function person(x, y, s, kind) {
+  // body
+  ctx.save();
+  const body = kind === 'doctor' ? '#F4F7FA' : '#3C6FD8';
+  ctx.beginPath(); ctx.moveTo(x - 70 * s, y + 120 * s); ctx.quadraticCurveTo(x - 72 * s, y + 20 * s, x, y + 14 * s);
+  ctx.quadraticCurveTo(x + 72 * s, y + 20 * s, x + 70 * s, y + 120 * s); ctx.closePath();
+  ctx.fillStyle = body; ctx.fill();
+  if (kind === 'doctor') {
+    ctx.fillStyle = C.teal; ctx.beginPath(); ctx.moveTo(x - 18 * s, y + 16 * s); ctx.lineTo(x, y + 52 * s); ctx.lineTo(x + 18 * s, y + 16 * s); ctx.fill();
+    ctx.strokeStyle = '#25313A'; ctx.lineWidth = 5 * s; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(x - 30 * s, y + 22 * s); ctx.quadraticCurveTo(x - 40 * s, y + 80 * s, x - 10 * s, y + 88 * s); ctx.stroke();
+    circle(x - 8 * s, y + 88 * s, 7 * s, '#9AA7B2');
+  }
+  // head
+  circle(x, y - 30 * s, 40 * s, '#E2A982');
+  ctx.fillStyle = '#2A1E1A'; ctx.beginPath(); ctx.arc(x, y - 38 * s, 41 * s, Math.PI * 1.02, Math.PI * 1.98); ctx.fill();
+  circle(x - 13 * s, y - 28 * s, 4 * s, '#2A1E1A'); circle(x + 13 * s, y - 28 * s, 4 * s, '#2A1E1A');
+  ctx.strokeStyle = '#7A3E2E'; ctx.lineWidth = 3.5 * s; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(x, y - 16 * s, 12 * s, 0.2 * Math.PI, 0.8 * Math.PI); ctx.stroke();
+  ctx.restore();
+}
+function bubble(x, y, w, h, tailX, tailY, fill, thought = false) {
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 20; ctx.shadowOffsetY = 6;
+  rrect(x, y, w, h, 30, fill);
+  ctx.shadowColor = 'transparent'; ctx.fillStyle = fill;
+  if (thought) { circle(lerp(x + w / 2, tailX, .55), lerp(y + h, tailY, .55), 13, fill); circle(lerp(x + w / 2, tailX, .85), lerp(y + h, tailY, .85), 8, fill); }
+  else { ctx.beginPath(); ctx.moveTo(tailX - 34, y + h - 2); ctx.lineTo(tailX + 10, y + h - 2); ctx.lineTo(tailX - 14, tailY); ctx.closePath(); ctx.fill(); }
+  ctx.restore();
+}
+function stamp(str, x, y, color, p, s = 44, rot = -0.08) {
+  if (p <= 0) return;
+  const k = eBack(p), sc = lerp(2.2, 1, clamp(k));
+  alpha(clamp(p * 3), () => {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(sc, sc);
+    const w = measure(str, 900, s) + s * 1.1;
+    rrect(-w / 2, -s * .85, w, s * 1.7, 12, color + '22', color, 5);
+    text(str, 0, 2, { w: 900, s, color, align: 'center', base: 'middle', shadow: false, track: 2 });
+    ctx.restore();
+  });
+}
+function iconCalendar(x, y, s, label, color = C.white) {
+  rrect(x - s / 2, y - s * .42, s, s * .9, s * .1, '#F4F7FA');
+  ctx.save(); ctx.beginPath(); ctx.roundRect(x - s / 2, y - s * .42, s, s * .26, [s * .1, s * .1, 0, 0]); ctx.fillStyle = C.coral; ctx.fill(); ctx.restore();
+  rrect(x - s * .3, y - s * .52, s * .07, s * .2, s * .03, '#5E6A74'); rrect(x + s * .23, y - s * .52, s * .07, s * .2, s * .03, '#5E6A74');
+  text(label, x, y + s * .25, { w: 900, s: s * .3, color: '#0B2236', align: 'center', base: 'middle', shadow: false });
+}
+function iconBook(x, y, s, color) {
+  ctx.save(); ctx.fillStyle = color; ctx.strokeStyle = color; ctx.lineWidth = s * .06; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(x, y - s * .3); ctx.quadraticCurveTo(x - s * .25, y - s * .42, x - s * .5, y - s * .36); ctx.lineTo(x - s * .5, y + s * .36);
+  ctx.quadraticCurveTo(x - s * .25, y + s * .3, x, y + s * .42); ctx.quadraticCurveTo(x + s * .25, y + s * .3, x + s * .5, y + s * .36);
+  ctx.lineTo(x + s * .5, y - s * .36); ctx.quadraticCurveTo(x + s * .25, y - s * .42, x, y - s * .3); ctx.closePath(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x, y - s * .3); ctx.lineTo(x, y + s * .42); ctx.stroke(); ctx.restore();
+}
+function iconUser(x, y, s, color) { circle(x, y - s * .18, s * .2, color); ctx.save(); ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(x, y + s * .32, s * .36, s * .22, 0, Math.PI, 0); ctx.fill(); ctx.restore(); }
+function iconTube(x, y, s, color) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(0.5);
+  rrect(-s * .14, -s * .45, s * .28, s * .85, s * .14, 'rgba(255,255,255,0.15)', color, s * .06);
+  ctx.beginPath(); ctx.roundRect(-s * .11, 0, s * .22, s * .37, [0, 0, s * .11, s * .11]); ctx.fillStyle = color; ctx.fill();
+  ctx.restore();
+}
+function iconSmile(x, y, r, color) {
+  circle(x, y, r, null, color, r * .12);
+  circle(x - r * .33, y - r * .2, r * .1, color); circle(x + r * .33, y - r * .2, r * .1, color);
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = r * .12; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(x, y + r * .05, r * .45, 0.2 * Math.PI, 0.8 * Math.PI); ctx.stroke(); ctx.restore();
+}
+function strike(x0, x1, y, p, color = C.coral, lw = 9) {
+  if (p <= 0) return;
+  ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = color; ctx.lineWidth = lw;
+  ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(lerp(x0, x1, eOut(p)), y); ctx.stroke(); ctx.restore();
+}
+function chip(str, cx, cy, a, { bg = C.teal, fg = '#04222B', s = 28 } = {}) {
+  alpha(a, () => {
+    const w = measure(str, 800, s) + s * 1.6 + str.length * 2.5;
+    rrect(cx - w / 2, cy - s * .95, w, s * 1.9, s * .95, bg);
+    text(str, cx, cy + 1, { w: 800, s, color: fg, align: 'center', base: 'middle', shadow: false, track: 2.5 });
+  });
+}
+function card(x, y, w, h, { fill = 'rgba(8,26,44,0.82)', edge = 'rgba(255,255,255,0.14)', lw = 2.5, r = 30 } = {}) {
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 8;
+  rrect(x, y, w, h, r, fill); ctx.restore();
+  if (edge) rrect(x, y, w, h, r, null, edge, lw);
+}
+// slide-up + fade-in wrapper
+function rise(t, at, fn, d = .45, dist = 50) {
+  const k = eOut(prog(t, at, d));
+  if (k <= 0) return;
+  alpha(k, () => { ctx.save(); ctx.translate(0, (1 - k) * dist); fn(k); ctx.restore(); });
+}
+
+// ------------------------------------------------------------------ cirrhosis & exercise
+const G = { mint: '#3EE0A6', mintD: '#0E6B4F', bg: 'rgb(24,33,85)', ink: '#EAF7F2' };
+const TOP = 230, BOT = 1110; // graphics area; Dr Mahar sits in the bottom-right corner below this
+
+// ---- pose-based figure: angles in degrees, 0 = straight down (limbs) / straight up (torso)
+const rad = d => d * Math.PI / 180;
+const dirv = a => [Math.sin(rad(a)), Math.cos(rad(a))];
+function fig(x, y, s, P, col = G.ink) {
+  const T = 62 * s, U = 30 * s, Fa = 30 * s, Th = 40 * s, Sh = 40 * s;
+  const neck = [x + T * Math.sin(rad(P.torso || 0)), y - T * Math.cos(rad(P.torso || 0))];
+  const head = [neck[0] + 22 * s * Math.sin(rad(P.torso || 0)), neck[1] - 22 * s * Math.cos(rad(P.torso || 0))];
+  const limb = (o, a1, a2, l1, l2) => {
+    const d1 = dirv(a1), m = [o[0] + l1 * d1[0], o[1] + l1 * d1[1]];
+    const d2 = dirv(a1 + a2); return [m, [m[0] + l2 * d2[0], m[1] + l2 * d2[1]]];
+  };
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = col; ctx.lineWidth = 13 * s;
+  const seg = pts => { ctx.beginPath(); ctx.moveTo(...pts[0]); pts.slice(1).forEach(p => ctx.lineTo(...p)); ctx.stroke(); };
+  const legs = [[P.lhip || 0, P.lknee || 0], [P.rhip || 0, P.rknee || 0]];
+  const arms = [[P.lsh || 0, P.lel || 0], [P.rsh || 0, P.rel || 0]];
+  ctx.globalAlpha *= 0.75; // far-side limbs a little dimmer
+  seg([[x, y], ...limb([x, y], legs[0][0], legs[0][1], Th, Sh)]);
+  if (!P.noArms) seg([neck, ...limb(neck, arms[0][0], arms[0][1], U, Fa)]);
+  ctx.globalAlpha /= 0.75;
+  seg([[x, y], neck]);
+  seg([[x, y], ...limb([x, y], legs[1][0], legs[1][1], Th, Sh)]);
+  const hand = limb(neck, arms[1][0], arms[1][1], U, Fa);
+  if (!P.noArms) seg([neck, ...hand]);
+  circle(head[0], head[1], 17 * s, col);
+  ctx.restore();
+  return { neck, head, hand: hand[1] };
+}
+const lerpPose = (A, B, u) => Object.fromEntries([...new Set([...Object.keys(A), ...Object.keys(B)])].map(k => [k, lerp(A[k] || 0, B[k] || 0, u)]));
+const cyc = (t, period) => 0.5 - 0.5 * Math.cos(t * 2 * Math.PI / period);
+
+function walker(x, ground, s, t) {
+  const ph = t * 2 * Math.PI * 0.9;
+  const P = { torso: 4, lhip: 26 * Math.sin(ph), rhip: -26 * Math.sin(ph),
+    lknee: -6 - 34 * Math.max(0, -Math.sin(ph)), rknee: -6 - 34 * Math.max(0, Math.sin(ph)),
+    lsh: -24 * Math.sin(ph), rsh: 24 * Math.sin(ph), lel: 25, rel: 25 };
+  fig(x, ground - 79 * s + 3 * s * Math.abs(Math.cos(ph)), s, P);
+}
+function chairShape(x, ground, s, facing = 1) {
+  ctx.save(); ctx.strokeStyle = G.mint; ctx.lineWidth = 8 * s; ctx.lineCap = 'round';
+  const seat = ground - 42 * s;
+  ctx.beginPath();
+  ctx.moveTo(x - 30 * s * facing, seat); ctx.lineTo(x + 26 * s * facing, seat);
+  ctx.moveTo(x - 30 * s * facing, seat); ctx.lineTo(x - 30 * s * facing, seat - 64 * s);
+  ctx.moveTo(x - 26 * s * facing, seat); ctx.lineTo(x - 26 * s * facing, ground);
+  ctx.moveTo(x + 22 * s * facing, seat); ctx.lineTo(x + 22 * s * facing, ground);
+  ctx.stroke(); ctx.restore();
+}
+function sitStand(x, ground, s, t) {
+  chairShape(x - 6 * s, ground, s);
+  const u = cyc(t, 2.6);
+  const sit = { torso: 22, lhip: 90, rhip: 90, lknee: -90, rknee: -90, lsh: 70, rsh: 70, lel: 0, rel: 0 };
+  const stand = { torso: 0, lhip: 0, rhip: 0, lknee: 0, rknee: 0, lsh: 70, rsh: 70, lel: 0, rel: 0 };
+  const hipY = lerp(ground - 46 * s, ground - 80 * s, u), hipX = lerp(x, x + 18 * s, u);
+  fig(hipX, hipY, s, lerpPose(sit, stand, u));
+}
+function wallPush(x, ground, s, t) {
+  const wx = x + 70 * s;
+  ctx.save(); ctx.fillStyle = 'rgba(62,224,166,0.25)'; ctx.fillRect(wx, ground - 200 * s, 16 * s, 200 * s);
+  ctx.strokeStyle = G.mint; ctx.lineWidth = 4 * s; ctx.strokeRect(wx, ground - 200 * s, 16 * s, 200 * s); ctx.restore();
+  const lean = lerp(20, 34, cyc(t, 2.2));             // body leans toward the wall as elbows bend
+  const fx = x - 50 * s, L = 80 * s;
+  const hip = [fx + L * Math.sin(rad(lean)), ground - L * Math.cos(rad(lean))];
+  const P = { torso: lean, lhip: -lean, rhip: -lean, lknee: 0, rknee: 0, noArms: 1 }; // arms drawn below, to the wall
+  const f = fig(hip[0], hip[1], s, P);
+  // arms: neck to the wall at shoulder height, elbows bent outward/down
+  const hand = [wx, f.neck[1] + 6 * s];
+  const ext = 1 - (lean - 20) / 14;
+  const mid = [(f.neck[0] + hand[0]) / 2, (f.neck[1] + hand[1]) / 2 + (1 - ext) * 22 * s];
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = G.ink; ctx.lineWidth = 13 * s;
+  ctx.beginPath(); ctx.moveTo(...f.neck); ctx.lineTo(...mid); ctx.lineTo(...hand); ctx.stroke(); ctx.restore();
+}
+function bandPull(x, ground, s, t) {
+  const u = cyc(t, 2.0), a = lerp(55, 88, u);
+  const P = { torso: 0, lhip: -8, rhip: 8, lsh: -a, rsh: a, lel: 0, rel: 0 };
+  // front view: draw both arms fully
+  const f = fig(x, ground - 80 * s, s, { ...P, lsh: 0, rsh: 0 }, 'rgba(0,0,0,0)');
+  const arm = sign => { const d = dirv(sign * a); return [f.neck[0] + 60 * s * d[0], f.neck[1] + 60 * s * d[1]]; };
+  const L = arm(-1), R = arm(1);
+  fig(x, ground - 80 * s, s, { torso: 0, lhip: -8, rhip: 8, lsh: -a, rsh: a });
+  ctx.save(); ctx.strokeStyle = C.amber; ctx.lineWidth = 7 * s; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(...L); ctx.quadraticCurveTo(f.neck[0], f.neck[1] + 40 * s * (1 - u), ...R); ctx.stroke(); ctx.restore();
+  circle(L[0], L[1], 7 * s, C.amber); circle(R[0], R[1], 7 * s, C.amber);
+}
+function stretcher(x, ground, s, t) {
+  const b = 14 * Math.sin(t * 2 * Math.PI / 3.0);
+  fig(x, ground - 80 * s, s, { torso: b, lhip: -8, rhip: 8, lsh: -165 + b, rsh: 165 + b, lel: 10, rel: -10 });
+}
+function balancer(x, ground, s, t) {
+  chairShape(x + 60 * s, ground, s, -1);
+  const w = 3 * Math.sin(t * 3);
+  fig(x, ground - 80 * s, s, { torso: w, lhip: 0, lknee: 0, rhip: 75, rknee: -95, lsh: 20, rsh: 55 + w, rel: 30 });
+}
+function bicep(x, y, s, k, col = G.ink) {
+  // upper arm horizontal, forearm up; k = muscle size 0..1
+  ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = col; ctx.lineWidth = 26 * s;
+  ctx.beginPath(); ctx.moveTo(x - 70 * s, y); ctx.lineTo(x + 40 * s, y); ctx.lineTo(x + 50 * s, y - 90 * s); ctx.stroke();
+  ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(x - 10 * s, y - 12 * s, (24 + 26 * k) * s, (12 + 26 * k) * s, 0, Math.PI, 2 * Math.PI); ctx.fill();
+  circle(x + 52 * s, y - 104 * s, 20 * s, col);
+  ctx.restore();
+}
+function bed(x, y, s) {
+  ctx.save(); ctx.strokeStyle = C.white; ctx.lineWidth = 8 * s; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(x - 160 * s, y - 70 * s); ctx.lineTo(x - 160 * s, y + 40 * s); ctx.moveTo(x - 160 * s, y); ctx.lineTo(x + 160 * s, y); ctx.lineTo(x + 160 * s, y + 40 * s); ctx.stroke();
+  rrect(x - 150 * s, y - 34 * s, 300 * s, 30 * s, 10 * s, '#8FA3FF');
+  rrect(x - 148 * s, y - 64 * s, 70 * s, 30 * s, 12 * s, '#F4F2FF');
+  circle(x - 100 * s, y - 64 * s, 22 * s, '#E2A982');
+  rrect(x - 80 * s, y - 58 * s, 230 * s, 34 * s, 14 * s, '#B9C4FF');
+  ctx.restore();
+}
+function belly(x, y, s, t) {
+  ctx.save(); ctx.beginPath();
+  ctx.moveTo(x - 40 * s, y - 70 * s); ctx.quadraticCurveTo(x - 46 * s, y, x - 30 * s, y + 60 * s);
+  ctx.lineTo(x + 20 * s, y + 60 * s); ctx.quadraticCurveTo(x + 70 * s, y + 20 * s, x + 40 * s, y - 40 * s); ctx.lineTo(x + 20 * s, y - 70 * s); ctx.closePath();
+  ctx.fillStyle = '#E2A982'; ctx.fill(); ctx.clip();
+  ctx.fillStyle = 'rgba(94,200,255,0.75)'; ctx.beginPath(); ctx.moveTo(x - 60 * s, y + 70 * s);
+  for (let i = 0; i <= 20; i++) ctx.lineTo(x - 60 * s + i * 7 * s, y - 5 * s + 5 * s * Math.sin(t * 4 + i * .7));
+  ctx.lineTo(x + 80 * s, y + 70 * s); ctx.fill(); ctx.restore();
+}
+function brainQ(x, y, s) {
+  circle(x, y, 44 * s, 'rgba(255,255,255,0.1)', '#FFB3B5', 5 * s);
+  text('?', x, y + 22 * s, { w: 900, s: 64 * s, color: C.yellow, align: 'center', shadow: false });
+}
+function plate(x, y, s) {
+  circle(x, y, 44 * s, '#F4F7FA'); circle(x, y, 32 * s, null, '#D5DEE5', 3 * s);
+  [['#3EE0A6', -12, -8], ['#FFB547', 10, -10], ['#FF7B6B', 0, 12]].forEach(([c, dx, dy]) => { ctx.save(); ctx.fillStyle = c; ctx.beginPath(); ctx.ellipse(x + dx * s, y + dy * s, 13 * s, 9 * s, dx * .05, 0, Math.PI * 2); ctx.fill(); ctx.restore(); });
+}
+function timerRing(x, y, r, p, label, sub) {
+  circle(x, y, r, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.15)', 14);
+  ctx.save(); ctx.strokeStyle = G.mint; ctx.lineWidth = 14; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(x, y, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p); ctx.stroke(); ctx.restore();
+  text(label, x, y + 10, { w: 900, s: 64, align: 'center', color: C.white });
+  text(sub, x, y + 56, { w: 600, s: 28, align: 'center', color: C.muted });
+}
+function header(t, at, n, title, color = G.mint) {
+  rise(t, at - 0.1, () => {
+    const s = 34, w = measure(title, 900, s) + 150;
+    rrect(540 - w / 2, TOP + 10, w, 80, 40, color + '26', color, 3);
+    if (n) { circle(540 - w / 2 + 44, TOP + 50, 26, color); text(String(n), 540 - w / 2 + 44, TOP + 52, { w: 900, s: 30, color: '#06251B', align: 'center', base: 'middle', shadow: false }); }
+    text(title, 540 + (n ? 26 : 0), TOP + 52, { w: 900, s, align: 'center', base: 'middle', shadow: false });
+  }, .4, 20);
+}
+function exTile(t, at, x, y, w, h, draw, l1, l2) {
+  const k = eBack(prog(t, at - 0.15, .45));
+  if (k <= 0) return;
+  alpha(clamp(k), () => scaled(x + w / 2, y + h / 2, k, () => {
+    card(x, y, w, h, { edge: 'rgba(62,224,166,0.5)', lw: 3, fill: 'rgba(6,14,48,0.75)' });
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h - 110); ctx.clip(); draw(x + w / 2, y + h - 130); ctx.restore();
+    ctx.save(); ctx.fillStyle = 'rgba(255,255,255,0.2)'; ctx.fillRect(x + 24, y + h - 128, w - 48, 3); ctx.restore();
+    text(l1, x + w / 2, y + h - 66, { w: 800, s: 34, align: 'center', maxW: w - 30 });
+    if (l2) text(l2, x + w / 2, y + h - 26, { w: 500, s: 26, color: C.muted, align: 'center', maxW: w - 30 });
+  }));
+}
+
+// ------------------------------------------------------------------ scenes
+function sceneHook(t, a) {
+  alpha(a, () => {
+    text('LIVER CIRRHOSIS', 540, 340, { w: 900, s: 74, color: G.mint, align: 'center', maxW: 980 });
+    const yes = eInOut(prog(t, Q.yes - 0.2, .6));
+    alpha(1 - yes, () => {
+      text('= Sirf aaram?', 540, 460, { w: 900, s: 92, color: C.yellow, align: 'center' });
+      bed(540, 700, 1.4);
+      zzz(720, 600, 1.2, t);
+      const nk = prog(t, Q.no - 0.1, .45);
+      if (nk > 0) {
+        scaled(540, 690, eBack(nk), () => iconCross(540, 690, 90, eOut(prog(t, Q.no, .4))));
+        alpha(eOut(nk), () => text('JI NAHI!', 540, 960, { w: 900, s: 100, color: C.coral, align: 'center' }));
+      }
+    });
+    alpha(yes, () => {
+      text('Exercise', 540, 470, { w: 900, s: 96, align: 'center' });
+      walker(lerp(200, 540, eOut(prog(t, Q.yes, 2.4))) + 20 * Math.sin(t), 870, 1.6, t);
+      ctx.save(); ctx.fillStyle = 'rgba(62,224,166,0.35)'; ctx.fillRect(180, 874, 720, 5); ctx.restore();
+      scaled(540, 980, eBack(prog(t, Q.yes + 0.8, .5)), () => {
+        text('aur bhi ZAROORI', 540, 1010, { w: 900, s: 84, color: G.mint, align: 'center' });
+      });
+    });
+  });
+}
+function zzz(x, y, s, t) {
+  for (let i = 0; i < 3; i++) {
+    const k = ((t * .5 + i / 3) % 1);
+    alpha(Math.sin(k * Math.PI), () => text('z', x + k * 60 * s + i * 8, y - k * 100 * s, { w: 900, s: (26 + i * 10) * s, color: '#B9C4FF' }));
+  }
+}
+
+function sceneMuscle(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    rise(t, Q.muscle - 0.1, () => {
+      liver(260, 420, 0.42);
+      text('Sirf liver nahi…', 260, 560, { w: 800, s: 38, align: 'center' });
+    });
+    rise(t, Q.weak - 0.1, () => {
+      const k = 1 - eInOut(prog(t, Q.weak + 0.2, 2.2));
+      bicep(800, 470, 1.15, k, k > 0.5 ? G.ink : '#FFB3B5');
+      text('Muscles weak', 790, 560, { w: 800, s: 38, align: 'center', color: k > 0.5 ? C.white : '#FFB3B5' });
+      ctx.save(); ctx.strokeStyle = C.muted; ctx.lineWidth = 5; ctx.setLineDash([10, 10]);
+      ctx.beginPath(); ctx.moveTo(420, 430); ctx.lineTo(620, 430); ctx.stroke(); ctx.restore();
+      text('→', 520, 445, { w: 900, s: 50, color: C.muted, align: 'center' });
+    });
+    rise(t, Q.sarco - 0.1, () => {
+      card(60, 610, 960, 180, { edge: G.mint, lw: 3 });
+      text('SARCOPENIA', 540, 690, { w: 900, s: 74, color: G.mint, align: 'center', track: 3 });
+      text('= muscles ka weak hona', 540, 750, { w: 600, s: 36, color: C.muted, align: 'center' });
+    });
+    const chips = [[Q.effects + 1.0, 'Kamzori'], [Q.walkcap, 'Chalne-phirne ki', 'kshamta kam'], [Q.health, 'Overall health', 'par effect']];
+    chips.forEach(([at, l1, l2], i) => {
+      const x = 60 + i * 330;
+      const k = eBack(prog(t, at - 0.1, .45));
+      if (k <= 0) return;
+      alpha(clamp(k), () => scaled(x + 150, 950, k, () => {
+        card(x, 830, 300, 240, { edge: C.coral, lw: 3 });
+        iconWarn(x + 150, 895, 54, C.coral);
+        text(l1, x + 150, 990, { w: 800, s: 34, align: 'center', maxW: 270 });
+        if (l2) text(l2, x + 150, 1032, { w: 600, s: 30, color: '#FFB3B5', align: 'center', maxW: 270 });
+      }));
+    });
+  });
+}
+
+function sceneWhich(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    rise(t, Q.which - 0.1, () => {
+      text('Kaun-kaun si', 540, 400, { w: 800, s: 62, align: 'center' });
+      text('EXERCISES?', 540, 500, { w: 900, s: 100, color: G.mint, align: 'center' });
+    });
+    const items = [['Walking', (x, g) => walker(x, g, 1.1, t)], ['Strength', (x, g) => sitStand(x, g, 1.1, t)], ['Balance', (x, g) => balancer(x - 20, g, 1.1, t)]];
+    items.forEach(([l, d], i) => exTile(t, Q.which + 0.9 + i * 0.35, 60 + i * 330, 600, 300, 400, d, `${i + 1}. ${l}`));
+  });
+}
+
+function sceneWalk(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    header(t, Q.walk, 1, 'WALKING');
+    rise(t, Q.walk + 0.2, () => {
+      const gx = 300, g = 760;
+      ctx.save(); ctx.strokeStyle = 'rgba(62,224,166,0.5)'; ctx.lineWidth = 5; ctx.setLineDash([24, 18]); ctx.lineDashOffset = t * 120;
+      ctx.beginPath(); ctx.moveTo(80, g + 6); ctx.lineTo(520, g + 6); ctx.stroke(); ctx.restore();
+      walker(gx, g, 2.4, t);
+    });
+    rise(t, Q.mins - 0.1, () => {
+      timerRing(790, 520, 150, eOut(prog(t, Q.mins, 1.5)) * 0.85, '15–20', 'minute rozana');
+    });
+    rise(t, Q.increase - 0.1, () => {
+      card(60, 830, 960, 250, { edge: G.mint, lw: 3 });
+      for (let i = 0; i < 5; i++) {
+        const k = eOut(prog(t, Q.increase + 0.3 + i * 0.18, .4));
+        rrect(110 + i * 70, 1040 - (40 + i * 28) * k, 50, (40 + i * 28) * k, 10, i === 4 ? G.mint : 'rgba(62,224,166,0.45)');
+      }
+      text('Duration dheere-dheere', 500, 930, { w: 800, s: 40, maxW: 500 });
+      text('badhayein', 500, 985, { w: 900, s: 46, color: G.mint });
+      text('capacity ke according', 500, 1035, { w: 500, s: 30, color: C.muted });
+    });
+  });
+}
+
+function sceneStrength(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    header(t, Q.strength, 2, 'MUSCLE STRENGTHENING');
+    exTile(t, Q.chair, 60, 340, 300, 440, (x, g) => sitStand(x - 10, g, 1.5, t), 'Chair se', 'uthna-baithna');
+    exTile(t, Q.wall, 390, 340, 300, 440, (x, g) => wallPush(x - 30, g, 1.4, t), 'Wall', 'push-ups');
+    exTile(t, Q.band, 720, 340, 300, 440, (x, g) => bandPull(x, g, 1.4, t), 'Resistance band', 'kuch cases mein');
+    rise(t, Q.mass - 0.1, () => {
+      card(60, 820, 960, 260, { edge: G.mint, lw: 3 });
+      bicep(220, 990, 1.0, 0.3 + 0.7 * eOut(prog(t, Q.mass + 0.3, 1.6)), G.mint);
+      text('Muscle strength', 380, 925, { w: 900, s: 50 });
+      text('Muscle mass', 380, 1000, { w: 900, s: 50 });
+      const up = eBack(prog(t, Q.mass + 1.2, .45));
+      if (up > 0) scaled(900, 960, up, () => { text('↑', 870, 945, { w: 900, s: 70, color: G.mint, align: 'center' }); text('↑', 870, 1020, { w: 900, s: 70, color: G.mint, align: 'center' }); });
+      text('badhta hai', 380, 1055, { w: 600, s: 32, color: C.muted });
+    });
+  });
+}
+
+function sceneBalance(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    header(t, Q.balance, 3, 'BALANCE & FLEXIBILITY');
+    exTile(t, Q.stretch, 60, 340, 465, 440, (x, g) => stretcher(x, g, 1.25, t), 'Muscle stretching');
+    exTile(t, Q.chairbal, 555, 340, 465, 440, (x, g) => balancer(x - 30, g, 1.6, t), 'Chair ki madad se', 'balance exercises');
+    rise(t, Q.mobility - 0.1, () => {
+      card(60, 820, 960, 260, { edge: G.mint, lw: 3 });
+      const rows = [['Balance', 950], ['Mobility', 1030]];
+      rows.forEach(([l, y], i) => {
+        text(l, 120, y, { w: 900, s: 56 });
+        const k = eOut(prog(t, Q.mobility + 0.6 + i * 0.3, .8));
+        rrect(420, y - 40, 420 * k, 34, 17, G.mint);
+        text('behtar', 860 + 0 * k, y - 10, { w: 700, s: 32, color: G.mint, alpha: k });
+      });
+    });
+  });
+}
+
+function sceneCaution(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    rise(t, Q.caution - 0.1, () => { iconWarn(330, TOP + 50, 64); text('Lekin yaad rakhiye', 395, TOP + 74, { w: 900, s: 60, color: C.amber }); }, .4, 20);
+    const row = (at, y, icon, l1, l2) => rise(t, at - 0.1, () => {
+      card(60, y, 960, 165, { edge: C.coral, lw: 3, fill: 'rgba(255,94,98,0.12)' });
+      icon(150, y + 82);
+      text(l1, 250, y + 72, { w: 800, s: 42, maxW: 740 });
+      if (l2) text(l2, 250, y + 124, { w: 500, s: 32, color: '#FFB3B5', maxW: 740 });
+    }, .4, 30);
+    row(Q.ascites, 340, (x, y) => belly(x, y, 0.9, t), 'Pet mein bahut paani', 'bhar gaya ho');
+    row(Q.bleed, 520, (x, y) => iconDrop(x, y, 76, C.coral), 'Recently khoon ki ulti', 'hematemesis');
+    row(Q.he, 700, (x, y) => brainQ(x, y, 1), 'Hepatic', 'encephalopathy');
+    rise(t, Q.consult - 0.1, () => {
+      card(60, 885, 960, 200, { edge: C.tealL, lw: 4 });
+      text('Exercise shuru karne se PEHLE', 540, 950, { w: 800, s: 40, align: 'center', maxW: 900 });
+      alpha(eOut(prog(t, Q.gastro - 0.1, .4)), () => {
+        text('Gastroenterologist ki salaah', 540, 1025, { w: 900, s: 50, color: C.tealL, align: 'center', maxW: 900 });
+      });
+    }, .4, 30);
+  });
+}
+
+function sceneSummary(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    rise(t, Q.summary - 0.1, () => {
+      text('Liver cirrhosis mein', 540, 330, { w: 700, s: 46, color: C.muted, align: 'center' });
+      card(60, 370, 960, 230, { edge: 'rgba(255,255,255,0.3)', lw: 3 });
+      liver(200, 485, 0.3);
+      text('Sirf liver ka ilaaj', 340, 470, { w: 800, s: 50 });
+      const w = measure('kaafi nahi', 900, 50);
+      text('kaafi nahi', 340, 540, { w: 900, s: 50, color: C.coral });
+    });
+    rise(t, Q.muscles - 0.1, () => {
+      text('+', 540, 665, { w: 900, s: 80, color: G.mint, align: 'center' });
+      card(60, 690, 960, 190, { edge: G.mint, lw: 3 });
+      bicep(200, 820, 0.8, 1, G.mint);
+      text('Muscles ko bhi', 340, 770, { w: 600, s: 40, color: C.muted });
+      text('STRONG rakhein', 340, 835, { w: 900, s: 56, color: G.mint });
+    });
+    rise(t, Q.part - 0.1, () => {
+      card(60, 910, 960, 170, { fill: 'rgba(62,224,166,0.16)', edge: G.mint, lw: 3 });
+      text('Muscle strength + mass =', 540, 975, { w: 700, s: 38, align: 'center' });
+      text('Treatment ka mahatvapurn hissa', 540, 1040, { w: 900, s: 46, color: G.mint, align: 'center', maxW: 920 });
+    });
+  });
+}
+
+function sceneRoutine(t, a) {
+  if (a <= 0) return;
+  alpha(a, () => {
+    const items = [[Q.routine, 'Dawaiyan', (x, y) => pill(x, y, 120, 30, -0.3)], [Q.routine + 1.1, 'Sahi khaan-paan', (x, y) => plate(x, y, 1.3)],
+      [Q.daily, 'Exercise', (x, y) => walker(x, y + 70, 1.0, t)]];
+    items.forEach(([at, l, icon], i) => {
+      const x = 60 + i * 330;
+      const k = eBack(prog(t, at - 0.1, .45));
+      if (k <= 0) return;
+      alpha(clamp(k), () => scaled(x + 150, 500, k, () => {
+        card(x, 330, 300, 340, { edge: G.mint, lw: 3 });
+        icon(x + 150, 470);
+        text(l, x + 150, 620, { w: 800, s: 36, align: 'center', maxW: 270 });
+        if (i < 2) text('+', x + 315, 515, { w: 900, s: 60, color: G.mint, align: 'center' });
+      }));
+    });
+    rise(t, Q.daily + 1.0, () => {
+      card(60, 720, 960, 300, { edge: G.mint, lw: 4, fill: 'rgba(62,224,166,0.14)' });
+      iconCalendar(200, 860, 150, '✓');
+      text('= Daily routine', 330, 850, { w: 900, s: 70, color: G.mint });
+      text('ka hissa banaiye', 330, 925, { w: 700, s: 46 });
+    });
+  });
+}
+function pill(x, y, L, R, rot) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
+  rrect(-L / 2, -R, L, 2 * R, R, '#F4F7FA');
+  ctx.save(); ctx.beginPath(); ctx.roundRect(-L / 2, -R, L, 2 * R, R); ctx.clip(); ctx.fillStyle = G.mint; ctx.fillRect(-L / 2, -R, L / 2, 2 * R); ctx.restore();
+  ctx.restore();
+}
+
+function lowerThird(t) {
+  const a = env(t, 0.8, 6.5, .5, .4);
+  if (a <= 0) return;
+  alpha(a, () => {
+    const k = eOut(prog(t, 0.8, .6)), x = 30, y = 1290, w = 380, h = 124;
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y - 10, w * k + 20, h + 20); ctx.clip();
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 24;
+    rrect(x, y, w, h, 22, 'rgba(6,14,48,0.94)'); ctx.restore();
+    ctx.fillStyle = G.mint; ctx.beginPath(); ctx.roundRect(x, y, 10, h, [22, 0, 0, 22]); ctx.fill();
+    text('Dr Dheeraj Mahar', x + 30, y + 54, { w: 800, s: 36, maxW: w - 44 });
+    text('DrNB Gastroenterology', x + 30, y + 98, { w: 600, s: 26, color: G.mint, maxW: w - 44 });
+    ctx.restore();
+  });
+}
+
+function captions(t) {
+  if (t >= Q.outro) return;
+  const cap = TL.captions.find(c => t >= c.start && t < c.end);
+  if (!cap) return;
+  const pin = eBack(prog(t, cap.start, .18));
+  const S = 58, gap = 26, y = 1178;
+  const ws = cap.words.map(w => ({ ...w, wd: measure(w.w, 900, S) }));
+  const total = ws.reduce((s, w) => s + w.wd, 0) + gap * (ws.length - 1);
+  const fit = Math.min(1, 1000 / total);
+  scaled(540, y, pin * fit, () => {
+    let x = 540 - total / 2;
+    ws.forEach((w, i) => {
+      const next = ws[i + 1];
+      const active = t >= w.s && (next ? t < next.s : true);
+      const col = active ? C.yellow : (w.hi && t >= w.s ? G.mint : C.white);
+      const sc = active ? 1 + 0.08 * eOut(prog(t, w.s, .12)) : 1;
+      scaled(x + w.wd / 2, y, sc, () => {
+        ctx.save(); ctx.font = F(900, S); ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+        ctx.lineWidth = 12; ctx.strokeStyle = 'rgba(0,0,0,0.85)'; ctx.strokeText(w.w, x, y);
+        ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 4;
+        ctx.fillStyle = col; ctx.fillText(w.w, x, y); ctx.restore();
+      });
+      x += w.wd + gap;
+    });
+  });
+}
+
+function outro(t) {
+  const a = eOut(prog(t, Q.outro, .45));
+  if (a <= 0) return;
+  alpha(a, () => {
+    ctx.fillStyle = 'rgba(6,12,40,0.95)'; ctx.fillRect(0, 0, W, H);
+    ctx.translate(0, 120);
+    const k = i => eOut(prog(t, Q.outro + 0.15 + i * 0.15, .45));
+    const up = i => lerp(40, 0, k(i));
+    alpha(k(0), () => { walker(540, 590, 1.6, t); });
+    alpha(k(1), () => text('Dr Dheeraj Mahar', 540, 720 + up(1), { w: 900, s: 84, align: 'center', maxW: 960 }));
+    alpha(k(2), () => text('DrNB Gastroenterology', 540, 800 + up(2), { w: 600, s: 46, color: G.mint, align: 'center' }));
+    alpha(k(3), () => { ctx.fillStyle = G.mint; ctx.fillRect(460, 860, 160 * k(3), 6); });
+    alpha(k(4), () => text('Follow for more liver & gut-health explainers', 540, 960 + up(4), { w: 600, s: 38, align: 'center', maxW: 960 }));
+    const btn = (str, cx, i, fill) => alpha(k(5 + i), () => scaled(cx, 1080, eBack(prog(t, Q.outro + 0.9 + i * .15, .45)), () => {
+      const w = 250; rrect(cx - w / 2, 1045, w, 76, 38, fill ? G.mint : 'rgba(255,255,255,0.08)', fill ? null : 'rgba(255,255,255,0.5)', 3);
+      text(str, cx, 1085, { w: 800, s: 34, color: fill ? '#06251B' : C.white, align: 'center', base: 'middle', shadow: false });
+    }));
+    btn('Follow', 260, 0, true); btn('Save', 540, 1, false); btn('Share', 820, 2, false);
+    alpha(k(8), () => {
+      text('For educational purposes only.', 540, 1250, { w: 500, s: 30, color: C.muted, align: 'center' });
+      text('Please consult your doctor for medical advice.', 540, 1294, { w: 500, s: 30, color: C.muted, align: 'center' });
+    });
+  });
+}
+
+// ------------------------------------------------------------------ frame
+function draw(t) {
+  ctx.clearRect(0, 0, W, H);
+  // soft glow in the graphics area so it is not flat navy
+  const g1 = ctx.createRadialGradient(240 + 40 * Math.sin(t * .1), 380, 20, 240, 380, 620);
+  g1.addColorStop(0, 'rgba(62,224,166,0.10)'); g1.addColorStop(1, 'rgba(62,224,166,0)');
+  ctx.fillStyle = g1; ctx.fillRect(0, 0, W, 1230);
+  const g2 = ctx.createRadialGradient(860, 900 + 40 * Math.cos(t * .12), 20, 860, 900, 560);
+  g2.addColorStop(0, 'rgba(140,160,255,0.10)'); g2.addColorStop(1, 'rgba(140,160,255,0)');
+  ctx.fillStyle = g2; ctx.fillRect(0, 0, W, 1230);
+  // hide the hard left crop edge of the doctor footage
+  const eg = ctx.createLinearGradient(380, 0, 480, 0);
+  eg.addColorStop(0, G.bg); eg.addColorStop(.35, G.bg); eg.addColorStop(1, 'rgba(24,33,85,0)');
+  ctx.fillStyle = eg; ctx.fillRect(380, 1230, 100, 690);
+
+  chip('LIVER CIRRHOSIS & EXERCISE', 540, 160, env(t, -1, Q.outro + 0.2, .4, .3), { bg: G.mint, fg: '#06251B', s: 26 });
+  sceneHook(t, env(t, -1, Q.muscle + 0.05, .3, .3));
+  sceneMuscle(t, env(t, Q.muscle - 0.15, Q.which + 0.05, .3, .3));
+  sceneWhich(t, env(t, Q.which - 0.15, Q.walk + 0.05, .3, .3));
+  sceneWalk(t, env(t, Q.walk - 0.15, Q.strength + 0.05, .3, .3));
+  sceneStrength(t, env(t, Q.strength - 0.15, Q.balance + 0.05, .3, .3));
+  sceneBalance(t, env(t, Q.balance - 0.15, Q.caution + 0.05, .3, .3));
+  sceneCaution(t, env(t, Q.caution - 0.15, Q.summary + 0.05, .3, .3));
+  sceneSummary(t, env(t, Q.summary - 0.15, Q.routine + 0.05, .3, .3));
+  sceneRoutine(t, env(t, Q.routine - 0.15, Q.outro + 0.3, .3, .3));
+  lowerThird(t);
+  captions(t);
+  outro(t);
+}
+
+async function init(timeline) {
+  TL = timeline; Q = timeline.cues;
+  await Promise.all([400, 500, 600, 700, 800, 900].map(w => document.fonts.load(`${w} 40px Inter`)));
+  await document.fonts.ready;
+  return true;
+}
+</script>
+</body>
+</html>
