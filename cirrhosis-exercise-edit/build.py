@@ -1,4 +1,5 @@
-"""Composite the cirrhosis & exercise explainer: original video + graphics overlay, end-card hold,
+"""Composite the cirrhosis & exercise explainer: original video with its navy background keyed to
+white, graphics overlay, end-card hold,
 voice levelled and lightly de-hissed, plus sound effects. No music.
 
 usage: python3 build.py <source.mp4> <overlayDir> <audioDir> <out.mp4>
@@ -17,6 +18,8 @@ TL = json.load(open(HERE / "timeline.json"))
 FPS, W, H = TL["fps"], 1080, 1920
 NFR = round(TL["duration"] * FPS)
 HOLD = TL["duration"] - TL["srcDuration"]
+NAVY = np.array([85, 33, 24], np.float32)  # studio background, BGR
+KEY_LO, KEY_HI = 8.0, 66.0                  # colour distance: fully background below LO, untouched above HI
 
 pre = pathlib.Path(OUT).with_suffix(".pre.wav")
 mix = pathlib.Path(OUT).with_suffix(".mix.wav")
@@ -47,7 +50,14 @@ for i in range(NFR):
     buf = dec.stdout.read(size)
     if len(buf) < size:
         raise SystemExit(f"decoder ended early at frame {i}")
-    frame = np.frombuffer(buf, np.uint8).reshape(H, W, 3)
+    frame = np.frombuffer(buf, np.uint8).reshape(H, W, 3).astype(np.float32)
+    # key the flat navy background to white; partial edge pixels are un-mixed so no blue fringe stays
+    d = np.linalg.norm(frame - NAVY, axis=2)
+    k = np.clip((KEY_HI - d) / (KEY_HI - KEY_LO), 0, 1)[..., None]
+    frame = np.clip(frame + k * (255.0 - NAVY), 0, 255)
+    # despill: near-background pixels (hair fringe) lose any leftover blue cast
+    b, m = frame[..., 0], np.maximum(frame[..., 1], frame[..., 2])
+    frame[..., 0] = np.where((d < 95) & (b > m), m, b)
     ov = cv2.imread(f"{OVL}/f_{i:05d}.png", cv2.IMREAD_UNCHANGED)
     a = ov[:, :, 3:4].astype(np.float32) / 255
     enc.stdin.write((frame * (1 - a) + ov[:, :, :3] * a).astype(np.uint8).tobytes())

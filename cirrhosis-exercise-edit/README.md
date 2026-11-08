@@ -4,6 +4,8 @@
 - `source/original.mp4`: original recording (1:43)
 
 ## What the edit adds
+- **White background:** the flat navy studio background is keyed to white in `build.py`, with edge
+  pixels un-mixed and blue spill removed. The graphics use a matching light theme.
 - **Layout:** graphics fill the top part of the frame, and Dr Mahar stays in the bottom-right corner of his
   original footage. A soft gradient hides the hard crop edge on the left of his footage.
 - **Scenes:** hook ("Sirf aaram? → Ji nahi → Exercise aur bhi zaroori") → sarcopenia and its effects →

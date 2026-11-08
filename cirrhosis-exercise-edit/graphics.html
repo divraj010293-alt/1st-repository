@@ -274,7 +274,37 @@ function rise(t, at, fn, d = .45, dist = 50) {
 }
 
 // ------------------------------------------------------------------ cirrhosis & exercise
-const G = { mint: '#3EE0A6', mintD: '#0E6B4F', bg: 'rgb(24,33,85)', ink: '#EAF7F2' };
+// light theme: the navy studio background is keyed to white in build.py
+const G = { mint: '#12A77B', mintD: '#0E6B4F', bg: '#FFFFFF', ink: '#1E2A4A' };
+Object.assign(C, { white: '#14213D', muted: 'rgba(20,33,61,0.62)', yellow: '#D98200', amber: '#E08A00',
+  coral: '#E5484D', tealL: '#0E8C82', teal: '#12A77B' });
+// light-theme versions of shared helpers (these declarations replace the dark-theme ones above)
+function text(str, x, y, { w = 700, s = 48, color = C.white, align = 'left', base = 'alphabetic', maxW = 0, alpha = 1, shadow = false, track = 0 } = {}) {
+  ctx.save();
+  ctx.globalAlpha *= alpha;
+  let size = s;
+  ctx.font = F(w, size);
+  if (track) ctx.letterSpacing = track + 'px';
+  if (maxW) while (ctx.measureText(str).width > maxW && size > 12) { size -= 1; ctx.font = F(w, size); }
+  ctx.textAlign = align; ctx.textBaseline = base;
+  if (shadow) { ctx.shadowColor = 'rgba(20,33,61,0.18)'; ctx.shadowBlur = 8; ctx.shadowOffsetY = 2; }
+  ctx.fillStyle = color;
+  ctx.fillText(str, x, y);
+  ctx.restore();
+  return size;
+}
+function card(x, y, w, h, { fill = '#FFFFFF', edge = 'rgba(20,33,61,0.12)', lw = 2.5, r = 30 } = {}) {
+  ctx.save(); ctx.shadowColor = 'rgba(20,33,61,0.14)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 8;
+  rrect(x, y, w, h, r, fill === '#FFFFFF' ? fill : '#FFFFFF'); ctx.restore();
+  if (fill !== '#FFFFFF') rrect(x, y, w, h, r, fill);
+  if (edge) rrect(x, y, w, h, r, null, edge, lw);
+}
+function iconCalendar(x, y, s, label) {
+  rrect(x - s / 2, y - s * .42, s, s * .9, s * .1, '#FFFFFF', 'rgba(20,33,61,0.25)', s * .03);
+  ctx.save(); ctx.beginPath(); ctx.roundRect(x - s / 2, y - s * .42, s, s * .26, [s * .1, s * .1, 0, 0]); ctx.fillStyle = C.coral; ctx.fill(); ctx.restore();
+  rrect(x - s * .3, y - s * .52, s * .07, s * .2, s * .03, '#5E6A74'); rrect(x + s * .23, y - s * .52, s * .07, s * .2, s * .03, '#5E6A74');
+  text(label, x, y + s * .25, { w: 900, s: s * .3, color: '#0B2236', align: 'center', base: 'middle' });
+}
 const TOP = 230, BOT = 1110; // graphics area; Dr Mahar sits in the bottom-right corner below this
 
 // ---- pose-based figure: angles in degrees, 0 = straight down (limbs) / straight up (torso)
@@ -396,15 +426,15 @@ function belly(x, y, s, t) {
   ctx.lineTo(x + 80 * s, y + 70 * s); ctx.fill(); ctx.restore();
 }
 function brainQ(x, y, s) {
-  circle(x, y, 44 * s, 'rgba(255,255,255,0.1)', '#FFB3B5', 5 * s);
+  circle(x, y, 44 * s, 'rgba(255,255,255,0.1)', '#C0392B', 5 * s);
   text('?', x, y + 22 * s, { w: 900, s: 64 * s, color: C.yellow, align: 'center', shadow: false });
 }
 function plate(x, y, s) {
-  circle(x, y, 44 * s, '#F4F7FA'); circle(x, y, 32 * s, null, '#D5DEE5', 3 * s);
+  circle(x, y, 44 * s, '#F4F7FA', '#C9D3DB', 3 * s); circle(x, y, 32 * s, null, '#D5DEE5', 3 * s);
   [['#3EE0A6', -12, -8], ['#FFB547', 10, -10], ['#FF7B6B', 0, 12]].forEach(([c, dx, dy]) => { ctx.save(); ctx.fillStyle = c; ctx.beginPath(); ctx.ellipse(x + dx * s, y + dy * s, 13 * s, 9 * s, dx * .05, 0, Math.PI * 2); ctx.fill(); ctx.restore(); });
 }
 function timerRing(x, y, r, p, label, sub) {
-  circle(x, y, r, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.15)', 14);
+  circle(x, y, r, 'rgba(18,167,123,0.06)', 'rgba(20,33,61,0.10)', 14);
   ctx.save(); ctx.strokeStyle = G.mint; ctx.lineWidth = 14; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.arc(x, y, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p); ctx.stroke(); ctx.restore();
   text(label, x, y + 10, { w: 900, s: 64, align: 'center', color: C.white });
@@ -414,7 +444,7 @@ function header(t, at, n, title, color = G.mint) {
   rise(t, at - 0.1, () => {
     const s = 34, w = measure(title, 900, s) + 150;
     rrect(540 - w / 2, TOP + 10, w, 80, 40, color + '26', color, 3);
-    if (n) { circle(540 - w / 2 + 44, TOP + 50, 26, color); text(String(n), 540 - w / 2 + 44, TOP + 52, { w: 900, s: 30, color: '#06251B', align: 'center', base: 'middle', shadow: false }); }
+    if (n) { circle(540 - w / 2 + 44, TOP + 50, 26, color); text(String(n), 540 - w / 2 + 44, TOP + 52, { w: 900, s: 30, color: '#FFFFFF', align: 'center', base: 'middle', shadow: false }); }
     text(title, 540 + (n ? 26 : 0), TOP + 52, { w: 900, s, align: 'center', base: 'middle', shadow: false });
   }, .4, 20);
 }
@@ -422,9 +452,9 @@ function exTile(t, at, x, y, w, h, draw, l1, l2) {
   const k = eBack(prog(t, at - 0.15, .45));
   if (k <= 0) return;
   alpha(clamp(k), () => scaled(x + w / 2, y + h / 2, k, () => {
-    card(x, y, w, h, { edge: 'rgba(62,224,166,0.5)', lw: 3, fill: 'rgba(6,14,48,0.75)' });
+    card(x, y, w, h, { edge: 'rgba(18,167,123,0.5)', lw: 3 });
     ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h - 110); ctx.clip(); draw(x + w / 2, y + h - 130); ctx.restore();
-    ctx.save(); ctx.fillStyle = 'rgba(255,255,255,0.2)'; ctx.fillRect(x + 24, y + h - 128, w - 48, 3); ctx.restore();
+    ctx.save(); ctx.fillStyle = 'rgba(20,33,61,0.12)'; ctx.fillRect(x + 24, y + h - 128, w - 48, 3); ctx.restore();
     text(l1, x + w / 2, y + h - 66, { w: 800, s: 34, align: 'center', maxW: w - 30 });
     if (l2) text(l2, x + w / 2, y + h - 26, { w: 500, s: 26, color: C.muted, align: 'center', maxW: w - 30 });
   }));
@@ -458,7 +488,7 @@ function sceneHook(t, a) {
 function zzz(x, y, s, t) {
   for (let i = 0; i < 3; i++) {
     const k = ((t * .5 + i / 3) % 1);
-    alpha(Math.sin(k * Math.PI), () => text('z', x + k * 60 * s + i * 8, y - k * 100 * s, { w: 900, s: (26 + i * 10) * s, color: '#B9C4FF' }));
+    alpha(Math.sin(k * Math.PI), () => text('z', x + k * 60 * s + i * 8, y - k * 100 * s, { w: 900, s: (26 + i * 10) * s, color: '#6C7BD9' }));
   }
 }
 
@@ -471,8 +501,8 @@ function sceneMuscle(t, a) {
     });
     rise(t, Q.weak - 0.1, () => {
       const k = 1 - eInOut(prog(t, Q.weak + 0.2, 2.2));
-      bicep(800, 470, 1.15, k, k > 0.5 ? G.ink : '#FFB3B5');
-      text('Muscles weak', 790, 560, { w: 800, s: 38, align: 'center', color: k > 0.5 ? C.white : '#FFB3B5' });
+      bicep(800, 470, 1.15, k, k > 0.5 ? G.ink : '#C0392B');
+      text('Muscles weak', 790, 560, { w: 800, s: 38, align: 'center', color: k > 0.5 ? C.white : '#C0392B' });
       ctx.save(); ctx.strokeStyle = C.muted; ctx.lineWidth = 5; ctx.setLineDash([10, 10]);
       ctx.beginPath(); ctx.moveTo(420, 430); ctx.lineTo(620, 430); ctx.stroke(); ctx.restore();
       text('→', 520, 445, { w: 900, s: 50, color: C.muted, align: 'center' });
@@ -491,7 +521,7 @@ function sceneMuscle(t, a) {
         card(x, 830, 300, 240, { edge: C.coral, lw: 3 });
         iconWarn(x + 150, 895, 54, C.coral);
         text(l1, x + 150, 990, { w: 800, s: 34, align: 'center', maxW: 270 });
-        if (l2) text(l2, x + 150, 1032, { w: 600, s: 30, color: '#FFB3B5', align: 'center', maxW: 270 });
+        if (l2) text(l2, x + 150, 1032, { w: 600, s: 30, color: '#C0392B', align: 'center', maxW: 270 });
       }));
     });
   });
@@ -581,7 +611,7 @@ function sceneCaution(t, a) {
       card(60, y, 960, 165, { edge: C.coral, lw: 3, fill: 'rgba(255,94,98,0.12)' });
       icon(150, y + 82);
       text(l1, 250, y + 72, { w: 800, s: 42, maxW: 740 });
-      if (l2) text(l2, 250, y + 124, { w: 500, s: 32, color: '#FFB3B5', maxW: 740 });
+      if (l2) text(l2, 250, y + 124, { w: 500, s: 32, color: '#C0392B', maxW: 740 });
     }, .4, 30);
     row(Q.ascites, 340, (x, y) => belly(x, y, 0.9, t), 'Pet mein bahut paani', 'bhar gaya ho');
     row(Q.bleed, 520, (x, y) => iconDrop(x, y, 76, C.coral), 'Recently khoon ki ulti', 'hematemesis');
@@ -601,7 +631,7 @@ function sceneSummary(t, a) {
   alpha(a, () => {
     rise(t, Q.summary - 0.1, () => {
       text('Liver cirrhosis mein', 540, 330, { w: 700, s: 46, color: C.muted, align: 'center' });
-      card(60, 370, 960, 230, { edge: 'rgba(255,255,255,0.3)', lw: 3 });
+      card(60, 370, 960, 230, { edge: 'rgba(20,33,61,0.15)', lw: 3 });
       liver(200, 485, 0.3);
       text('Sirf liver ka ilaaj', 340, 470, { w: 800, s: 50 });
       const w = measure('kaafi nahi', 900, 50);
@@ -650,6 +680,7 @@ function pill(x, y, L, R, rot) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
   rrect(-L / 2, -R, L, 2 * R, R, '#F4F7FA');
   ctx.save(); ctx.beginPath(); ctx.roundRect(-L / 2, -R, L, 2 * R, R); ctx.clip(); ctx.fillStyle = G.mint; ctx.fillRect(-L / 2, -R, L / 2, 2 * R); ctx.restore();
+  rrect(-L / 2, -R, L, 2 * R, R, null, 'rgba(20,33,61,0.25)', 3);
   ctx.restore();
 }
 
@@ -660,7 +691,7 @@ function lowerThird(t) {
     const k = eOut(prog(t, 0.8, .6)), x = 30, y = 1290, w = 380, h = 124;
     ctx.save(); ctx.beginPath(); ctx.rect(x, y - 10, w * k + 20, h + 20); ctx.clip();
     ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 24;
-    rrect(x, y, w, h, 22, 'rgba(6,14,48,0.94)'); ctx.restore();
+    rrect(x, y, w, h, 22, '#FFFFFF'); ctx.restore();
     ctx.fillStyle = G.mint; ctx.beginPath(); ctx.roundRect(x, y, 10, h, [22, 0, 0, 22]); ctx.fill();
     text('Dr Dheeraj Mahar', x + 30, y + 54, { w: 800, s: 36, maxW: w - 44 });
     text('DrNB Gastroenterology', x + 30, y + 98, { w: 600, s: 26, color: G.mint, maxW: w - 44 });
@@ -682,12 +713,11 @@ function captions(t) {
     ws.forEach((w, i) => {
       const next = ws[i + 1];
       const active = t >= w.s && (next ? t < next.s : true);
-      const col = active ? C.yellow : (w.hi && t >= w.s ? G.mint : C.white);
-      const sc = active ? 1 + 0.08 * eOut(prog(t, w.s, .12)) : 1;
+      const col = active ? '#FFFFFF' : (w.hi && t >= w.s ? G.mint : C.white);
+      const sc = active ? 1 + 0.06 * eOut(prog(t, w.s, .12)) : 1;
       scaled(x + w.wd / 2, y, sc, () => {
-        ctx.save(); ctx.font = F(900, S); ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
-        ctx.lineWidth = 12; ctx.strokeStyle = 'rgba(0,0,0,0.85)'; ctx.strokeText(w.w, x, y);
-        ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 4;
+        if (active) rrect(x - 12, y - S * .62, w.wd + 24, S * 1.24, 16, G.mint);
+        ctx.save(); ctx.font = F(900, S); ctx.textBaseline = 'middle';
         ctx.fillStyle = col; ctx.fillText(w.w, x, y); ctx.restore();
       });
       x += w.wd + gap;
@@ -699,7 +729,7 @@ function outro(t) {
   const a = eOut(prog(t, Q.outro, .45));
   if (a <= 0) return;
   alpha(a, () => {
-    ctx.fillStyle = 'rgba(6,12,40,0.95)'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(255,255,255,0.97)'; ctx.fillRect(0, 0, W, H);
     ctx.translate(0, 120);
     const k = i => eOut(prog(t, Q.outro + 0.15 + i * 0.15, .45));
     const up = i => lerp(40, 0, k(i));
@@ -709,8 +739,8 @@ function outro(t) {
     alpha(k(3), () => { ctx.fillStyle = G.mint; ctx.fillRect(460, 860, 160 * k(3), 6); });
     alpha(k(4), () => text('Follow for more liver & gut-health explainers', 540, 960 + up(4), { w: 600, s: 38, align: 'center', maxW: 960 }));
     const btn = (str, cx, i, fill) => alpha(k(5 + i), () => scaled(cx, 1080, eBack(prog(t, Q.outro + 0.9 + i * .15, .45)), () => {
-      const w = 250; rrect(cx - w / 2, 1045, w, 76, 38, fill ? G.mint : 'rgba(255,255,255,0.08)', fill ? null : 'rgba(255,255,255,0.5)', 3);
-      text(str, cx, 1085, { w: 800, s: 34, color: fill ? '#06251B' : C.white, align: 'center', base: 'middle', shadow: false });
+      const w = 250; rrect(cx - w / 2, 1045, w, 76, 38, fill ? G.mint : 'rgba(20,33,61,0.05)', fill ? null : 'rgba(20,33,61,0.35)', 3);
+      text(str, cx, 1085, { w: 800, s: 34, color: fill ? '#FFFFFF' : C.white, align: 'center', base: 'middle', shadow: false });
     }));
     btn('Follow', 260, 0, true); btn('Save', 540, 1, false); btn('Share', 820, 2, false);
     alpha(k(8), () => {
@@ -725,17 +755,17 @@ function draw(t) {
   ctx.clearRect(0, 0, W, H);
   // soft glow in the graphics area so it is not flat navy
   const g1 = ctx.createRadialGradient(240 + 40 * Math.sin(t * .1), 380, 20, 240, 380, 620);
-  g1.addColorStop(0, 'rgba(62,224,166,0.10)'); g1.addColorStop(1, 'rgba(62,224,166,0)');
+  g1.addColorStop(0, 'rgba(18,167,123,0.07)'); g1.addColorStop(1, 'rgba(18,167,123,0)');
   ctx.fillStyle = g1; ctx.fillRect(0, 0, W, 1230);
   const g2 = ctx.createRadialGradient(860, 900 + 40 * Math.cos(t * .12), 20, 860, 900, 560);
-  g2.addColorStop(0, 'rgba(140,160,255,0.10)'); g2.addColorStop(1, 'rgba(140,160,255,0)');
+  g2.addColorStop(0, 'rgba(108,123,217,0.07)'); g2.addColorStop(1, 'rgba(108,123,217,0)');
   ctx.fillStyle = g2; ctx.fillRect(0, 0, W, 1230);
   // hide the hard left crop edge of the doctor footage
   const eg = ctx.createLinearGradient(380, 0, 480, 0);
-  eg.addColorStop(0, G.bg); eg.addColorStop(.35, G.bg); eg.addColorStop(1, 'rgba(24,33,85,0)');
+  eg.addColorStop(0, G.bg); eg.addColorStop(.35, G.bg); eg.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = eg; ctx.fillRect(380, 1230, 100, 690);
 
-  chip('LIVER CIRRHOSIS & EXERCISE', 540, 160, env(t, -1, Q.outro + 0.2, .4, .3), { bg: G.mint, fg: '#06251B', s: 26 });
+  chip('LIVER CIRRHOSIS & EXERCISE', 540, 160, env(t, -1, Q.outro + 0.2, .4, .3), { bg: G.mint, fg: '#FFFFFF', s: 26 });
   sceneHook(t, env(t, -1, Q.muscle + 0.05, .3, .3));
   sceneMuscle(t, env(t, Q.muscle - 0.15, Q.which + 0.05, .3, .3));
   sceneWhich(t, env(t, Q.which - 0.15, Q.walk + 0.05, .3, .3));
