@@ -1,5 +1,6 @@
 // Render graphics.html to a transparent PNG sequence.
 // usage: node render.js <outDir> [workers] [onlyTimes,comma,separated]
+// LAYOUT=half renders the 1080x960 half-frame version.
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +20,7 @@ fs.mkdirSync(outDir, { recursive: true });
   const t0 = Date.now();
   await Promise.all([...Array(workers)].map(async () => {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
-    await page.goto('file://' + path.join(__dirname, 'graphics.html'));
+    await page.goto('file://' + path.join(__dirname, 'graphics.html') + (process.env.LAYOUT === 'half' ? '#half' : ''));
     await page.evaluate(tl => init(tl), timeline);
     while (next < jobs.length) {
       const job = jobs[next++];

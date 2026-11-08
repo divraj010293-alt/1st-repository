@@ -20,6 +20,9 @@
 // Graphics for the magnesium & sleep explainer. draw(t) paints one full frame at
 // edited-timeline time t (seconds); render.js calls it for every frame.
 const W = 1080, H = 1920;
+// '#half' renders a 1080x960 (9:8) version that fills half of a 9:16 frame.
+const HALF = location.hash === '#half';
+if (HALF) document.getElementById('c').height = 960;
 const cv = document.getElementById('c');
 const ctx = cv.getContext('2d');
 let TL = null, Q = null; // timeline + cue times
@@ -383,7 +386,7 @@ function background(t) {
     circle(x, (y + t * 4) % H, r, '#DCD6FF');
   }
   ctx.globalAlpha = 1;
-  moon(930, 120, 34, 0.7);
+  if (!HALF) moon(930, 120, 34, 0.7); // in the half frame it would sit under the study headers
 }
 
 function sceneHook(t, a) {
@@ -689,7 +692,7 @@ function captions(t) {
   const cap = TL.captions.find(c => t >= c.start && t < c.end);
   if (!cap) return;
   const pin = eBack(prog(t, cap.start, .18));
-  const S = 62, gap = 30, y = 1440;
+  const S = HALF ? 54 : 62, gap = HALF ? 26 : 30, y = HALF ? 905 : 1440;
   const ws = cap.words.map(w => ({ ...w, wd: measure(w.w, 900, S) }));
   const total = ws.reduce((s, w) => s + w.wd, 0) + gap * (ws.length - 1);
   const fit = Math.min(1, 960 / total);
@@ -716,7 +719,7 @@ function outro(t) {
   const a = eOut(prog(t, Q.outro, .45));
   if (a <= 0) return;
   alpha(a, () => {
-    ctx.fillStyle = 'rgba(8,10,30,0.94)'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(8,10,30,0.94)'; ctx.fillRect(-W, -H, 3 * W, 3 * H); // covers the frame under any transform
     ctx.translate(0, 80);
     const k = i => eOut(prog(t, Q.outro + 0.15 + i * 0.15, .45));
     const up = i => lerp(40, 0, k(i));
@@ -743,7 +746,10 @@ function outro(t) {
 // ------------------------------------------------------------------ frame
 function draw(t) {
   background(t);
-  chip('MAGNESIUM & NEEND', 540, 196, env(t, -1, Q.outro + 0.2, .4, .3), { bg: M.lav, fg: '#14103A' });
+  ctx.save();
+  // half frame: scene area (y 270-1300) scaled 0.8 into the top 830 px; captions get the bottom strip
+  if (HALF) { ctx.translate(108, 30 - 270 * 0.8); ctx.scale(0.8, 0.8); }
+  else chip('MAGNESIUM & NEEND', 540, 196, env(t, -1, Q.outro + 0.2, .4, .3), { bg: M.lav, fg: '#14103A' });
   sceneHook(t, env(t, -1, Q.trend + 0.05, .3, .3));
   sceneTrend(t, env(t, Q.trend - 0.1, Q.question + 0.05, .3, .3));
   sceneQuestion(t, env(t, Q.question - 0.1, Q.s1 + 0.05, .3, .3));
@@ -755,8 +761,12 @@ function draw(t) {
   sceneSafety(t, env(t, Q.side - 0.15, Q.yaad + 0.05, .3, .3));
   sceneYaad(t, env(t, Q.yaad - 0.15, Q.outro + 0.3, .3, .3));
   lowerThird(t);
+  ctx.restore();
   captions(t);
+  ctx.save();
+  if (HALF) { ctx.translate(54, 50 - 490 * 0.9); ctx.scale(0.9, 0.9); }
   outro(t);
+  ctx.restore();
 }
 
 async function init(timeline) {
